@@ -1,0 +1,168 @@
+{
+  "basics": {
+    "name": "Royce Redfearn Jr.",
+    "label": "Senior Web Architect & Technical Project Lead",
+    "email": "Royce.Redfearn@gmail.com",
+    "phone": "(972) 900-0048",
+    "url": "https://redfearn.co"
+  },
+  "personas": {
+    "fullstack": {
+      "title": "Senior Full-Stack Architect & Technical Lead",
+      "summary": "Senior Full-Stack Web Architect with 15+ years of experience driving enterprise-scale digital transformations and legacy-to-modern migrations. Expert in bridging robust backend infrastructure (AWS, Docker, LAMP stack, C#/.NET) with highly optimized, modern frontends (Vue.js, Tailwind CSS, Alpine.js). Adept at aligning system architecture with business objectives, specializing in API integrations, cloud deployments, and headless CMS solutions. A proven technical leader committed to clean code (SOLID principles), CI/CD automation, and delivering scalable web applications at high velocity."
+    },
+    "frontend": {
+      "title": "Senior Front-End Architect & UI Engineer",
+      "summary": "Senior Front-End Architect and UI/UX Engineer specializing in crafting high-performance, accessible (WCAG), and scalable user interfaces. Expert in modern JavaScript frameworks (Vue.js, React), utility-first CSS (Tailwind), and Atomic Design methodologies. Proven track record of spearheading enterprise framework adoption, engineering fluid typography engines, and optimizing Core Web Vitals. Master of modern build tools (Vite, Webpack) and headless WordPress (ACF-JSON, Timber/Twig) integrations, transforming complex state management into seamless, mobile-first user experiences."
+    },
+    "backend": {
+      "title": "Senior Back-End Engineer & Infrastructure Specialist",
+      "summary": "Senior Back-End Engineer and Infrastructure Architect focused on designing secure, scalable data systems and server environments. Deep expertise in Object-Oriented Programming (OOP), PHP 8.4+, C# / ASP.NET, and complex MySQL/MariaDB optimization. Specialized in developing robust RESTful APIs and microservices for medical (HIPAA-compliant environments), government, and enterprise sectors. Highly proficient in cloud architecture (AWS, Azure), Docker containerization, Nginx load balancing, and rigorous server hardening against modern web vulnerabilities."
+    },
+    "pm": {
+      "title": "Technical Project Lead & Agile Manager",
+      "summary": "Technical Project Lead and Interim Scrum Master acting as a 'player-coach' to stabilize operations, remove blockers, and dramatically accelerate team velocity. Leveraging 15+ years of Software Development Life Cycle (SDLC) experience, I translate complex business requirements into actionable technical scopes. Expert in Agile methodologies, Kanban/Gantt tracking, and cross-functional leadership. Proven ability to establish enterprise coding standards, manage stakeholder expectations, and drive the successful, on-time delivery of both rapid-deployment sites and complex enterprise platforms."
+    },
+    "seo": {
+      "title": "Technical SEO & Growth Architecture Specialist",
+      "summary": "Technical SEO Specialist and Growth Engineer focused on bridging the gap between advanced web architecture and aggressive organic traffic scaling. Expert in Core Web Vitals optimization, programmatic SEO, and granular user journey tracking (GTM, GA4). I engineer automated asset optimization pipelines (WebP, S3) and complex Schema.org (JSON-LD) architectures to drastically improve search engine rankings and Conversion Rate Optimization (CRO). Proven history of reversing paid acquisition reliance by executing high-ROI, data-driven organic growth strategies."
+    }
+  },
+  "skills": [
+    {
+      "category": "Infrastructure & DevOps",
+      "items": ["AWS, Azure & GCP", "Docker & CI/CD", "Nginx & Apache", "Linux & PowerShell", "DNS Management"],
+      "personas": ["backend", "fullstack", "pm"]
+    },
+    {
+      "category": "Backend Engineering",
+      "items": ["PHP 8.4+ & Symfony", "C#, ASP.NET MVC", "Python & Node.js", "RESTful APIs & SOAP", "MySQL/MariaDB"],
+      "personas": ["backend", "fullstack"]
+    },
+    {
+      "category": "Frontend Architecture",
+      "items": ["Modern HTML5/CSS3", "TypeScript & React", "Vue.js & Alpine.js", "Tailwind, SCSS & Atomic Design", "AJAX, XML & JSON"],
+      "personas": ["frontend", "fullstack"]
+    },
+    {
+      "category": "Build Tools & Optimization",
+      "items": ["Vite / Webpack", "Fluid Typography & clamp()", "Automated Asset Pipelines", "Postman API Testing", "HLS Video Delivery"],
+      "personas": ["frontend", "seo", "fullstack"]
+    },
+    {
+      "category": "CMS & eCommerce",
+      "items": ["Headless WP & ACF-JSON", "Shopify & Liquid", "Magento Enterprise", "Drupal, Webflow & Joomla"],
+      "personas": ["frontend", "backend", "seo", "fullstack"]
+    },
+    {
+      "category": "Project Leadership & Agile",
+      "items": ["Agile/Scrum Facilitation", "Wrike, Jira & Asana", "Prompt Engineering for Automation", "Cross-functional Team Lead"],
+      "personas": ["pm", "fullstack"]
+    },
+    {
+      "category": "SEO, Data & Growth",
+      "items": ["GTM Journey Tracking & GA4", "Schema.org (JSON-LD)", "Core Web Vitals Optimization", "A/B Testing & SEM"],
+      "personas": ["seo", "pm", "fullstack"]
+    },
+    {
+      "category": "Multimedia & Design",
+      "items": ["Figma UI/UX Design", "Adobe Creative Cloud", "Video Editing (Premiere Pro)"],
+      "personas": ["frontend", "seo", "fullstack"]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Kenneth Copeland Ministries",
+      "position": "Web Developer III / Lead Developer",
+      "startDate": "2023-10",
+      "endDate": "Present",
+      "accomplishments": [
+        { "text": "Act as Lead Developer and Interim Scrum Master for a 6-person team, successfully transitioning the department from rigid Scrum to a high-velocity Agile workflow.", "personas": ["pm", "fullstack"] },
+        { "text": "Spearheaded the rapid architecture and deployment of multiple high-traffic broadcast and event properties, including Southwest Believers Convention, America Stands, and Victory News.", "personas": ["pm", "frontend", "fullstack"] },
+        { "text": "Led the transition to a scalable, atomic design architecture, isolating UI patterns into reusable components to drastically improve code reusability and team velocity.", "personas": ["frontend", "pm", "fullstack"] },
+        { "text": "Engineered a version-controlled ACF-JSON workflow and automated IDE configurations (.cursorrules) to streamline developer experience (DX) and environment portability.", "personas": ["backend", "pm", "fullstack"] },
+        { "text": "Automated complex content migrations using specialized PHP handlers and custom sanitization functions to ensure data integrity across thousands of legacy posts.", "personas": ["backend", "seo", "fullstack"] },
+        { "text": "Developed a custom SCSS fluid typography engine using dynamic clamp() calculations and modern logical properties for seamless, accessible scaling across viewports.", "personas": ["frontend", "fullstack"] },
+        { "text": "Optimized asset delivery pipelines using SVG symbol libraries and strict S3 versioning rules, ensuring performant high-DPI rendering for Core Web Vitals.", "personas": ["seo", "frontend", "fullstack"] },
+        { "text": "Developed comprehensive product and revenue funnels, unifying tracking pixels and analytics into a centralized GTM envelope to establish baseline SEO metrics.", "personas": ["seo", "backend", "fullstack"] }
+      ]
+    },
+    {
+      "company": "Advantis Medical Staffing",
+      "position": "Senior Web Developer",
+      "startDate": "2023-04",
+      "endDate": "2023-06",
+      "accomplishments": [
+        { "text": "Architected a programmatic SEO strategy for the clinician-capture platform, utilizing a reverse-proxy architecture to Webflow. This reversed a 90% reliance on paid acquisition, ultimately driving 85%+ of all job applications organically.", "personas": ["seo", "fullstack", "pm"] },
+        { "text": "Engineered dynamic decision-engine interfaces and clinician-capture funnels using Scriban HTML templating within an ASP.NET environment, directly consuming a .NET 7 API layer to process thousands of recruiter leads.", "personas": ["frontend", "backend", "fullstack"] },
+        { "text": "Supported high-availability enterprise infrastructure by maintaining CI/CD deployment pipelines via Azure DevOps, Docker, and Git, ensuring near-perfect uptime for mission-critical applications.", "personas": ["backend", "pm", "fullstack"] }
+      ]
+    },
+    {
+      "company": "Tarrant Regional Water District",
+      "position": "Senior Applications Developer",
+      "startDate": "2014-04",
+      "endDate": "2022-11",
+      "accomplishments": [
+        { "text": "Maintained a complex network of municipal websites on a dedicated server environment, ensuring an averaged 99.5% uptime while driving office-wide adoption of Asana.", "personas": ["pm", "fullstack"] },
+        { "text": "Engineered highly secure, HIPAA/Gov-compliant REST APIs and geospatial MySQL databases serving over 30,000 mapping data points.", "personas": ["backend", "fullstack"] },
+        { "text": "Built a high-performance UI utilizing custom Google Maps clustering logic to render 30,000+ data points, drastically reducing map load times from 8 seconds to sub-second rendering.", "personas": ["frontend", "seo", "fullstack"] },
+        { "text": "Integrated Shopify for PCI DSS compliance, processing secure database updates via webhooks after successful transactions.", "personas": ["backend", "fullstack", "pm"] },
+        { "text": "Orchestrated data-driven email marketing and SEO campaigns centered around municipal events, increasing the subscriber base by 700% and doubling average campaign CTR.", "personas": ["seo", "pm", "frontend", "fullstack"] },
+        { "text": "Hardened LAMP stack environments utilizing Docker, Nginx load balancing, and strict XSS/CSRF protections.", "personas": ["backend", "fullstack"] }
+      ]
+    },
+    {
+      "company": "TRYRDESIGN | REDFEARN.CO",
+      "position": "Principal Consultant / Full-Stack Engineer",
+      "startDate": "2010-06",
+      "endDate": "2014-04",
+      "accomplishments": [
+        { "text": "Providing full-stack architecture, AWS/Linux infrastructure management, and digital strategy for high-profile SMBs including TexasTitle.com, MaverickNational.com, and Levarte Travel.", "personas": ["pm", "fullstack"] },
+        { "text": "Consulted with clients to define project goals, scope, and timelines, managing end-to-end delivery of responsive eCommerce websites and custom billing systems.", "personas": ["pm", "frontend", "fullstack"] },
+        { "text": "Produced and deployed multimedia marketing assets, including video advertisements broadcasted on NBC5 Television and regional movie theaters.", "personas": ["seo", "frontend", "fullstack"] }
+      ]
+    },
+    {
+      "company": "Fossil Inc.",
+      "position": "Web Developer (Contract)",
+      "startDate": "2012-10",
+      "endDate": "2013-05",
+      "accomplishments": [
+        { "text": "Developed custom WordPress Multisite (WPMU) 'Brand Tool Boxes' acting as sales and support platforms for 10+ major global brands (Adidas, Burberry, Diesel).", "personas": ["frontend", "fullstack"] },
+        { "text": "Architected a custom API and web application to deliver SKU-based watch movement instructions, supporting a global network of 3,000+ users.", "personas": ["backend", "pm", "fullstack"] }
+      ]
+    },
+    {
+      "company": "Lock&Lock Texas Inc.",
+      "position": "Web Developer (Contract)",
+      "startDate": "2011-04",
+      "endDate": "2011-10",
+      "accomplishments": [
+        { "text": "Assisted in troubleshooting the ProStores System and executed Magento Enterprise builds for complex eCommerce data migrations.", "personas": ["backend", "fullstack"] },
+        { "text": "Designed UI prototypes in HTML5/CSS3 and integrated them into an ASP.NET platform using Visual Studio Code.", "personas": ["frontend", "fullstack"] },
+        { "text": "Integrated social networking APIs for promotions and designed A/B tested HTML email blasts via MailChimp to enhance SEM strategies.", "personas": ["seo", "frontend", "fullstack"] }
+      ]
+    },
+    {
+      "company": "Pampillonia Jewelers",
+      "position": "Web Developer (Contract)",
+      "startDate": "2009-09",
+      "endDate": "2010-06",
+      "accomplishments": [
+        { "text": "Integrated the client's entire database of 800+ products with the frontend using PHP, MySQL, and custom WordPress architecture.", "personas": ["backend", "fullstack"] },
+        { "text": "Automated server processes, networked computers, and managed comprehensive eCommerce brand presence.", "personas": ["pm", "backend", "fullstack"] }
+      ]
+    },
+    {
+      "company": "Quick Technologies Inc",
+      "position": "Web Developer",
+      "startDate": "2006-03",
+      "endDate": "2009-09",
+      "accomplishments": [
+        { "text": "Completed the design and construction of a redesigned template structure for a custom CMS supporting over 8,000 users.", "personas": ["frontend", "backend", "fullstack"] },
+        { "text": "Operated as DNS manager (A records, MX records) and maintained hundreds of client sites across ASP.NET and PHP frameworks.", "personas": ["backend", "pm", "fullstack"] }
+      ]
+    }
+  ]
+}
