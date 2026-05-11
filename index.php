@@ -27,10 +27,13 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bebas+Neue&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/assets/css/resume.css" />
   </head>
   <body>
-    <div class="resume-component" id="resume-root" data-persona="<?php echo htmlspecialchars($active_persona); ?>">
+    <div class="resume-component" id="resume-root"
+         data-persona="<?php echo htmlspecialchars($active_persona); ?>"
+         data-assets-base="<?php echo htmlspecialchars(rtrim($cloudflare['public_url'], '/') . '/'); ?>">
 
       <header class="rc-header">
         <div class="rc-identity">
@@ -74,6 +77,7 @@
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/assets/js/resume.js"></script>
   </body>
 </html>

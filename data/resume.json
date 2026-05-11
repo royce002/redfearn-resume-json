@@ -76,6 +76,38 @@
       "position": "Web Developer III / Lead Developer",
       "startDate": "2023-10",
       "endDate": "Present",
+      "gallery": [
+        { "file": "kcm.org__root_desktop.webp",                                    "alt": "Kenneth Copeland Ministries homepage — high-traffic WordPress architecture with atomic design system.",                          "caption": "KCM Homepage",                         "width": 1440, "height": 900, "loading": "eager" },
+        { "file": "kcm.org__root_mobile.png",                                      "alt": "KCM homepage mobile view showcasing fluid typography engine and responsive atomic components.",                                   "caption": "KCM Homepage (Mobile)",                "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.kcm.org__partner_desktop.webp",                             "alt": "KCM Partner portal — revenue funnel and GTM-tracked partner sign-up flow.",                                                      "caption": "Partner Sign-Up Funnel",               "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.kcm.org__partner_mobile.png",                               "alt": "KCM Partner portal mobile — mobile-first responsive partner acquisition page.",                                                   "caption": "Partner Sign-Up (Mobile)",             "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.kcm.org__daily-devotionals_desktop.webp",                   "alt": "KCM Daily Devotionals — high-traffic content hub with ACF-JSON powered headless WordPress architecture.",                        "caption": "Daily Devotionals Hub",                "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.kcm.org__daily-devotionals_mobile.webp",                    "alt": "KCM Daily Devotionals mobile view — fluid typography and optimized Core Web Vitals.",                                            "caption": "Daily Devotionals (Mobile)",            "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.kcm.org__watch-live_desktop.webp",                          "alt": "KCM Watch Live — HLS video delivery and live broadcast platform built for enterprise-scale viewership.",                         "caption": "Live Broadcast Platform",              "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.kcm.org__watch-live_mobile.webp",                           "alt": "KCM Watch Live mobile — responsive HLS video broadcast optimized for mobile viewership.",                                        "caption": "Live Broadcast (Mobile)",              "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.kcm.org__watch-tv-broadcast_desktop.webp",                  "alt": "KCM TV Broadcast schedule page — event-driven content architecture for broadcast programming.",                                  "caption": "TV Broadcast Schedule",                "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.kcm.org__watch-tv-broadcast_mobile.png",                    "alt": "KCM TV Broadcast mobile schedule — responsive broadcast schedule with atomic component reuse.",                                  "caption": "TV Broadcast (Mobile)",                "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.kcm.org__events_desktop.webp",                              "alt": "KCM Events listing page — high-traffic event and conference platform with dynamic registration funnels.",                       "caption": "Events Platform",                      "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.kcm.org__events_mobile.png",                                "alt": "KCM Events mobile — responsive event discovery and registration experience.",                                                     "caption": "Events Platform (Mobile)",             "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.kcm.org__topics_faith_desktop.webp",                        "alt": "KCM Faith Topics — SEO-optimized topical content architecture driving organic traffic at scale.",                                "caption": "Topical SEO Architecture",             "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.kcm.org__topics_faith_mobile.png",                          "alt": "KCM Faith Topics mobile — mobile-first content hub for SEO topical authority.",                                                  "caption": "Topical SEO (Mobile)",                 "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.kcm.org__about-kcm_desktop.webp",                           "alt": "KCM About page — institutional brand architecture with rich media and editorial content.",                                       "caption": "About KCM",                            "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.kcm.org__about-kcm_mobile.png",                             "alt": "KCM About mobile — mobile-optimized institutional page with fluid layout.",                                                      "caption": "About KCM (Mobile)",                   "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.kcm.org__about-kcm_annual-report_desktop.webp",             "alt": "KCM Annual Report — custom editorial layout integrating data storytelling and brand reporting.",                                "caption": "Annual Report",                        "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.kcm.org__about-kcm_annual-report_mobile.png",               "alt": "KCM Annual Report mobile — responsive annual report with rich media content.",                                                   "caption": "Annual Report (Mobile)",               "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.kcm.org__careers_desktop.webp",                             "alt": "KCM Careers page — talent acquisition platform integrated with the KCM design system.",                                        "caption": "Careers Platform",                     "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.kcm.org__careers_mobile.png",                               "alt": "KCM Careers mobile — mobile-first job listings and application experience.",                                                     "caption": "Careers Platform (Mobile)",            "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "my.kcm.org__root_desktop.webp",                                 "alt": "KCM Partner Portal — authenticated partner dashboard with personalized content and revenue funnels.",                           "caption": "Partner Portal (my.kcm.org)",           "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "my.kcm.org__root_mobile.webp",                                  "alt": "KCM Partner Portal mobile — responsive authenticated partner experience.",                                                        "caption": "Partner Portal (Mobile)",              "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "govictory.com__root_desktop.webp",                              "alt": "GoVictory / Victory News — rapid-deployment broadcast news property built on KCM infrastructure.",                              "caption": "GoVictory News Platform",              "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "govictory.com__root_mobile.png",                                "alt": "GoVictory mobile — mobile-optimized news broadcast platform.",                                                                    "caption": "GoVictory (Mobile)",                   "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "southwestbelieversconvention.com__root_desktop.webp",            "alt": "Southwest Believers Convention homepage — rapid-deploy event property with live schedule and broadcast integration.",            "caption": "SW Believers Convention",              "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "southwestbelieversconvention.com__root_mobile.webp",             "alt": "Southwest Believers Convention mobile — mobile-first event site with dynamic scheduling.",                                       "caption": "SW Believers Convention (Mobile)",     "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "southwestbelieversconvention.com__speakers_desktop.webp",        "alt": "Southwest Believers Convention speakers page — structured speaker profiles with Schema.org markup.",                             "caption": "SBC Speakers Directory",               "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "southwestbelieversconvention.com__speakers_mobile.webp",         "alt": "Southwest Believers Convention speakers mobile — responsive speaker directory.",                                                  "caption": "SBC Speakers (Mobile)",                "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.victorynewstonight.org__root_desktop.webp",                 "alt": "Victory News Tonight — high-traffic broadcast news platform built and deployed on KCM infrastructure.",                         "caption": "Victory News Tonight",                 "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.victorynewstonight.org__root_mobile.png",                   "alt": "Victory News Tonight mobile — responsive broadcast news experience.",                                                             "caption": "Victory News Tonight (Mobile)",        "width": 390,  "height": 844, "loading": "lazy"  }
+      ],
       "accomplishments": [
         { "text": "Act as Lead Developer and Interim Scrum Master for a 6-person team, successfully transitioning the department from rigid Scrum to a high-velocity Agile workflow.", "personas": ["pm", "fullstack"] },
         { "text": "Spearheaded the rapid architecture and deployment of multiple high-traffic broadcast and event properties, including Southwest Believers Convention, America Stands, and Victory News.", "personas": ["pm", "frontend", "fullstack"] },
@@ -92,6 +124,21 @@
       "position": "Senior Web Developer",
       "startDate": "2023-04",
       "endDate": "2023-06",
+      "gallery": [
+        { "file": "www.advantismed.com__root_desktop.webp",                       "alt": "High-conversion, SEO-optimized clinician-capture landing page for the Advantis Medical platform.",                                       "caption": "Clinician-Capture Landing Page",                   "width": 1440, "height": 900, "loading": "eager" },
+        { "file": "www.advantismed.com__root_mobile.png",                          "alt": "Advantis Medical landing page mobile — responsive clinician-capture funnel optimized for mobile traffic.",                             "caption": "Landing Page (Mobile)",                            "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.advantismed.com__jobs_desktop.webp",                        "alt": "Programmatic SEO travel nurse job board and search interface for Advantis Medical, powered by a scalable .NET 7 API layer.",              "caption": "Programmatic SEO Job Board",                       "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.advantismed.com__jobs_mobile.png",                          "alt": "Advantis job board mobile — responsive programmatic SEO job listing interface.",                                                         "caption": "Job Board (Mobile)",                               "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.advantismed.com__jobs_travel-nurse-icu_desktop.webp",       "alt": "Advantis Medical Staffing job details UI built with Scriban templating, displaying dynamic travel nursing requirements and compensation.",    "caption": "Dynamic Job Details (Scriban / .NET API)",          "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.advantismed.com__jobs_travel-nurse-icu_mobile.webp",        "alt": "Advantis job detail mobile — Scriban-templated dynamic job detail page optimized for mobile clinicians.",                                  "caption": "Job Details (Mobile)",                             "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.advantismed.com__benefits_desktop.webp",                    "alt": "Travel clinician benefits UI section highlighting medical insurance, housing perks, and 401k matching for Advantis Medical.",             "caption": "Clinician Benefits Marketing",                     "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.advantismed.com__benefits_mobile.png",                      "alt": "Advantis benefits page mobile — responsive clinician benefits and perks section.",                                                        "caption": "Benefits (Mobile)",                                "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.advantismed.com__contact_desktop.webp",                     "alt": "Dedicated Advantis Medical Staffing contact page architecture designed for optimal user experience and recruiter lead capture.",           "caption": "Global Contact Architecture",                      "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.advantismed.com__contact_mobile.png",                       "alt": "Advantis contact page mobile — mobile-optimized recruiter lead capture form.",                                                            "caption": "Contact Page (Mobile)",                            "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "Advantis App Call To Action.webp",                              "alt": "Mobile app download call-to-action section, bridging the Advantis web portal with the internal Flutter application.",                    "caption": "Web-to-App Conversion Funnel",                     "width": 1200, "height": 600, "loading": "lazy"  },
+        { "file": "Advantis Contact Us Section.webp",                              "alt": "Embedded contact and lead-generation section routing travel nurse inquiries directly to internal sales teams.",                           "caption": "Lead-Generation Routing UI",                       "width": 1200, "height": 600, "loading": "lazy"  },
+        { "file": "Advantis Customer Reviews.webp",                                "alt": "Travel nurse testimonials and 5-star customer reviews component enhancing Advantis Medical employer branding.",                          "caption": "Employer Branding & Testimonials",                 "width": 1200, "height": 600, "loading": "lazy"  }
+      ],
       "accomplishments": [
         { "text": "Architected a programmatic SEO strategy for the clinician-capture platform, utilizing a reverse-proxy architecture to Webflow. This reversed a 90% reliance on paid acquisition, ultimately driving 85%+ of all job applications organically.", "personas": ["seo", "fullstack", "pm"] },
         { "text": "Engineered dynamic decision-engine interfaces and clinician-capture funnels using Scriban HTML templating within an ASP.NET environment, directly consuming a .NET 7 API layer to process thousands of recruiter leads.", "personas": ["frontend", "backend", "fullstack"] },
@@ -103,6 +150,18 @@
       "position": "Senior Applications Developer",
       "startDate": "2014-04",
       "endDate": "2022-11",
+      "gallery": [
+        { "file": "www.trwd.org__root_desktop.webp",                    "alt": "Tarrant Regional Water District — primary municipal web presence and water-resource communications.",                           "caption": "TRWD.org",                              "width": 1440, "height": 900, "loading": "eager" },
+        { "file": "www.trwd.org__root_mobile.png",                     "alt": "TRWD.org mobile — responsive municipal site architecture maintained on dedicated infrastructure.",                               "caption": "TRWD.org (Mobile)",                       "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "www.trinityrivervision.org__root_desktop.webp",      "alt": "Trinity River Vision Authority — TRVA public-facing property aligned with regional floodway and recreation initiatives.",          "caption": "Trinity River Vision (TRVA)",             "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "www.trinityrivervision.org__root_mobile.png",       "alt": "Trinity River Vision mobile — responsive TRVA site experience.",                                                                  "caption": "Trinity River Vision (Mobile)",           "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "pantherislandpavilion.com__root_desktop.webp",      "alt": "Panther Island Pavilion — TRVA-aligned venue and events destination on the Trinity River waterfront.",                              "caption": "Panther Island Pavilion",                 "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "pantherislandpavilion.com__root_mobile.png",        "alt": "Panther Island Pavilion mobile — responsive venue experience.",                                                                   "caption": "Panther Island Pavilion (Mobile)",        "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "sundayfundayfw.com__root_desktop.webp",              "alt": "Sunday Funday FW — TRVA river corridor programming and public events.",                                                            "caption": "Sunday Funday FW",                        "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "sundayfundayfw.com__root_mobile.png",               "alt": "Sunday Funday FW mobile — responsive event and community presence.",                                                              "caption": "Sunday Funday FW (Mobile)",               "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "rockintheriverfw.com__root_desktop.webp",            "alt": "Rockin’ the River — TRVA concert series and riverfront entertainment platform.",                                                   "caption": "Rockin’ the River FW",                    "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "rockintheriverfw.com__root_mobile.png",              "alt": "Rockin’ the River mobile — responsive concert and festival experience.",                                                              "caption": "Rockin’ the River FW (Mobile)",           "width": 390,  "height": 844, "loading": "lazy"  }
+      ],
       "accomplishments": [
         { "text": "Maintained a complex network of municipal websites on a dedicated server environment, ensuring an averaged 99.5% uptime while driving office-wide adoption of Asana.", "personas": ["pm", "fullstack"] },
         { "text": "Engineered highly secure, HIPAA/Gov-compliant REST APIs and geospatial MySQL databases serving over 30,000 mapping data points.", "personas": ["backend", "fullstack"] },
@@ -116,7 +175,15 @@
       "company": "TRYRDESIGN | REDFEARN.CO",
       "position": "Principal Consultant / Full-Stack Engineer",
       "startDate": "2010-06",
-      "endDate": "2014-04",
+      "endDate": "Present",
+      "gallery": [
+        { "file": "texastitle.com__root_desktop.webp",      "alt": "TexasTitle.com — full-stack real estate platform with custom AWS/Linux infrastructure and responsive frontend.", "caption": "TexasTitle.com",             "width": 1440, "height": 900, "loading": "eager" },
+        { "file": "texastitle.com__root_mobile.png",        "alt": "TexasTitle.com mobile — responsive real estate platform optimized for mobile users.",                         "caption": "TexasTitle.com (Mobile)",    "width": 390,  "height": 844, "loading": "lazy"  },
+        { "file": "mavericknational.com__root_desktop.webp","alt": "MaverickNational.com — custom full-stack build with digital strategy and AWS infrastructure management.",     "caption": "MaverickNational.com",       "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "mavericknational.com__root_mobile.png",  "alt": "MaverickNational.com mobile — mobile-first responsive SMB platform.",                                        "caption": "MaverickNational.com (Mobile)","width": 390, "height": 844, "loading": "lazy"  },
+        { "file": "levartetravel.com__root_desktop.webp",   "alt": "Levarte Travel — full-stack travel booking platform with custom eCommerce and billing system architecture.",  "caption": "Levarte Travel",             "width": 1440, "height": 900, "loading": "lazy"  },
+        { "file": "levartetravel.com__root_mobile.png",     "alt": "Levarte Travel mobile — responsive travel booking experience optimized for mobile conversion.",               "caption": "Levarte Travel (Mobile)",    "width": 390,  "height": 844, "loading": "lazy"  }
+      ],
       "accomplishments": [
         { "text": "Providing full-stack architecture, AWS/Linux infrastructure management, and digital strategy for high-profile SMBs including TexasTitle.com, MaverickNational.com, and Levarte Travel.", "personas": ["pm", "fullstack"] },
         { "text": "Consulted with clients to define project goals, scope, and timelines, managing end-to-end delivery of responsive eCommerce websites and custom billing systems.", "personas": ["pm", "frontend", "fullstack"] },
@@ -128,6 +195,10 @@
       "position": "Web Developer (Contract)",
       "startDate": "2012-10",
       "endDate": "2013-05",
+      "gallery": [
+        { "file": "www.fossil.com__root_desktop.webp",                 "alt": "Fossil global brand presence — contemporary eCommerce reference for WPMU Brand Tool Box-era delivery (brand sites served via multisite tooling).", "caption": "Fossil.com",                          "width": 1440, "height": 900, "loading": "eager" },
+        { "file": "www.fossil.com__root_mobile.png",                  "alt": "Fossil.com mobile — responsive retail experience illustrating enterprise-scale brand platform patterns.",                           "caption": "Fossil.com (Mobile)",                  "width": 390,  "height": 844, "loading": "lazy"  }
+      ],
       "accomplishments": [
         { "text": "Developed custom WordPress Multisite (WPMU) 'Brand Tool Boxes' acting as sales and support platforms for 10+ major global brands (Adidas, Burberry, Diesel).", "personas": ["frontend", "fullstack"] },
         { "text": "Architected a custom API and web application to deliver SKU-based watch movement instructions, supporting a global network of 3,000+ users.", "personas": ["backend", "pm", "fullstack"] }
@@ -138,6 +209,10 @@
       "position": "Web Developer (Contract)",
       "startDate": "2011-04",
       "endDate": "2011-10",
+      "gallery": [
+        { "file": "locknlock.com__eng_desktop.webp",                   "alt": "LocknLock global English property — Magento / enterprise eCommerce-era alignment with Lock&Lock digital initiatives.",             "caption": "LocknLock (English)",                  "width": 1440, "height": 900, "loading": "eager" },
+        { "file": "locknlock.com__eng_mobile.png",                    "alt": "LocknLock English mobile — responsive international catalog and brand presentation.",                                               "caption": "LocknLock (English, Mobile)",           "width": 390,  "height": 844, "loading": "lazy"  }
+      ],
       "accomplishments": [
         { "text": "Assisted in troubleshooting the ProStores System and executed Magento Enterprise builds for complex eCommerce data migrations.", "personas": ["backend", "fullstack"] },
         { "text": "Designed UI prototypes in HTML5/CSS3 and integrated them into an ASP.NET platform using Visual Studio Code.", "personas": ["frontend", "fullstack"] },
@@ -149,6 +224,7 @@
       "position": "Web Developer (Contract)",
       "startDate": "2009-09",
       "endDate": "2010-06",
+      "gallery": [],
       "accomplishments": [
         { "text": "Integrated the client's entire database of 800+ products with the frontend using PHP, MySQL, and custom WordPress architecture.", "personas": ["backend", "fullstack"] },
         { "text": "Automated server processes, networked computers, and managed comprehensive eCommerce brand presence.", "personas": ["pm", "backend", "fullstack"] }
@@ -159,6 +235,7 @@
       "position": "Web Developer",
       "startDate": "2006-03",
       "endDate": "2009-09",
+      "gallery": [],
       "accomplishments": [
         { "text": "Completed the design and construction of a redesigned template structure for a custom CMS supporting over 8,000 users.", "personas": ["frontend", "backend", "fullstack"] },
         { "text": "Operated as DNS manager (A records, MX records) and maintained hundreds of client sites across ASP.NET and PHP frameworks.", "personas": ["backend", "pm", "fullstack"] }

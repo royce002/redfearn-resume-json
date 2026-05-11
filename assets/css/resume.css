@@ -1,4 +1,6 @@
 :root {
+  --skeleton-base: #e2e0db;
+  --skeleton-shine: #f0ede8;
   --bg: #f5f4f0;
   --surface: #ffffff;
   --surface2: #eeecea;
@@ -24,6 +26,8 @@
 }
 
 .dark {
+  --skeleton-base: #252530;
+  --skeleton-shine: #2e2e3c;
   --bg: #0f0f11;
   --surface: #18181c;
   --surface2: #222228;
@@ -410,7 +414,230 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── responsive ── */
+@media (max-width: 768px) {
+  body { padding: 24px 16px 80px; }
+
+  /* job header: stack company+position above dates */
+  .rc-job-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  /* gallery: tighter padding, taller slides so content is readable */
+  .rc-job-gallery { margin: 10px 0 14px; }
+  .rc-experience-swiper .swiper-slide { aspect-ratio: 4 / 3; }
+
+  /* hide prev/next on touch — swipe gesture is sufficient */
+  .rc-experience-swiper .swiper-button-prev,
+  .rc-experience-swiper .swiper-button-next { display: none; }
+
+  /* captions always visible on touch (no hover state) */
+  .rc-slide-caption { opacity: 1; }
+
+  /* skills grid: single column */
+  .rc-skills-grid { grid-template-columns: 1fr; }
+
+  /* persona bar: wrap so toggle doesn't get clipped */
+  .rc-persona-bar { flex-wrap: wrap; gap: 10px; }
+  .rc-select-wrap { max-width: 100%; flex: 1 1 140px; }
+  .rc-dark-toggle { margin-left: 0; }
+}
+
 @media (max-width: 560px) {
   .rc-contact { align-items: flex-start; }
   .rc-header  { flex-direction: column; }
+
+  /* accomplishment text slightly smaller so long bullets don't overflow */
+  .rc-accomplishments li { font-size: 14px; padding: 11px 16px; }
+
+  /* section headings tighter */
+  .rc-section-heading { font-size: 17px; }
+}
+
+/* ── skeleton loading ── */
+@keyframes skeleton-shimmer {
+  0%   { background-position: -800px 0; }
+  100% { background-position:  800px 0; }
+}
+
+.rc-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shine) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 1600px 100%;
+  animation: skeleton-shimmer 1.5s infinite linear;
+  border-radius: 3px;
+  display: block;
+}
+
+/* atom sizes reused throughout */
+.rc-sk-line {
+  height: 13px;
+  border-radius: 3px;
+  margin-bottom: 9px;
+}
+.rc-sk-line:last-child { margin-bottom: 0; }
+
+.rc-sk-chip {
+  height: 22px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* suppress arrow on skeleton accomplishment rows */
+.rc-sk-item::before { display: none !important; }
+.rc-sk-item { display: block !important; }
+
+/* ── data outage state ── */
+.rc-outage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 60vh;
+  text-align: center;
+  color: var(--muted);
+}
+
+.rc-outage-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.rc-outage-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.rc-outage-msg code {
+  font-family: monospace;
+  background: var(--surface2);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+
+.rc-outage-btn {
+  margin-top: 8px;
+  padding: 8px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.rc-outage-btn:hover { background: var(--surface2); }
+
+/* ── job gallery / swiper ── */
+.rc-job-gallery {
+  margin: 14px 0 18px;
+  padding: 0 20px;
+  overflow: hidden;
+}
+
+.rc-experience-swiper {
+  width: 100%;
+  overflow: hidden;
+  padding-bottom: 32px;
+}
+
+/* pagination dots */
+.rc-experience-swiper .swiper-pagination-bullet {
+  background: var(--border);
+  opacity: 1;
+  transition: background var(--transition);
+}
+.rc-experience-swiper .swiper-pagination-bullet-active {
+  background: var(--accent);
+}
+
+/* prev / next arrows */
+.rc-experience-swiper .swiper-button-prev,
+.rc-experience-swiper .swiper-button-next {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  top: calc(50% - 16px);
+  transition: background var(--transition), border-color var(--transition);
+}
+.rc-experience-swiper .swiper-button-prev:hover,
+.rc-experience-swiper .swiper-button-next:hover {
+  background: var(--surface2);
+}
+.rc-experience-swiper .swiper-button-prev::after,
+.rc-experience-swiper .swiper-button-next::after {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text);
+}
+.rc-experience-swiper .swiper-button-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.rc-experience-swiper .swiper-slide {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rc-slide-figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.rc-slide-figure img {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  object-fit: contain;
+  display: block;
+  transition: transform 260ms ease;
+}
+
+.rc-experience-swiper .swiper-slide:hover .rc-slide-figure img {
+  transform: scale(1.03);
+}
+
+.rc-slide-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(0,0,0,0.55));
+  border-radius: 0 0 var(--radius) var(--radius);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.rc-experience-swiper .swiper-slide:hover .rc-slide-caption {
+  opacity: 1;
 }

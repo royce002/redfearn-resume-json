@@ -1,4 +1,8 @@
 <?php
+$cloudflare = [
+    'public_url' => 'https://assets.redfearn.co/images/',
+];
+
 $personas = [
     'fullstack' => [
         'title' => 'Senior Full-Stack Architect & Technical Lead',
