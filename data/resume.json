@@ -156,11 +156,7 @@
         { "file": "www.trinityrivervision.org__root_desktop.webp",      "alt": "Trinity River Vision Authority — TRVA public-facing property aligned with regional floodway and recreation initiatives.",          "caption": "Trinity River Vision (TRVA)",             "width": 1440, "height": 900, "loading": "lazy"  },
         { "file": "www.trinityrivervision.org__root_mobile.png",       "alt": "Trinity River Vision mobile — responsive TRVA site experience.",                                                                  "caption": "Trinity River Vision (Mobile)",           "width": 390,  "height": 844, "loading": "lazy"  },
         { "file": "pantherislandpavilion.com__root_desktop.webp",      "alt": "Panther Island Pavilion — TRVA-aligned venue and events destination on the Trinity River waterfront.",                              "caption": "Panther Island Pavilion",                 "width": 1440, "height": 900, "loading": "lazy"  },
-        { "file": "pantherislandpavilion.com__root_mobile.png",        "alt": "Panther Island Pavilion mobile — responsive venue experience.",                                                                   "caption": "Panther Island Pavilion (Mobile)",        "width": 390,  "height": 844, "loading": "lazy"  },
-        { "file": "sundayfundayfw.com__root_desktop.webp",              "alt": "Sunday Funday FW — TRVA river corridor programming and public events.",                                                            "caption": "Sunday Funday FW",                        "width": 1440, "height": 900, "loading": "lazy"  },
-        { "file": "sundayfundayfw.com__root_mobile.png",               "alt": "Sunday Funday FW mobile — responsive event and community presence.",                                                              "caption": "Sunday Funday FW (Mobile)",               "width": 390,  "height": 844, "loading": "lazy"  },
-        { "file": "rockintheriverfw.com__root_desktop.webp",            "alt": "Rockin’ the River — TRVA concert series and riverfront entertainment platform.",                                                   "caption": "Rockin’ the River FW",                    "width": 1440, "height": 900, "loading": "lazy"  },
-        { "file": "rockintheriverfw.com__root_mobile.png",              "alt": "Rockin’ the River mobile — responsive concert and festival experience.",                                                              "caption": "Rockin’ the River FW (Mobile)",           "width": 390,  "height": 844, "loading": "lazy"  }
+        { "file": "pantherislandpavilion.com__root_mobile.png",        "alt": "Panther Island Pavilion mobile — responsive venue experience.",                                                                   "caption": "Panther Island Pavilion (Mobile)",        "width": 390,  "height": 844, "loading": "lazy"  }
       ],
       "accomplishments": [
         { "text": "Maintained a complex network of municipal websites on a dedicated server environment, ensuring an averaged 99.5% uptime while driving office-wide adoption of Asana.", "personas": ["pm", "fullstack"] },
@@ -195,10 +191,7 @@
       "position": "Web Developer (Contract)",
       "startDate": "2012-10",
       "endDate": "2013-05",
-      "gallery": [
-        { "file": "www.fossil.com__root_desktop.webp",                 "alt": "Fossil global brand presence — contemporary eCommerce reference for WPMU Brand Tool Box-era delivery (brand sites served via multisite tooling).", "caption": "Fossil.com",                          "width": 1440, "height": 900, "loading": "eager" },
-        { "file": "www.fossil.com__root_mobile.png",                  "alt": "Fossil.com mobile — responsive retail experience illustrating enterprise-scale brand platform patterns.",                           "caption": "Fossil.com (Mobile)",                  "width": 390,  "height": 844, "loading": "lazy"  }
-      ],
+      "gallery": [],
       "accomplishments": [
         { "text": "Developed custom WordPress Multisite (WPMU) 'Brand Tool Boxes' acting as sales and support platforms for 10+ major global brands (Adidas, Burberry, Diesel).", "personas": ["frontend", "fullstack"] },
         { "text": "Architected a custom API and web application to deliver SKU-based watch movement instructions, supporting a global network of 3,000+ users.", "personas": ["backend", "pm", "fullstack"] }
@@ -209,10 +202,7 @@
       "position": "Web Developer (Contract)",
       "startDate": "2011-04",
       "endDate": "2011-10",
-      "gallery": [
-        { "file": "locknlock.com__eng_desktop.webp",                   "alt": "LocknLock global English property — Magento / enterprise eCommerce-era alignment with Lock&Lock digital initiatives.",             "caption": "LocknLock (English)",                  "width": 1440, "height": 900, "loading": "eager" },
-        { "file": "locknlock.com__eng_mobile.png",                    "alt": "LocknLock English mobile — responsive international catalog and brand presentation.",                                               "caption": "LocknLock (English, Mobile)",           "width": 390,  "height": 844, "loading": "lazy"  }
-      ],
+      "gallery": [],
       "accomplishments": [
         { "text": "Assisted in troubleshooting the ProStores System and executed Magento Enterprise builds for complex eCommerce data migrations.", "personas": ["backend", "fullstack"] },
         { "text": "Designed UI prototypes in HTML5/CSS3 and integrated them into an ASP.NET platform using Visual Studio Code.", "personas": ["frontend", "fullstack"] },
@@ -241,5 +231,14 @@
         { "text": "Operated as DNS manager (A records, MX records) and maintained hundreds of client sites across ASP.NET and PHP frameworks.", "personas": ["backend", "pm", "fullstack"] }
       ]
     }
-  ]
+  ],
+  "education": [
+    {
+      "institution": "DeVry University",
+      "degree": "Bachelor of Science in Computer Information Systems (CIS)",
+      "focus": "Web Development",
+      "gpa": "3.8"
+    }
+  ],
+  "recommendations": []
 }

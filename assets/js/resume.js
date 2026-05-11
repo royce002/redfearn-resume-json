@@ -135,14 +135,29 @@ function showSkeletons() {
 
 showSkeletons();
 
-fetch("/data/resume.json")
-  .then((r) => {
+function loadResumeData() {
+  const inlined = window.INITIAL_RESUME_DATA;
+  if (inlined != null && typeof inlined === "object" && !Array.isArray(inlined)) {
+    return Promise.resolve(inlined);
+  }
+  return fetch("/data/resume.json").then((r) => {
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     return r.json();
-  })
+  });
+}
+
+loadResumeData()
   .then((RESUME) => {
 
     const ASSETS_BASE = document.getElementById("resume-root").dataset.assetsBase || "";
+
+    function esc(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
 
     const PERSONA_LABELS = {
       fullstack: "Full-Stack",
@@ -168,7 +183,7 @@ fetch("/data/resume.json")
       const grid = document.getElementById("rc-skills");
       const filtered = RESUME.skills.filter((s) => s.personas.includes(persona));
       if (!filtered.length) {
-        grid.innerHTML = `<p class="rc-empty">No skills matched.</p>`;
+        grid.innerHTML = `<p class="rc-empty">No skills are tagged for this persona yet. Select <strong>Full-Stack Developer</strong> for the complete skill matrix.</p>`;
         return;
       }
       grid.innerHTML = filtered
@@ -198,6 +213,11 @@ fetch("/data/resume.json")
           spaceBetween: 12,
           grabCursor: true,
           loop: true,
+          a11y: {
+            enabled: true,
+            prevSlideMessage: "Previous slide",
+            nextSlideMessage: "Next slide",
+          },
           autoplay: {
             delay: 5000,
             disableOnInteraction: false,
@@ -264,7 +284,7 @@ fetch("/data/resume.json")
         .filter((job) => job.accomplishments.length > 0);
 
       if (!jobs.length) {
-        container.innerHTML = `<p class="rc-empty">No experience matched.</p>`;
+        container.innerHTML = `<p class="rc-empty">Experience specific to this persona is currently being updated. Please select <strong>Full-Stack Developer</strong> for a complete work history.</p>`;
         return;
       }
 
@@ -288,6 +308,56 @@ fetch("/data/resume.json")
         .join("");
 
       requestAnimationFrame(initSwipers);
+    }
+
+    function renderEducation() {
+      const edu = RESUME.education || [];
+      const section = document.getElementById("rc-section-education");
+      const grid = document.getElementById("rc-education");
+      if (!edu.length) {
+        section.hidden = true;
+        grid.innerHTML = "";
+        return;
+      }
+      section.hidden = false;
+      grid.innerHTML = edu
+        .map(
+          (e) => `
+          <div class="rc-edu-card">
+            <h3 class="rc-edu-institution">${esc(e.institution)}</h3>
+            <p class="rc-edu-degree">${esc(e.degree)}</p>
+            ${e.focus ? `<p class="rc-edu-focus">${esc(e.focus)}</p>` : ""}
+            ${e.gpa ? `<p class="rc-edu-meta">GPA: ${esc(e.gpa)}</p>` : ""}
+          </div>`
+        )
+        .join("");
+    }
+
+    function renderRecommendations(persona) {
+      const all = RESUME.recommendations || [];
+      const filtered = all.filter(
+        (r) => !r.personas || !r.personas.length || r.personas.includes(persona)
+      );
+      const section = document.getElementById("rc-section-recommendations");
+      const container = document.getElementById("rc-recommendations");
+      if (!filtered.length) {
+        section.hidden = true;
+        container.innerHTML = "";
+        return;
+      }
+      section.hidden = false;
+      container.innerHTML = filtered
+        .map(
+          (r) => `
+          <blockquote class="rc-rec-card" cite="${esc(r.name)}">
+            <p class="rc-rec-text">${esc(r.text)}</p>
+            <footer class="rc-rec-attribution">
+              <strong>${esc(r.name)}</strong>
+              ${r.title ? `<span class="rc-rec-title">${esc(r.title)}</span>` : ""}
+            </footer>
+          </blockquote>`
+        )
+        .join("");
     }
 
     // ── helpers ──
@@ -326,6 +396,8 @@ fetch("/data/resume.json")
       renderSummary(persona);
       renderSkills(persona);
       renderExperience(persona);
+      renderEducation();
+      renderRecommendations(persona);
       if (push) pushShowAs(persona);
       if (scroll) scrollToHash();
       // Measure live DOM after paint and persist as the next skeleton

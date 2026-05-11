@@ -1,4 +1,16 @@
-<?php require_once 'config/personas.php'; ?>
+<?php
+require_once 'config/personas.php';
+
+$resume_path = __DIR__ . '/data/resume.json';
+$initial_resume = null;
+if (is_readable($resume_path)) {
+    $resume_raw = file_get_contents($resume_path);
+    $decoded = json_decode($resume_raw, true);
+    if (json_last_error() === JSON_ERROR_NONE) {
+        $initial_resume = $decoded;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,8 +41,12 @@
     />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/assets/css/resume.css" />
+    <link rel="preload" href="/data/resume.json" as="fetch" crossorigin="anonymous" />
   </head>
   <body>
+    <script>
+      window.INITIAL_RESUME_DATA = <?php echo json_encode($initial_resume, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
+    </script>
     <div class="resume-component" id="resume-root"
          data-persona="<?php echo htmlspecialchars($active_persona); ?>"
          data-assets-base="<?php echo htmlspecialchars(rtrim($cloudflare['public_url'], '/') . '/'); ?>">
@@ -75,9 +91,19 @@
         <div id="rc-experience"></div>
       </section>
 
+      <section class="rc-section rc-section-education" id="rc-section-education" hidden>
+        <p class="rc-section-heading">Education</p>
+        <div id="rc-education"></div>
+      </section>
+
+      <section class="rc-section rc-section-recommendations" id="rc-section-recommendations" hidden>
+        <p class="rc-section-heading">Recommendations</p>
+        <div id="rc-recommendations"></div>
+      </section>
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="/assets/js/resume.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="/assets/js/resume.js" defer></script>
   </body>
 </html>
