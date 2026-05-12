@@ -215,6 +215,17 @@ loadResumeData()
         .replace(/"/g, "&quot;");
     }
 
+    function resumeMonthKey(date, isEnd) {
+      if (isEnd && (!date || date === "Present")) return Number.MAX_SAFE_INTEGER;
+      if (!date) return 0;
+      const parts = String(date).split("-");
+      const y = parseInt(parts[0], 10) || 0;
+      const rawM = parts[1] != null ? parseInt(parts[1], 10) : isEnd ? 12 : 1;
+      if (y <= 0) return 0;
+      const m = Math.max(1, Math.min(12, rawM || 1));
+      return y * 12 + m;
+    }
+
     function fmtDate(d) {
       if (d === "Present") return "Present";
       const [y, m] = d.split("-");
@@ -300,7 +311,15 @@ loadResumeData()
           ...job,
           accomplishments: job.accomplishments.filter((a) => a.personas.includes(persona)),
         }))
-        .filter((job) => job.accomplishments.length > 0);
+        .filter((job) => job.accomplishments.length > 0)
+        .sort((a, b) => {
+          const endA = resumeMonthKey(a.endDate, true);
+          const endB = resumeMonthKey(b.endDate, true);
+          if (endB !== endA) return endB - endA;
+          const startA = resumeMonthKey(a.startDate, false);
+          const startB = resumeMonthKey(b.startDate, false);
+          return startB - startA;
+        });
 
       if (!jobs.length) {
         container.innerHTML = `<p class="rc-empty">Experience specific to this persona is currently being updated. Please select <strong>Full-Stack Developer</strong> for a complete work history.</p>`;

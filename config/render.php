@@ -29,6 +29,29 @@ function rc_fmt_date($d): string
     return date('M Y', $ts);
 }
 
+/**
+ * Month index for sorting experience (YYYY-MM or year-only in JSON).
+ * Ongoing roles sort after any fixed end date.
+ */
+function rc_resume_month_key(string $date, bool $isEndDate): int
+{
+    if ($isEndDate && ($date === '' || $date === 'Present')) {
+        return PHP_INT_MAX;
+    }
+    if ($date === '') {
+        return 0;
+    }
+    $parts = explode('-', $date);
+    $y = (int) ($parts[0] ?? 0);
+    $m = isset($parts[1]) ? (int) $parts[1] : ($isEndDate ? 12 : 1);
+    if ($y <= 0) {
+        return 0;
+    }
+    $m = max(1, min(12, $m));
+
+    return $y * 12 + $m;
+}
+
 function rc_slugify($str): string
 {
     $s = strtolower((string) $str);
@@ -227,6 +250,20 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
     if ($jobs === []) {
         return '<p class="rc-empty">Experience specific to this persona is currently being updated. Please select <strong>Full-Stack Developer</strong> for a complete work history.</p>';
     }
+    usort(
+        $jobs,
+        static function (array $a, array $b): int {
+            $endA = rc_resume_month_key((string) ($a['endDate'] ?? ''), true);
+            $endB = rc_resume_month_key((string) ($b['endDate'] ?? ''), true);
+            if ($endB !== $endA) {
+                return $endB <=> $endA;
+            }
+            $startA = rc_resume_month_key((string) ($a['startDate'] ?? ''), false);
+            $startB = rc_resume_month_key((string) ($b['startDate'] ?? ''), false);
+
+            return $startB <=> $startA;
+        }
+    );
     $pageLcpAssigned = false;
     $html = '';
     foreach ($jobs as $job) {
