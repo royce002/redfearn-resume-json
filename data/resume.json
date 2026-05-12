@@ -4,33 +4,54 @@
     "label": "Senior Web Architect & Technical Project Lead",
     "email": "Royce.Redfearn@gmail.com",
     "phone": "(972) 900-0048",
-    "url": "https://redfearn.co"
+    "url": "https://redfearn.co",
+    "sameAs": []
   },
   "personas": {
     "fullstack": {
       "title": "Senior Full-Stack Architect & Technical Lead",
       "headline": "Solutions Architect & Technical Lead | Bridging Legacy Systems with Modern Performance | 20+ Years Engineering High-Velocity Enterprise Platforms",
-      "summary": "Senior Full-Stack Web Architect with 15+ years of experience driving enterprise-scale digital transformations and legacy-to-modern migrations. Expert in bridging robust backend infrastructure (AWS, Docker, LAMP stack, C#/.NET) with highly optimized, modern frontends (Vue.js, Tailwind CSS, Alpine.js). Adept at aligning system architecture with business objectives, specializing in API integrations, cloud deployments, and headless CMS solutions. A proven technical leader committed to clean code (SOLID principles), CI/CD automation, and delivering scalable web applications at high velocity."
+      "summary": "Senior Full-Stack Web Architect with 15+ years of experience driving enterprise-scale digital transformations and legacy-to-modern migrations. Expert in bridging robust backend infrastructure (AWS, Docker, LAMP stack, C#/.NET) with highly optimized, modern frontends (Vue.js, Tailwind CSS, Alpine.js). Adept at aligning system architecture with business objectives, specializing in API integrations, cloud deployments, and headless CMS solutions. A proven technical leader committed to clean code (SOLID principles), CI/CD automation, and delivering scalable web applications at high velocity.",
+      "selectLabel": "Full-Stack Developer",
+      "badgeLabel": "Full-Stack",
+      "metaDescription": "15+ year veteran of web architecture, specializing in high-performance legacy-to-modern migrations. Bridging robust backend infrastructure with optimized modern frontends.",
+      "ogColor": "1d4ed8"
     },
     "frontend": {
       "title": "Senior Front-End Architect & UI Engineer",
       "headline": "Senior Frontend Architect & UI Engineer | Crafting Sub-Second, Accessible Interfaces | Expert in Atomic Design, Fluid Typography & Modern Web Performance",
-      "summary": "Senior Front-End Architect and UI/UX Engineer specializing in crafting high-performance, accessible (WCAG), and scalable user interfaces. Expert in modern JavaScript frameworks (Vue.js, React), utility-first CSS (Tailwind), and Atomic Design methodologies. Proven track record of spearheading enterprise framework adoption, engineering fluid typography engines, and optimizing Core Web Vitals. Master of modern build tools (Vite, Webpack) and headless WordPress (ACF-JSON, Timber/Twig) integrations, transforming complex state management into seamless, mobile-first user experiences."
+      "summary": "Senior Front-End Architect and UI/UX Engineer specializing in crafting high-performance, accessible (WCAG), and scalable user interfaces. Expert in modern JavaScript frameworks (Vue.js, React), utility-first CSS (Tailwind), and Atomic Design methodologies. Proven track record of spearheading enterprise framework adoption, engineering fluid typography engines, and optimizing Core Web Vitals. Master of modern build tools (Vite, Webpack) and headless WordPress (ACF-JSON, Timber/Twig) integrations, transforming complex state management into seamless, mobile-first user experiences.",
+      "selectLabel": "Frontend Developer",
+      "badgeLabel": "Frontend",
+      "metaDescription": "Specialist in crafting high-performance, accessible, and scalable user interfaces using modern build tools, utility-first CSS, and complex state management.",
+      "ogColor": "c2410c"
     },
     "backend": {
       "title": "Senior Back-End Engineer & Infrastructure Specialist",
       "headline": "Senior Systems Architect & Infrastructure Lead | Engineering Secure API Ecosystems & Scalable Data Pipelines | Hardening Enterprise Stacks for Maximum Uptime",
-      "summary": "Senior Back-End Engineer and Infrastructure Architect focused on designing secure, scalable data systems and server environments. Deep expertise in Object-Oriented Programming (OOP), PHP 8.4+, C# / ASP.NET, and complex MySQL/MariaDB optimization. Specialized in developing robust RESTful APIs and microservices for medical (HIPAA-compliant environments), government, and enterprise sectors. Highly proficient in cloud architecture (AWS, Azure), Docker containerization, Nginx load balancing, and rigorous server hardening against modern web vulnerabilities."
+      "summary": "Senior Back-End Engineer and Infrastructure Architect focused on designing secure, scalable data systems and server environments. Deep expertise in Object-Oriented Programming (OOP), PHP 8.4+, C# / ASP.NET, and complex MySQL/MariaDB optimization. Specialized in developing robust RESTful APIs and microservices for medical (HIPAA-compliant environments), government, and enterprise sectors. Highly proficient in cloud architecture (AWS, Azure), Docker containerization, Nginx load balancing, and rigorous server hardening against modern web vulnerabilities.",
+      "selectLabel": "Backend Developer",
+      "badgeLabel": "Backend",
+      "metaDescription": "Backend architect focused on secure, scalable data systems, server infrastructure, OOP PHP, and REST API development for enterprise sectors.",
+      "ogColor": "6d28d9"
     },
     "pm": {
       "title": "Technical Project Lead & Agile Manager",
       "headline": "Technical Project Lead & Agile Mentor | Accelerating Team Velocity & SDLC Efficiency | Specializing in Ground-Up Platform Consolidations & Strategic Execution",
-      "summary": "Technical Project Lead and Interim Scrum Master acting as a 'player-coach' to stabilize operations, remove blockers, and dramatically accelerate team velocity. Leveraging 15+ years of Software Development Life Cycle (SDLC) experience, I translate complex business requirements into actionable technical scopes. Expert in Agile methodologies, Kanban/Gantt tracking, and cross-functional leadership. Proven ability to establish enterprise coding standards, manage stakeholder expectations, and drive the successful, on-time delivery of both rapid-deployment sites and complex enterprise platforms."
+      "summary": "Technical Project Lead and Interim Scrum Master acting as a 'player-coach' to stabilize operations, remove blockers, and dramatically accelerate team velocity. Leveraging 15+ years of Software Development Life Cycle (SDLC) experience, I translate complex business requirements into actionable technical scopes. Expert in Agile methodologies, Kanban/Gantt tracking, and cross-functional leadership. Proven ability to establish enterprise coding standards, manage stakeholder expectations, and drive the successful, on-time delivery of both rapid-deployment sites and complex enterprise platforms.",
+      "selectLabel": "Project Manager / Lead",
+      "badgeLabel": "PM / Lead",
+      "metaDescription": "Player-coach developer translating complex business requirements into actionable technical execution using Agile methodologies to ensure on-time delivery.",
+      "ogColor": "0f766e"
     },
     "seo": {
       "title": "Technical SEO & Growth Architecture Specialist",
       "headline": "Technical SEO & Growth Architect | Engineering Organic Traffic Engines | Optimizing Core Web Vitals to Reverse Paid Acquisition Reliance",
-      "summary": "Technical SEO Specialist and Growth Engineer focused on bridging the gap between advanced web architecture and aggressive organic traffic scaling. Expert in Core Web Vitals optimization, programmatic SEO, and granular user journey tracking (GTM, GA4). I engineer automated asset optimization pipelines (WebP, S3) and complex Schema.org (JSON-LD) architectures to drastically improve search engine rankings and Conversion Rate Optimization (CRO). Proven history of reversing paid acquisition reliance by executing high-ROI, data-driven organic growth strategies."
+      "summary": "Technical SEO Specialist and Growth Engineer focused on bridging the gap between advanced web architecture and aggressive organic traffic scaling. Expert in Core Web Vitals optimization, programmatic SEO, and granular user journey tracking (GTM, GA4). I engineer automated asset optimization pipelines (WebP, S3) and complex Schema.org (JSON-LD) architectures to drastically improve search engine rankings and Conversion Rate Optimization (CRO). Proven history of reversing paid acquisition reliance by executing high-ROI, data-driven organic growth strategies.",
+      "selectLabel": "SEO Specialist",
+      "badgeLabel": "SEO",
+      "metaDescription": "Technical growth engineer specializing in Core Web Vitals, organic traffic scaling, automated asset pipelines, and complex Schema architectures.",
+      "ogColor": "b45309"
     }
   },
   "skills": [
@@ -186,7 +207,8 @@
         { "file": "levartetravel.com__root_mobile.png",     "alt": "Levarte Travel mobile — responsive travel booking experience optimized for mobile conversion.",               "caption": "Levarte Travel (Mobile)",    "width": 390,  "height": 844, "loading": "lazy"  }
       ],
       "accomplishments": [
-        { "text": "Providing full-stack architecture, AWS/Linux infrastructure management, and digital strategy for high-profile SMBs including TexasTitle.com, MaverickNational.com, and Levarte Travel.", "personas": ["pm", "fullstack"] },
+        { "text": "Providing full-stack architecture, AWS/Linux infrastructure management, and digital strategy for high-profile SMBs including TexasTitle.com, MaverickNational.com, Levarte Travel, and WheresGeorge.com.", "personas": ["pm", "fullstack"] },
+        { "text": "Led design, integration, and development for Where's George (https://www.wheresgeorge.com/), theming a custom PHP template and delivering a fully responsive layout across viewports.", "personas": ["frontend", "fullstack", "pm"] },
         { "text": "Consulted with clients to define project goals, scope, and timelines, managing end-to-end delivery of responsive eCommerce websites and custom billing systems.", "personas": ["pm", "frontend", "fullstack"] },
         { "text": "Produced and deployed multimedia marketing assets, including video advertisements broadcasted on NBC5 Television and regional movie theaters.", "personas": ["seo", "frontend", "fullstack"] }
       ]
