@@ -321,15 +321,29 @@ loadResumeData()
       }
       section.hidden = false;
       grid.innerHTML = edu
-        .map(
-          (e) => `
+        .map((e) => {
+          const program = e.area || e.degree || "";
+          const focusLegacy = e.focus && !e.area ? e.focus : "";
+          const studyLine = [e.studyType, e.startDate && e.endDate ? `${e.startDate} – ${e.endDate}` : ""]
+            .filter(Boolean)
+            .join(" · ");
+          const grade = e.score || e.gpa;
+          const highlights =
+            Array.isArray(e.highlights) && e.highlights.length
+              ? `<ul class="rc-edu-highlights">${e.highlights
+                  .map((h) => `<li>${esc(h)}</li>`)
+                  .join("")}</ul>`
+              : "";
+          return `
           <div class="rc-edu-card">
             <h3 class="rc-edu-institution">${esc(e.institution)}</h3>
-            <p class="rc-edu-degree">${esc(e.degree)}</p>
-            ${e.focus ? `<p class="rc-edu-focus">${esc(e.focus)}</p>` : ""}
-            ${e.gpa ? `<p class="rc-edu-meta">GPA: ${esc(e.gpa)}</p>` : ""}
-          </div>`
-        )
+            ${program ? `<p class="rc-edu-area">${esc(program)}</p>` : ""}
+            ${focusLegacy ? `<p class="rc-edu-focus">${esc(focusLegacy)}</p>` : ""}
+            ${studyLine ? `<p class="rc-edu-study">${esc(studyLine)}</p>` : ""}
+            ${grade ? `<p class="rc-edu-meta">GPA: ${esc(grade)}</p>` : ""}
+            ${highlights}
+          </div>`;
+        })
         .join("");
     }
 
@@ -393,6 +407,12 @@ loadResumeData()
       root.dataset.persona = persona;
       document.getElementById("rc-badge").textContent = PERSONA_LABELS[persona];
       select.value = persona;
+
+      const pData = RESUME.personas[persona] || {};
+      const roleEl = document.getElementById("rc-role");
+      roleEl.textContent =
+        pData.headline || pData.title || RESUME.basics.label || "";
+
       renderSummary(persona);
       renderSkills(persona);
       renderExperience(persona);
@@ -405,9 +425,8 @@ loadResumeData()
     }
 
     // ── static header ──
-    const { name, label, email, phone, url } = RESUME.basics;
+    const { name, email, phone, url } = RESUME.basics;
     document.getElementById("rc-name").innerHTML = name.replace(/(Jr\.)$/, '<span class="flicker-suffix">$1</span>');
-    document.getElementById("rc-role").textContent = label;
     document.getElementById("rc-contact").innerHTML = `
       <a href="mailto:${email}">${email}</a>
       <a href="tel:${phone}">${phone}</a>
