@@ -52,7 +52,10 @@ if (isset($_COOKIE['rc_dark']) && $_COOKIE['rc_dark'] === '1') {
 } elseif (!isset($_COOKIE['rc_dark']) && isset($_SERVER['HTTP_SEC_CH_PREFERS_COLOR_SCHEME']) && $_SERVER['HTTP_SEC_CH_PREFERS_COLOR_SCHEME'] === 'dark') {
     $dark_initial = true;
 }
-$body_class = $dark_initial ? ' class="dark"' : '';
+$body_attrs = $dark_initial ? ' class="dark"' : '';
+if ($initial_resume !== null) {
+    $body_attrs .= ' data-persona="' . rc_esc($active_persona) . '"';
+}
 
 $person_json_ld = null;
 if ($initial_resume !== null) {
@@ -111,7 +114,7 @@ $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_cs
     <link rel="stylesheet" href="/assets/css/resume.css" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="/assets/css/resume.css" /></noscript>
   </head>
-  <body<?php echo $body_class; ?>>
+  <body<?php echo $body_attrs; ?>>
     <a class="skip-link" href="#rc-experience">Skip to experience</a>
 <?php if ($initial_resume === null) { ?>
     <div class="resume-component" id="resume-root" data-persona="fullstack" data-assets-base="<?php echo rc_esc($assets_base); ?>">

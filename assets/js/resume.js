@@ -446,6 +446,7 @@ loadResumeData()
 
       const root = document.getElementById("resume-root");
       root.dataset.persona = persona;
+      document.body.dataset.persona = persona;
       document.getElementById("rc-badge").textContent = badgeFor(persona);
       select.value = persona;
 

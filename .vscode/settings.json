@@ -1,0 +1,83 @@
+{
+  // Resume-themed workspace: dark fullstack palette (resume.css .dark + body.dark[data-persona="fullstack"])
+  "editor.fontSize": 15,
+  "editor.lineHeight": 26,
+  "editor.fontFamily": "Inter, 'Segoe UI', system-ui, sans-serif",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.lineHeight": 1.35,
+  "debug.console.fontSize": 14,
+  "markdown.preview.fontSize": 15,
+  "scm.inputFontSize": 14,
+
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.preferredDarkColorTheme": "Default Dark Modern",
+
+  "workbench.colorCustomizations": {
+    "[Default Dark Modern]": {
+      "activityBar.background": "#0a0f1e",
+      "activityBar.foreground": "#93c5fd",
+      "activityBar.inactiveForeground": "#64748b",
+      "activityBarBadge.background": "#4338ca",
+      "activityBarBadge.foreground": "#e0e7ff",
+
+      "sideBar.background": "#0a0f1e",
+      "sideBarTitle.foreground": "#f1f5f9",
+      "sideBar.foreground": "#cbd5e1",
+
+      "titleBar.activeBackground": "#111827",
+      "titleBar.activeForeground": "#f1f5f9",
+      "titleBar.inactiveBackground": "#0a0f1e",
+      "titleBar.inactiveForeground": "#94a3b8",
+
+      "statusBar.background": "#312e81",
+      "statusBar.foreground": "#e0e7ff",
+      "statusBar.noFolderBackground": "#312e81",
+
+      "editor.background": "#111827",
+      "editor.foreground": "#f1f5f9",
+      "editorLineNumber.foreground": "#64748b",
+      "editorLineNumber.activeForeground": "#93c5fd",
+      "editorCursor.foreground": "#93c5fd",
+      "editor.selectionBackground": "#4338ca66",
+      "editor.inactiveSelectionBackground": "#17255499",
+      "editorWhitespace.foreground": "#475569",
+
+      "editorGroupHeader.tabsBackground": "#0a0f1e",
+      "tab.activeBackground": "#111827",
+      "tab.inactiveBackground": "#172554",
+      "tab.activeBorderTop": "#93c5fd",
+      "tab.inactiveForeground": "#94a3b8",
+      "tab.activeForeground": "#f8fafc",
+
+      "panel.background": "#111827",
+      "panel.border": "#4338ca",
+      "panelTitle.activeBorder": "#93c5fd",
+
+      "terminal.background": "#0a0f1e",
+      "terminal.foreground": "#e2e8f0",
+      "terminalCursor.foreground": "#93c5fd",
+
+      "input.background": "#1e293b",
+      "input.border": "#4338ca",
+      "inputOption.activeBorder": "#93c5fd",
+      "focusBorder": "#93c5fd",
+
+      "button.background": "#4338ca",
+      "button.foreground": "#f8fafc",
+      "button.hoverBackground": "#4f46e5",
+
+      "list.activeSelectionBackground": "#172554",
+      "list.activeSelectionForeground": "#93c5fd",
+      "list.hoverBackground": "#1e3a8a55",
+      "list.highlightForeground": "#93c5fd",
+
+      "scrollbarSlider.background": "#4338ca44",
+      "scrollbarSlider.hoverBackground": "#6366f166",
+      "scrollbarSlider.activeBackground": "#818cf888",
+
+      "badge.background": "#4338ca",
+      "badge.foreground": "#e0e7ff",
+      "progressBar.background": "#93c5fd"
+    }
+  }
+}

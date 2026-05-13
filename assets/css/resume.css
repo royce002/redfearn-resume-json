@@ -1,17 +1,18 @@
 :root {
-  --skeleton-base: #e2e0db;
-  --skeleton-shine: #f0ede8;
-  --bg: #f5f4f0;
+  /* Full-stack bright default (outage / no persona on body) */
+  --skeleton-base: #e0e7ff;
+  --skeleton-shine: #eef2ff;
+  --bg: #eef2ff;
   --surface: #ffffff;
-  --surface2: #eeecea;
-  --border: #dddbd6;
-  --text: #1a1916;
-  --muted: #8a887f;
-  --accent: #1a1916;
-  --chip-bg: #e8e6e1;
-  --chip-text: #4a4840;
-  --accomplishment-text: #3a3830;
-  --toggle-bg: #dddbd6;
+  --surface2: #e0e7ff;
+  --border: #a5b4fc;
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #1d4ed8;
+  --chip-bg: #dbeafe;
+  --chip-text: #1e3a8a;
+  --accomplishment-text: #334155;
+  --toggle-bg: #c7d2fe;
   --toggle-knob: #ffffff;
 
   --c-frontend:  #c2410c;
@@ -20,26 +21,150 @@
   --c-pm:        #0f766e;
   --c-seo:       #b45309;
 
-  --radius: 8px;
-  --gap: 16px;
+  --radius: 10px;
+  --gap: 18px;
   --transition: 220ms ease;
+}
+
+body[data-persona="frontend"] {
+  --skeleton-base: #ffedd5;
+  --skeleton-shine: #fff7ed;
+  --bg: #fff7ed;
+  --surface: #ffffff;
+  --surface2: #ffedd5;
+  --border: #fdba74;
+  --text: #1c1917;
+  --muted: #57534e;
+  --accent: #c2410c;
+  --chip-bg: #ffedd5;
+  --chip-text: #9a3412;
+  --accomplishment-text: #44403c;
+  --toggle-bg: #fed7aa;
+}
+
+body[data-persona="backend"] {
+  --skeleton-base: #ede9fe;
+  --skeleton-shine: #faf5ff;
+  --bg: #faf5ff;
+  --surface: #ffffff;
+  --surface2: #f3e8ff;
+  --border: #d8b4fe;
+  --text: #1e1b4b;
+  --muted: #575569;
+  --accent: #6d28d9;
+  --chip-bg: #ede9fe;
+  --chip-text: #5b21b6;
+  --accomplishment-text: #3730a3;
+  --toggle-bg: #ddd6fe;
+}
+
+body[data-persona="pm"] {
+  --skeleton-base: #ccfbf1;
+  --skeleton-shine: #f0fdfa;
+  --bg: #f0fdfa;
+  --surface: #ffffff;
+  --surface2: #ccfbf1;
+  --border: #5eead4;
+  --text: #134e4a;
+  --muted: #3f6f6b;
+  --accent: #0f766e;
+  --chip-bg: #ccfbf1;
+  --chip-text: #115e59;
+  --accomplishment-text: #285e61;
+  --toggle-bg: #99f6e4;
+}
+
+body[data-persona="seo"] {
+  --skeleton-base: #fef3c7;
+  --skeleton-shine: #fffbeb;
+  --bg: #fffbeb;
+  --surface: #ffffff;
+  --surface2: #fef3c7;
+  --border: #fcd34d;
+  --text: #422006;
+  --muted: #78716c;
+  --accent: #b45309;
+  --chip-bg: #fef3c7;
+  --chip-text: #92400e;
+  --accomplishment-text: #57534e;
+  --toggle-bg: #fde68a;
 }
 
 .dark {
   --skeleton-base: #252530;
   --skeleton-shine: #2e2e3c;
-  --bg: #0f0f11;
-  --surface: #18181c;
-  --surface2: #222228;
-  --border: #2e2e38;
-  --text: #e4e4ec;
-  --muted: #6b6b7a;
-  --accent: #e4e4ec;
-  --chip-bg: #252530;
-  --chip-text: #b0b0c0;
-  --accomplishment-text: #c0c0cc;
-  --toggle-bg: #3a3a48;
-  --toggle-knob: #e4e4ec;
+  --bg: #0f0f14;
+  --surface: #18181f;
+  --surface2: #22222c;
+  --border: #3f3f52;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --accent: #93c5fd;
+  --chip-bg: #2a2a38;
+  --chip-text: #cbd5e1;
+  --accomplishment-text: #cbd5e1;
+  --toggle-bg: #3a3a4d;
+  --toggle-knob: #f8fafc;
+}
+
+body.dark[data-persona="fullstack"] {
+  --bg: #0a0f1e;
+  --surface: #111827;
+  --surface2: #172554;
+  --border: #4338ca;
+  --accent: #93c5fd;
+  --chip-bg: #1e3a8a;
+  --chip-text: #bfdbfe;
+  --skeleton-base: #172554;
+  --skeleton-shine: #1e40af;
+}
+
+body.dark[data-persona="frontend"] {
+  --bg: #1c0a06;
+  --surface: #292524;
+  --surface2: #431407;
+  --border: #c2410c;
+  --accent: #fb923c;
+  --chip-bg: #431407;
+  --chip-text: #fed7aa;
+  --skeleton-base: #431407;
+  --skeleton-shine: #7c2d12;
+}
+
+body.dark[data-persona="backend"] {
+  --bg: #0f0720;
+  --surface: #1e1b4b;
+  --surface2: #312e81;
+  --border: #7c3aed;
+  --accent: #c4b5fd;
+  --chip-bg: #312e81;
+  --chip-text: #ddd6fe;
+  --skeleton-base: #312e81;
+  --skeleton-shine: #4c1d95;
+}
+
+body.dark[data-persona="pm"] {
+  --bg: #042f2e;
+  --surface: #134e4a;
+  --surface2: #115e59;
+  --border: #14b8a6;
+  --accent: #5eead4;
+  --chip-bg: #115e59;
+  --chip-text: #ccfbf1;
+  --skeleton-base: #115e59;
+  --skeleton-shine: #0f766e;
+}
+
+body.dark[data-persona="seo"] {
+  --bg: #1a1004;
+  --surface: #292524;
+  --surface2: #422006;
+  --border: #d97706;
+  --accent: #fbbf24;
+  --chip-bg: #422006;
+  --chip-text: #fef3c7;
+  --skeleton-base: #422006;
+  --skeleton-shine: #78350f;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,7 +173,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: "Inter", sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.65;
   min-height: 100vh;
   padding: 40px 24px 100px;
@@ -139,7 +264,7 @@ body {
   .rc-identity .rc-role {
     margin-top: 12px;
     padding-left: clamp(14px, 1.25vw, 20px);
-    border-left: 3px solid var(--border);
+    border-left: 3px solid var(--accent);
     max-width: min(100%, 38rem);
   }
 
@@ -152,7 +277,7 @@ body {
 
 .rc-identity h1 {
   font-family: "Bebas Neue", sans-serif;
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(32px, 4.5vw, 54px);
   font-weight: 400;
   letter-spacing: 0.04em;
   line-height: 1;
@@ -160,7 +285,7 @@ body {
 }
 
 .rc-identity .rc-role {
-  font-size: clamp(13px, 1.45vw, 15px);
+  font-size: clamp(14px, 1.55vw, 17px);
   font-weight: 500;
   letter-spacing: 0.01em;
   text-transform: none;
@@ -175,7 +300,7 @@ body {
   flex-direction: column;
   align-items: flex-end;
   gap: 4px;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--muted);
 }
 
@@ -185,7 +310,7 @@ body {
 }
 
 .rc-contact a:hover {
-  color: var(--text);
+  color: var(--accent);
   text-decoration: underline;
 }
 
@@ -202,7 +327,7 @@ body {
 }
 
 .rc-persona-bar label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -238,7 +363,7 @@ body {
   border-radius: 6px;
   padding: 8px 36px 8px 14px;
   font-family: "Inter", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text);
   cursor: pointer;
@@ -251,10 +376,10 @@ body {
 }
 
 .rc-persona-badge {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: 999px;
   color: #fff;
   transition: background var(--transition);
@@ -271,7 +396,7 @@ body {
 }
 
 .rc-dark-toggle span {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
 }
 
@@ -309,10 +434,11 @@ body {
 .rc-summary {
   background: var(--surface);
   border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
   border-radius: var(--radius);
-  padding: 18px 22px;
+  padding: 20px 24px;
   margin-bottom: 28px;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.75;
   color: var(--accomplishment-text);
   transition: background var(--transition), border-color var(--transition), color var(--transition);
@@ -322,9 +448,9 @@ body {
 .rc-summary strong {
   display: block;
   font-family: "Bebas Neue", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.18em;
-  color: var(--muted);
+  color: var(--accent);
   margin-bottom: 6px;
 }
 
@@ -335,13 +461,13 @@ body {
 
 .rc-section-heading {
   font-family: "Bebas Neue", sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--accent);
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--accent);
   margin: 0 0 18px;
 }
 
@@ -362,7 +488,7 @@ body {
 }
 
 .rc-skill-card h3 {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 12px;
@@ -377,11 +503,12 @@ body {
 .rc-chip {
   background: var(--chip-bg);
   color: var(--chip-text);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 4px 10px;
-  border-radius: 4px;
-  transition: background var(--transition), color var(--transition);
+  padding: 5px 11px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
 }
 
 /* ── experience ── */
@@ -406,19 +533,19 @@ body {
 }
 
 .rc-job-header h3 {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--text);
 }
 
 .rc-job-header .rc-position {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
   font-weight: 400;
 }
 
 .rc-job-dates {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -429,8 +556,8 @@ body {
 }
 
 .rc-accomplishments li {
-  padding: 13px 20px;
-  font-size: 15px;
+  padding: 14px 20px;
+  font-size: 16px;
   line-height: 1.7;
   color: var(--accomplishment-text);
   border-bottom: 1px solid var(--border);
@@ -447,8 +574,8 @@ body {
 
 .rc-accomplishments li::before {
   content: "→";
-  font-size: 12px;
-  color: var(--muted);
+  font-size: 13px;
+  color: var(--accent);
   margin-top: 4px;
   flex-shrink: 0;
 }
@@ -457,7 +584,7 @@ body {
 .rc-empty {
   padding: 24px 20px;
   text-align: center;
-  font-size: 15px;
+  font-size: 16px;
   color: var(--muted);
 }
 
@@ -553,10 +680,10 @@ body {
   }
 
   /* accomplishment text slightly smaller so long bullets don't overflow */
-  .rc-accomplishments li { font-size: 14px; padding: 11px 16px; }
+  .rc-accomplishments li { font-size: 15px; padding: 12px 16px; }
 
   /* section headings tighter */
-  .rc-section-heading { font-size: 17px; }
+  .rc-section-heading { font-size: 19px; }
 }
 
 /* ── skeleton loading ── */
@@ -700,8 +827,8 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 6px 10px;
-  font-size: 11px;
+  padding: 7px 11px;
+  font-size: 12px;
   font-weight: 500;
   color: #fff;
   background: linear-gradient(transparent, rgba(0,0,0,0.55));
@@ -767,7 +894,7 @@ body {
 }
 
 .rc-edu-institution {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 8px;
@@ -775,25 +902,25 @@ body {
 
 .rc-edu-area,
 .rc-edu-degree {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--accomplishment-text);
   margin-bottom: 6px;
 }
 
 .rc-edu-study {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
   margin-bottom: 4px;
 }
 
 .rc-edu-focus {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
   margin-bottom: 4px;
 }
 
 .rc-edu-meta {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--muted);
 }
@@ -801,7 +928,7 @@ body {
 .rc-edu-highlights {
   margin: 12px 0 0;
   padding-left: 1.15rem;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.55;
   color: var(--accomplishment-text);
 }
@@ -827,12 +954,12 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  border-left: 4px solid var(--c-fullstack);
+  border-left: 4px solid var(--accent);
   animation: fadeIn var(--transition) both;
 }
 
 .rc-rec-text {
-  font-size: 15px;
+  font-size: 17px;
   font-style: italic;
   line-height: 1.6;
   color: var(--accomplishment-text);
@@ -843,12 +970,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text);
 }
 
 .rc-rec-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   color: var(--muted);
 }
@@ -859,6 +986,7 @@ body {
     background: #fff !important;
     color: #000 !important;
     padding: 12mm 10mm 16mm !important;
+    --accent: #000 !important;
   }
 
   .dark {
