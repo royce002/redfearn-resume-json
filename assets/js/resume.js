@@ -451,6 +451,10 @@ loadResumeData()
       select.value = persona;
 
       const pData = RESUME.personas[persona] || {};
+      const avatarSrc = pData.image || RESUME.basics.image || "/assets/images/image_738ca0.jpg";
+      const av = document.getElementById("rc-avatar");
+      if (av) av.src = avatarSrc;
+
       document.getElementById("rc-role").textContent = pData.headline || pData.title || RESUME.basics.label || "";
 
       const { name, email, phone, url } = RESUME.basics;

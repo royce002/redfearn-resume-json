@@ -243,6 +243,24 @@ body {
   margin-bottom: 28px;
 }
 
+.rc-header-intro {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.rc-avatar {
+  width: clamp(72px, 8vw, 96px);
+  height: clamp(72px, 8vw, 96px);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: border-color var(--transition), transform var(--transition);
+  flex-shrink: 0;
+}
+
 @media (min-width: 561px) {
   .rc-header {
     display: grid;
@@ -252,9 +270,13 @@ body {
     width: 100%;
   }
 
+  .rc-header-intro {
+    width: 100%;
+  }
+
   .rc-identity {
     min-width: 0;
-    width: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1030,5 +1052,11 @@ body {
   a[href^="tel:"]::after,
   a[href^="http"]::after {
     content: none !important;
+  }
+
+  .rc-skeleton {
+    background: none !important;
+    animation: none !important;
+    border: 1px dashed #ccc !important;
   }
 }

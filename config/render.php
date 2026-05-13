@@ -403,6 +403,16 @@ function rc_person_json_ld(array $resume, string $persona, string $canonicalUrl)
         return is_string($x) && $x !== '';
     }));
 
+    $imagePath = (string) ($p['image'] ?? $basics['image'] ?? '');
+    $siteBase = defined('RC_BASE_URL') ? rtrim((string) RC_BASE_URL, '/') : rtrim((string) preg_replace('/\?.*/', '', $canonicalUrl), '/');
+    if ($imagePath !== '' && preg_match('#^https?://#i', $imagePath)) {
+        $imageAbsolute = $imagePath;
+    } elseif ($imagePath !== '') {
+        $imageAbsolute = $siteBase . '/' . ltrim($imagePath, '/');
+    } else {
+        $imageAbsolute = null;
+    }
+
     $knowsAbout = [];
     $skills = $resume['skills'] ?? [];
     if (is_array($skills)) {
@@ -452,6 +462,7 @@ function rc_person_json_ld(array $resume, string $persona, string $canonicalUrl)
         '@context' => 'https://schema.org',
         '@type' => 'Person',
         'name' => $name,
+        'image' => $imageAbsolute,
         'url' => $canonicalUrl,
         'email' => $email !== '' ? 'mailto:' . $email : null,
         'telephone' => $phone !== '' ? $phone : null,
@@ -469,7 +480,7 @@ function rc_person_json_ld(array $resume, string $persona, string $canonicalUrl)
         'sameAs' => $sameAs !== [] ? $sameAs : null,
     ];
     if ($url !== '') {
-        $schema['mainEntityOfPage'] = ['@type' => 'WebPage', '@id' => $canonicalUrl];
+        $schema['mainEntityOfPage'] = ['@type' => 'ProfilePage', '@id' => $canonicalUrl];
     }
 
     return array_filter(

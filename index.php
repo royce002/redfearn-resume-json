@@ -1,6 +1,19 @@
 <?php
 declare(strict_types=1);
 
+header('X-Frame-Options: DENY');
+header('X-Content-Type-Options: nosniff');
+header('Referrer-Policy: strict-origin-when-cross-origin');
+header(
+    "Content-Security-Policy: default-src 'self'; "
+    . "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.logr-in.com https://embed.tawk.to https://*.tawk.to; "
+    . "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+    . "font-src 'self' https://fonts.gstatic.com; "
+    . "img-src 'self' data: https://assets.redfearn.co https://placehold.co; "
+    . "connect-src 'self' wss: https:; "
+    . "frame-src https://embed.tawk.to https://*.tawk.to;"
+);
+
 require_once __DIR__ . '/config/personas.php';
 require_once __DIR__ . '/config/render.php';
 
@@ -45,6 +58,10 @@ $p_meta = $initial_resume !== null && isset($initial_resume['personas'][$active_
     : [];
 $og_title = 'Royce Redfearn Jr. — ' . (string) ($p_meta['title'] ?? 'Resume');
 $og_desc = (string) ($p_meta['metaDescription'] ?? '');
+
+$avatar_url = $initial_resume !== null
+    ? (string) ($p_meta['image'] ?? $initial_resume['basics']['image'] ?? '/assets/images/image_738ca0.jpg')
+    : '/assets/images/image_738ca0.jpg';
 
 $dark_initial = false;
 if (isset($_COOKIE['rc_dark']) && $_COOKIE['rc_dark'] === '1') {
@@ -106,6 +123,7 @@ $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_cs
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://assets.redfearn.co" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bebas+Neue&display=swap"
       rel="stylesheet"
@@ -133,9 +151,20 @@ $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_cs
          data-hydrated="true">
 
       <header class="rc-header">
-        <div class="rc-identity">
-          <h1 id="rc-name"><?php echo rc_render_name_html((string) ($initial_resume['basics']['name'] ?? '')); ?></h1>
-          <p class="rc-role" id="rc-role"><?php echo rc_esc(rc_persona_headline($initial_resume, $active_persona)); ?></p>
+        <div class="rc-header-intro">
+          <img
+            src="<?php echo rc_esc($avatar_url); ?>"
+            alt="<?php echo rc_esc((string) ($initial_resume['basics']['name'] ?? '')); ?>"
+            id="rc-avatar"
+            class="rc-avatar"
+            width="96"
+            height="96"
+            fetchpriority="high"
+          />
+          <div class="rc-identity">
+            <h1 id="rc-name"><?php echo rc_render_name_html((string) ($initial_resume['basics']['name'] ?? '')); ?></h1>
+            <p class="rc-role" id="rc-role"><?php echo rc_esc(rc_persona_headline($initial_resume, $active_persona)); ?></p>
+          </div>
         </div>
         <div class="rc-contact" id="rc-contact">
           <?php
