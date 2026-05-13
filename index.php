@@ -69,6 +69,17 @@ $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_cs
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Accept-CH" content="Sec-CH-Prefers-Color-Scheme" />
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XPGPC9BX3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-2XPGPC9BX3");
+    </script>
+
     <title><?php echo rc_esc($og_title); ?></title>
     <meta name="description" content="<?php echo rc_esc($og_desc); ?>" />
     <link rel="canonical" href="<?php echo rc_esc($canonical_url); ?>" />
@@ -93,25 +104,11 @@ $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_cs
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      crossorigin
-      href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0I5nvwU.woff2"
-    />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      crossorigin
-      href="https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2"
-    />
-    <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bebas+Neue&display=swap"
       rel="stylesheet"
     />
     <style><?php echo $critical_css; ?></style>
-    <link rel="preload" href="/assets/css/resume.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href="/assets/css/resume.css" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="/assets/css/resume.css" /></noscript>
   </head>
   <body<?php echo $body_class; ?>>
@@ -217,5 +214,20 @@ $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_cs
       window.LogRocket && window.LogRocket.init("3iqi5o/redfearnco");
     </script>
     <script src="/assets/js/resume.js" defer></script>
+    <!--Start of Tawk.to Script-->
+    <script>
+      var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+      (function () {
+        var s1 = document.createElement("script"),
+          s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = "https://embed.tawk.to/6a03bd49defb6f1c3776f438/1jof9mps8";
+        s1.charset = "UTF-8";
+        s1.setAttribute("crossorigin", "*");
+        s0.parentNode.insertBefore(s1, s0);
+      })();
+    </script>
+    <!--End of Tawk.to Script-->
   </body>
 </html>

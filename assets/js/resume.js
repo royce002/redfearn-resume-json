@@ -205,6 +205,7 @@ function initJobGalleries() {
 
 loadResumeData()
   .then((RESUME) => {
+
     const ASSETS_BASE = document.getElementById("resume-root").dataset.assetsBase || "";
 
     function esc(s) {
