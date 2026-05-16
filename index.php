@@ -101,6 +101,22 @@ if (isset($_COOKIE['rc_dark']) && $_COOKIE['rc_dark'] === '1') {
 } elseif (!isset($_COOKIE['rc_dark']) && isset($_SERVER['HTTP_SEC_CH_PREFERS_COLOR_SCHEME']) && $_SERVER['HTTP_SEC_CH_PREFERS_COLOR_SCHEME'] === 'dark') {
     $dark_initial = true;
 }
+
+// Matches assets/css/resume.css (--bg per persona / .dark) for Android Chrome theme-color.
+if ($initial_resume === null) {
+    $theme_color = $dark_initial ? '#0f0f14' : '#eef2ff';
+} else {
+    $persona_theme_bg = [
+        'fullstack' => ['light' => '#eef2ff', 'dark' => '#0a0f1e'],
+        'frontend' => ['light' => '#fff7ed', 'dark' => '#1c0a06'],
+        'backend' => ['light' => '#faf5ff', 'dark' => '#0f0720'],
+        'pm' => ['light' => '#f0fdfa', 'dark' => '#042f2e'],
+        'seo' => ['light' => '#fffbeb', 'dark' => '#1a1004'],
+    ];
+    $palette = $persona_theme_bg[$active_persona] ?? $persona_theme_bg['fullstack'];
+    $theme_color = $palette[$dark_initial ? 'dark' : 'light'];
+}
+
 $body_attrs = $dark_initial ? ' class="dark"' : '';
 if ($initial_resume !== null) {
     $body_attrs .= ' data-persona="' . rc_esc($active_persona) . '"';
@@ -142,6 +158,17 @@ if ($initial_resume === null) {
     <title><?php echo rc_esc($og_title); ?></title>
     <meta name="description" content="<?php echo rc_esc($og_desc); ?>" />
     <link rel="canonical" href="<?php echo rc_esc($canonical_url); ?>" />
+
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg" />
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Resume Royce Redfearn" />
+    <link rel="manifest" href="/assets/images/site.webmanifest" />
+
+    <meta name="theme-color" content="<?php echo rc_esc($theme_color); ?>" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="application-name" content="Resume Royce Redfearn" />
 
     <meta property="og:type" content="profile" />
     <meta property="og:title" content="<?php echo rc_esc($og_title); ?>" />

@@ -1,7 +1,7 @@
 {
   "basics": {
     "name": "Royce Redfearn Jr.",
-    "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
+    "image": "https://assets.redfearn.co/images/Royce-Redfearn-Profile.webp",
     "label": "Senior Web Architect & Technical Project Lead",
     "email": "Royce.Redfearn@gmail.com",
     "phone": "(972) 900-0048",
@@ -13,7 +13,7 @@
   },
   "personas": {
     "fullstack": {
-      "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
+      "image": "https://assets.redfearn.co/images/Royce-Redfearn-Profile.webp",
       "title": "Senior Full-Stack Architect & Technical Lead",
       "headline": "Solutions Architect & Technical Lead | Bridging Legacy Systems with Modern Performance | 20+ Years Engineering High-Velocity Enterprise Platforms",
       "summary": "Senior Full-Stack Web Architect with 15+ years of experience driving enterprise-scale digital transformations and legacy-to-modern migrations. Expert in bridging robust backend infrastructure (AWS, Docker, LAMP stack, C#/.NET) with highly optimized, modern frontends (Vue.js, Tailwind CSS, Alpine.js). Adept at aligning system architecture with business objectives, specializing in API integrations, cloud deployments, and headless CMS solutions. A proven technical leader committed to clean code (SOLID principles), CI/CD automation, and delivering scalable web applications at high velocity.",
@@ -23,7 +23,7 @@
       "ogColor": "1d4ed8"
     },
     "frontend": {
-      "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
+      "image": "https://assets.redfearn.co/images/Royce-Redfearn-Profile.webp",
       "title": "Senior Front-End Architect & UI Engineer",
       "headline": "Senior Frontend Architect & UI Engineer | Crafting Sub-Second, Accessible Interfaces | Expert in Atomic Design, Fluid Typography & Modern Web Performance",
       "summary": "Senior Front-End Architect and UI/UX Engineer specializing in crafting high-performance, accessible (WCAG), and scalable user interfaces. Expert in modern JavaScript frameworks (Vue.js, React), utility-first CSS (Tailwind), and Atomic Design methodologies. Proven track record of spearheading enterprise framework adoption, engineering fluid typography engines, and optimizing Core Web Vitals. Master of modern build tools (Vite, Webpack) and headless WordPress (ACF-JSON, Timber/Twig) integrations, transforming complex state management into seamless, mobile-first user experiences.",
@@ -33,7 +33,7 @@
       "ogColor": "c2410c"
     },
     "backend": {
-      "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
+      "image": "https://assets.redfearn.co/images/Royce-Redfearn-Profile.webp",
       "title": "Senior Back-End Engineer & Infrastructure Specialist",
       "headline": "Senior Systems Architect & Infrastructure Lead | Engineering Secure API Ecosystems & Scalable Data Pipelines | Hardening Enterprise Stacks for Maximum Uptime",
       "summary": "Senior Back-End Engineer and Infrastructure Architect focused on designing secure, scalable data systems and server environments. Deep expertise in Object-Oriented Programming (OOP), PHP 8.4+, C# / ASP.NET, and complex MySQL/MariaDB optimization. Specialized in developing robust RESTful APIs and microservices for medical (HIPAA-compliant environments), government, and enterprise sectors. Highly proficient in cloud architecture (AWS, Azure), Docker containerization, Nginx load balancing, and rigorous server hardening against modern web vulnerabilities.",
@@ -43,7 +43,7 @@
       "ogColor": "6d28d9"
     },
     "pm": {
-      "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
+      "image": "https://assets.redfearn.co/images/Royce-Redfearn-Profile.webp",
       "title": "Technical Project Lead & Agile Manager",
       "headline": "Technical Project Lead & Agile Mentor | Accelerating Team Velocity & SDLC Efficiency | Specializing in Ground-Up Platform Consolidations & Strategic Execution",
       "summary": "Technical Project Lead and Interim Scrum Master acting as a 'player-coach' to stabilize operations, remove blockers, and dramatically accelerate team velocity. Leveraging 15+ years of Software Development Life Cycle (SDLC) experience, I translate complex business requirements into actionable technical scopes. Expert in Agile methodologies, Kanban/Gantt tracking, and cross-functional leadership. Proven ability to establish enterprise coding standards, manage stakeholder expectations, and drive the successful, on-time delivery of both rapid-deployment sites and complex enterprise platforms.",
@@ -53,7 +53,7 @@
       "ogColor": "0f766e"
     },
     "seo": {
-      "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
+      "image": "https://assets.redfearn.co/images/Royce-Redfearn-Profile.webp",
       "title": "Technical SEO & Growth Architecture Specialist",
       "headline": "Technical SEO & Growth Architect | Engineering Organic Traffic Engines | Optimizing Core Web Vitals to Reverse Paid Acquisition Reliance",
       "summary": "Technical SEO Specialist and Growth Engineer focused on bridging the gap between advanced web architecture and aggressive organic traffic scaling. Expert in Core Web Vitals optimization, programmatic SEO, and granular user journey tracking (GTM, GA4). I engineer automated asset optimization pipelines (WebP, S3) and complex Schema.org (JSON-LD) architectures to drastically improve search engine rankings and Conversion Rate Optimization (CRO). Proven history of reversing paid acquisition reliance by executing high-ROI, data-driven organic growth strategies.",
