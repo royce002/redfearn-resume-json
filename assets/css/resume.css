@@ -1,5 +1,29 @@
+/* ── design-system tokens ────────────────────────────────────────────────────
+   :root            → structural + persona accent palette (theme-invariant)
+   :root[data-theme] → per-theme fonts, gaps, and semantic color tokens
+   body[data-persona] → persona-specific color overrides (unchanged)
+   body.dark          → dark-mode overrides (composable with all themes)
+   ─────────────────────────────────────────────────────────────────────────── */
+
 :root {
-  /* Full-stack bright default (outage / no persona on body) */
+  /* structural — shared across all themes */
+  --radius: 10px;
+  --transition: 220ms ease;
+
+  /* persona accent refs (used in badge / select border rules) */
+  --c-frontend:  #c2410c;
+  --c-backend:   #6d28d9;
+  --c-fullstack: #1d4ed8;
+  --c-pm:        #0f766e;
+  --c-seo:       #b45309;
+}
+
+/* ── Theme 1: Modern Architect (default) ─────────────────────────────────── */
+:root[data-theme="modern"] {
+  --font-family:   "Inter", sans-serif;
+  --font-display:  "Bebas Neue", sans-serif;
+  --gap: 18px;
+
   --skeleton-base: #e0e7ff;
   --skeleton-shine: #eef2ff;
   --bg: #eef2ff;
@@ -14,18 +38,76 @@
   --accomplishment-text: #334155;
   --toggle-bg: #c7d2fe;
   --toggle-knob: #ffffff;
-
-  --c-frontend:  #c2410c;
-  --c-backend:   #6d28d9;
-  --c-fullstack: #1d4ed8;
-  --c-pm:        #0f766e;
-  --c-seo:       #b45309;
-
-  --radius: 10px;
-  --gap: 18px;
-  --transition: 220ms ease;
 }
 
+/* ── Theme 2: Legacy Terminal ─────────────────────────────────────────────── */
+:root[data-theme="legacy"] {
+  --font-family:  "IBM Plex Mono", "Courier New", monospace;
+  --font-display: "IBM Plex Mono", "Courier New", monospace;
+  --gap: 14px;
+  --radius: 0;
+
+  --skeleton-base: #001a00;
+  --skeleton-shine: #002600;
+  --bg: #0a0a0a;
+  --surface: #0d0d0d;
+  --surface2: #111;
+  --border: #00ff41;
+  --text: #00ff41;
+  --muted: #00b330;
+  --accent: #00ff41;
+  --chip-bg: #001a00;
+  --chip-text: #00ff41;
+  --accomplishment-text: #00e639;
+  --toggle-bg: #003300;
+  --toggle-knob: #00ff41;
+}
+
+/* ── Theme 3: Accessible / Enterprise ────────────────────────────────────── */
+:root[data-theme="accessible"] {
+  --font-family:  "Inter", sans-serif;
+  --font-display: "Bebas Neue", sans-serif;
+  --gap: 20px;
+  --radius: 8px;
+
+  --skeleton-base: #d1d5db;
+  --skeleton-shine: #e5e7eb;
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --surface2: #f3f4f6;
+  --border: #6b7280;
+  --text: #111827;
+  --muted: #374151;
+  --accent: #1d40af;
+  --chip-bg: #dbeafe;
+  --chip-text: #1e3a8a;
+  --accomplishment-text: #1f2937;
+  --toggle-bg: #93c5fd;
+  --toggle-knob: #ffffff;
+}
+
+/* ── Fallback for :root without data-theme (progressive enhancement) ──────── */
+:root:not([data-theme]) {
+  --font-family:   "Inter", sans-serif;
+  --font-display:  "Bebas Neue", sans-serif;
+  --gap: 18px;
+  --skeleton-base: #e0e7ff;
+  --skeleton-shine: #eef2ff;
+  --bg: #eef2ff;
+  --surface: #ffffff;
+  --surface2: #e0e7ff;
+  --border: #a5b4fc;
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #1d4ed8;
+  --chip-bg: #dbeafe;
+  --chip-text: #1e3a8a;
+  --accomplishment-text: #334155;
+  --toggle-bg: #c7d2fe;
+  --toggle-knob: #ffffff;
+}
+
+/* ── persona color overrides ─────────────────────────────────────────────── */
 body[data-persona="frontend"] {
   --skeleton-base: #ffedd5;
   --skeleton-shine: #fff7ed;
@@ -90,6 +172,7 @@ body[data-persona="seo"] {
   --toggle-bg: #fde68a;
 }
 
+/* ── dark mode overrides ─────────────────────────────────────────────────── */
 .dark {
   --skeleton-base: #252530;
   --skeleton-shine: #2e2e3c;
@@ -167,19 +250,76 @@ body.dark[data-persona="seo"] {
   --skeleton-shine: #78350f;
 }
 
+/* Legacy terminal dark is the same palette — extra dark just deepens blacks */
+:root[data-theme="legacy"] .dark,
+.dark:root[data-theme="legacy"] {
+  --bg: #000;
+  --surface: #030303;
+  --surface2: #080808;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-family, "Inter", sans-serif);
   font-size: 17px;
   line-height: 1.65;
   min-height: 100vh;
   padding: 40px 24px 100px;
-  transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), color var(--transition), font-family var(--transition);
 }
 
+/* ── accessible theme: wider line-height + larger base size ──────────────── */
+:root[data-theme="accessible"] body,
+html[data-theme="accessible"] body {
+  font-size: clamp(17px, 1.1vw + 14px, 20px);
+  line-height: 1.85;
+}
+
+/* ── legacy terminal: scanline overlay ───────────────────────────────────── */
+html[data-theme="legacy"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="legacy"] body::after { display: none; }
+}
+
+/* ── legacy: hide imagery, collapse gracefully ───────────────────────────── */
+html[data-theme="legacy"] .rc-avatar,
+html[data-theme="legacy"] .rc-job-gallery {
+  visibility: hidden;
+  height: 0 !important;
+  overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ── accessible: underlined links for WCAG compliance ───────────────────── */
+html[data-theme="accessible"] a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+html[data-theme="accessible"] :focus-visible {
+  outline-width: 3px;
+  outline-offset: 3px;
+}
+
+/* ── skip link ─────────────────────────────────────────────────────────── */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -223,10 +363,6 @@ body {
   border-radius: 4px;
 }
 
-#persona-select:focus:not(:focus-visible) {
-  outline: none;
-}
-
 /* ── wrapper ── */
 .resume-component {
   max-width: 1100px;
@@ -251,13 +387,12 @@ body {
 }
 
 .rc-avatar {
-  width: clamp(72px, 8vw, 96px);
-  height: clamp(72px, 8vw, 96px);
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--border);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: border-color var(--transition), transform var(--transition);
+  width: clamp(84px, 9vw, 112px);
+  height: clamp(84px, 9vw, 112px);
+  border-radius: 0;
+  object-fit: contain;
+  box-shadow: none;
+  transition: transform var(--transition);
   flex-shrink: 0;
 }
 
@@ -282,7 +417,6 @@ body {
     align-items: flex-start;
   }
 
-  /* Headline / summary nested under the name, left column only */
   .rc-identity .rc-role {
     margin-top: 12px;
     padding-left: clamp(14px, 1.25vw, 20px);
@@ -298,7 +432,7 @@ body {
 }
 
 .rc-identity h1 {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
   font-size: clamp(32px, 4.5vw, 54px);
   font-weight: 400;
   letter-spacing: 0.04em;
@@ -336,7 +470,7 @@ body {
   text-decoration: underline;
 }
 
-/* ── persona selector ── */
+/* ── persona / control bar ─────────────────────────────────────────────── */
 .rc-persona-bar {
   display: flex;
   align-items: center;
@@ -345,10 +479,11 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 12px 16px;
-  margin-bottom: 28px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
-.rc-persona-bar label {
+.rc-persona-bar label:not(.rc-dark-toggle) {
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -361,6 +496,7 @@ body {
   position: relative;
   flex: 1;
   max-width: 220px;
+  min-width: 120px;
 }
 
 .rc-select-wrap::after {
@@ -377,6 +513,8 @@ body {
   pointer-events: none;
 }
 
+/* shared styles for all control selects in the bar */
+.rc-control-select,
 #persona-select {
   appearance: none;
   width: 100%;
@@ -384,8 +522,8 @@ body {
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 8px 36px 8px 14px;
-  font-family: "Inter", sans-serif;
-  font-size: 16px;
+  font-family: var(--font-family, "Inter", sans-serif);
+  font-size: 15px;
   font-weight: 600;
   color: var(--text);
   cursor: pointer;
@@ -393,8 +531,13 @@ body {
   transition: border-color var(--transition), background var(--transition), color var(--transition);
 }
 
+.rc-control-select:focus,
 #persona-select:focus {
   border-color: var(--accent);
+}
+
+#persona-select:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .rc-persona-badge {
@@ -452,6 +595,117 @@ body {
   background: #4f46e5;
 }
 
+/* ── Platform Flyout ─────────────────────────────────────────────────────── */
+.rc-platform-flyout {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  animation: fadeIn var(--transition) both;
+}
+
+.rc-platform-flyout[hidden] { display: none; }
+
+.rc-platform-flyout__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+}
+
+.rc-platform-flyout__badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+}
+
+.rc-platform-flyout__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  flex: 1;
+  font-family: var(--font-family, "Inter", sans-serif);
+}
+
+.rc-platform-flyout__close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: color var(--transition), background var(--transition);
+}
+
+.rc-platform-flyout__close:hover {
+  color: var(--text);
+  background: var(--surface2);
+}
+
+.rc-platform-flyout__log {
+  padding: 10px 16px 12px;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.rc-platform-flyout__line {
+  display: flex;
+  gap: 10px;
+}
+
+.rc-platform-flyout__line--ok   .rc-log-status { color: #22c55e; }
+.rc-platform-flyout__line--info .rc-log-status { color: var(--accent); }
+.rc-platform-flyout__line--dim  { opacity: 0.55; }
+
+.rc-log-time  { color: var(--muted); opacity: 0.7; flex-shrink: 0; }
+.rc-log-status { flex-shrink: 0; }
+.rc-log-msg   { color: var(--text); }
+
+/* ── Network status atom (headless mode) ─────────────────────────────────── */
+.rc-network-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 12px;
+  color: var(--muted);
+  animation: fadeIn var(--transition) both;
+}
+
+.rc-network-status__method {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.rc-network-status__status {
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.rc-network-status__time {
+  margin-left: auto;
+  opacity: 0.65;
+}
+
 /* ── summary ── */
 .rc-summary {
   background: var(--surface);
@@ -469,7 +723,7 @@ body {
 
 .rc-summary strong {
   display: block;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
   font-size: 14px;
   letter-spacing: 0.18em;
   color: var(--accent);
@@ -482,7 +736,7 @@ body {
 }
 
 .rc-section-heading {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
   font-size: 22px;
   font-weight: 400;
   letter-spacing: 0.18em;
@@ -491,6 +745,12 @@ body {
   padding-bottom: 12px;
   border-bottom: 2px solid var(--accent);
   margin: 0 0 18px;
+}
+
+/* legacy terminal: tighter letter-spacing on mono display font */
+html[data-theme="legacy"] .rc-section-heading {
+  letter-spacing: 0.06em;
+  font-size: 18px;
 }
 
 /* ── skills grid ── */
@@ -531,6 +791,64 @@ body {
   border-radius: 6px;
   border: 1px solid var(--border);
   transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+/* ── Shopify: collection / variant layout ─────────────────────────────────── */
+.rc-collection-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  animation: fadeIn var(--transition) both;
+  transition: background var(--transition), border-color var(--transition);
+  position: relative;
+}
+
+.rc-collection-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.rc-collection-prefix {
+  font-size: 11px;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+.rc-collection-variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.rc-variant-tag {
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  transition: background var(--transition), color var(--transition);
+}
+
+/* Shopify mode: section heading override */
+[data-platform="shopify"] #skills-heading::after {
+  content: " — Liquid";
+  font-size: 13px;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+  font-weight: 400;
 }
 
 /* ── experience ── */
@@ -602,6 +920,12 @@ body {
   flex-shrink: 0;
 }
 
+/* accessible: larger accomplishment text */
+html[data-theme="accessible"] .rc-accomplishments li {
+  font-size: 17px;
+  line-height: 1.9;
+}
+
 /* ── empty state ── */
 .rc-empty {
   padding: 24px 20px;
@@ -639,8 +963,15 @@ body {
   will-change: opacity;
 }
 
+/* legacy: flicker the entire name, not just the suffix */
+html[data-theme="legacy"] #rc-name {
+  animation: broken-light 4s infinite;
+  will-change: opacity;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .flicker-suffix {
+  .flicker-suffix,
+  html[data-theme="legacy"] #rc-name {
     animation: none;
   }
 
@@ -662,30 +993,35 @@ body {
 @media (max-width: 768px) {
   body { padding: 24px 16px 80px; }
 
-  /* job header: stack company+position above dates */
   .rc-job-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
   }
 
-  /* gallery: tighter padding */
   .rc-job-gallery { margin: 10px 0 14px; }
   .rc-job-gallery-scroll .rc-slide-figure { min-height: 200px; aspect-ratio: 4 / 3; }
 
   .rc-gallery-prev,
   .rc-gallery-next { display: none; }
 
-  /* captions always visible on touch (no hover state) */
   .rc-slide-caption { opacity: 1; }
 
-  /* skills grid: single column */
   .rc-skills-grid { grid-template-columns: 1fr; }
 
-  /* persona bar: wrap so toggle doesn't get clipped */
-  .rc-persona-bar { flex-wrap: wrap; gap: 10px; }
-  .rc-select-wrap { max-width: 100%; flex: 1 1 140px; }
+  .rc-persona-bar { gap: 8px; }
+  .rc-select-wrap { max-width: 100%; flex: 1 1 120px; }
   .rc-dark-toggle { margin-left: 0; }
+
+  /* platform flyout: full-width panel on mobile */
+  .rc-platform-flyout {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    margin-left: -16px;
+    margin-right: -16px;
+    width: calc(100% + 32px);
+  }
 }
 
 @media (max-width: 560px) {
@@ -701,10 +1037,8 @@ body {
     max-width: none;
   }
 
-  /* accomplishment text slightly smaller so long bullets don't overflow */
   .rc-accomplishments li { font-size: 15px; padding: 12px 16px; }
 
-  /* section headings tighter */
   .rc-section-heading { font-size: 19px; }
 }
 
@@ -727,7 +1061,6 @@ body {
   display: block;
 }
 
-/* atom sizes reused throughout */
 .rc-sk-line {
   height: 13px;
   border-radius: 3px;
@@ -741,7 +1074,6 @@ body {
   flex-shrink: 0;
 }
 
-/* suppress arrow on skeleton accomplishment rows */
 .rc-sk-item::before { display: none !important; }
 .rc-sk-item { display: block !important; }
 
@@ -1023,6 +1355,7 @@ body {
   }
 
   .rc-persona-bar,
+  .rc-platform-flyout,
   .rc-gallery-prev,
   .rc-gallery-next,
   .rc-dark-toggle {
@@ -1032,6 +1365,7 @@ body {
   .rc-job,
   .rc-summary,
   .rc-skill-card,
+  .rc-collection-card,
   .rc-edu-card,
   .rc-rec-card {
     break-inside: avoid;

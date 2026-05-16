@@ -11,6 +11,53 @@ function rc_esc(?string $s): string
     return htmlspecialchars((string) ($s ?? ''), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+function rc_contact_link_label(string $url): string
+{
+    if (preg_match('#github\.com/([^/?#]+)#i', $url, $m)) {
+        return 'github.com/' . $m[1];
+    }
+    $host = parse_url($url, PHP_URL_HOST);
+    $path = parse_url($url, PHP_URL_PATH);
+
+    return ($host !== false && $host !== null && $host !== '')
+        ? $host . (($path !== false && $path !== null && $path !== '' && $path !== '/') ? $path : '')
+        : $url;
+}
+
+/**
+ * @param array<string, mixed> $basics
+ */
+function rc_render_contact(array $basics): string
+{
+    $html = '';
+    $em = (string) ($basics['email'] ?? '');
+    $ph = (string) ($basics['phone'] ?? '');
+    $u = (string) ($basics['url'] ?? '');
+    if ($em !== '') {
+        $html .= '<a href="mailto:' . rc_esc($em) . '">' . rc_esc($em) . '</a>';
+    }
+    if ($ph !== '') {
+        $tel = preg_replace('/[^\d+]/', '', $ph);
+        $html .= '<a href="tel:' . rc_esc($tel) . '">' . rc_esc($ph) . '</a>';
+    }
+    if ($u !== '') {
+        $html .= '<a href="' . rc_esc($u) . '" target="_blank" rel="noopener noreferrer">' . rc_esc($u) . '</a>';
+    }
+    $sameAs = $basics['sameAs'] ?? [];
+    if (!is_array($sameAs)) {
+        $sameAs = [];
+    }
+    foreach ($sameAs as $link) {
+        if (!is_string($link) || $link === '') {
+            continue;
+        }
+        $label = rc_contact_link_label($link);
+        $html .= '<a href="' . rc_esc($link) . '" target="_blank" rel="noopener noreferrer">' . rc_esc($label) . '</a>';
+    }
+
+    return $html;
+}
+
 /** Accept JSON scalars; strict_types-safe for odd resume data. */
 function rc_fmt_date($d): string
 {
@@ -155,6 +202,80 @@ function rc_render_skills(array $resume, string $persona): string
     }
 
     return $out !== '' ? $out : '<p class="rc-empty">No skills are tagged for this persona yet. Select <strong>Full-Stack Developer</strong> for the complete skill matrix.</p>';
+}
+
+/**
+ * Render skills section HTML depending on the active platform engine.
+ * - wordpress: standard skill card grid (default)
+ * - shopify:   Liquid-inspired collection / variant layout
+ * - headless:  skeleton atoms (JS will hydrate after simulated API fetch)
+ */
+function rc_render_skills_for_platform(array $resume, string $persona, string $platform): string
+{
+    if ($platform === 'shopify') {
+        return rc_render_skills_shopify($resume, $persona);
+    }
+    if ($platform === 'headless') {
+        return rc_render_skills_headless_skeleton();
+    }
+    return rc_render_skills($resume, $persona);
+}
+
+/** Shopify Liquid-style collection + variant card SSR. */
+function rc_render_skills_shopify(array $resume, string $persona): string
+{
+    $skills = $resume['skills'] ?? [];
+    if (!is_array($skills)) {
+        return '<p class="rc-empty">No collections available for this persona.</p>';
+    }
+    $out = '';
+    foreach ($skills as $s) {
+        if (!is_array($s)) {
+            continue;
+        }
+        $ps = $s['personas'] ?? [];
+        if (!is_array($ps) || !in_array($persona, $ps, true)) {
+            continue;
+        }
+        $cat = (string) ($s['category'] ?? '');
+        $handle = strtolower((string) preg_replace('/[^a-z0-9]+/i', '-', $cat));
+        $items = $s['items'] ?? [];
+        if (!is_array($items)) {
+            $items = [];
+        }
+        $variants = [];
+        foreach ($items as $i) {
+            $variants[] = '<span class="rc-variant-tag">' . rc_esc((string) $i) . '</span>';
+        }
+        $out .= '<div class="rc-collection-card" data-collection-handle="' . rc_esc($handle) . '">'
+            . '<h3 class="rc-collection-title"><span class="rc-collection-prefix">collection:</span> ' . rc_esc($cat) . '</h3>'
+            . '<div class="rc-collection-variants">' . implode('', $variants) . '</div>'
+            . '</div>';
+    }
+    return $out !== '' ? $out : '<p class="rc-empty">No collections available for this persona.</p>';
+}
+
+/** Headless: skeleton atoms for SSR first-paint — JS replaces on hydration. */
+function rc_render_skills_headless_skeleton(): string
+{
+    $skeletons = [
+        [55, [88, 72, 80, 64]],
+        [48, [84, 76, 58, 90, 54]],
+        [62, [68, 84, 100, 62]],
+        [50, [80, 90, 68]],
+    ];
+    $out = '';
+    foreach ($skeletons as [$titlePct, $chipWidths]) {
+        $chips = implode('', array_map(
+            static fn (int $w) => '<div class="rc-skeleton rc-sk-chip" style="width:' . $w . 'px;"></div>',
+            $chipWidths
+        ));
+        $out .= '<div class="rc-skill-card">'
+            . '<div class="rc-skeleton" style="height:14px;width:' . $titlePct . '%;margin-bottom:14px;"></div>'
+            . '<div style="display:flex;flex-wrap:wrap;gap:6px;">' . $chips . '</div>'
+            . '</div>';
+    }
+    return $out;
 }
 
 /**
@@ -389,12 +510,28 @@ function rc_render_recommendations(array $resume, string $persona): string
  */
 function rc_person_json_ld(array $resume, string $persona, string $canonicalUrl): array
 {
+    $filterNulls = static function (array $a): array {
+        return array_filter(
+            $a,
+            static function ($v): bool {
+                if ($v === null || $v === '' || $v === []) {
+                    return false;
+                }
+                if (is_array($v)) {
+                    return $v !== [];
+                }
+
+                return true;
+            }
+        );
+    };
+
     $basics = $resume['basics'] ?? [];
     $p = $resume['personas'][$persona] ?? [];
     $name = (string) ($basics['name'] ?? '');
     $email = (string) ($basics['email'] ?? '');
     $phone = (string) ($basics['phone'] ?? '');
-    $url = (string) ($basics['url'] ?? '');
+    $personSiteUrl = (string) ($basics['url'] ?? '');
     $sameAs = $basics['sameAs'] ?? [];
     if (!is_array($sameAs)) {
         $sameAs = [];
@@ -418,6 +555,10 @@ function rc_person_json_ld(array $resume, string $persona, string $canonicalUrl)
     if (is_array($skills)) {
         foreach ($skills as $s) {
             if (!is_array($s)) {
+                continue;
+            }
+            $ps = $s['personas'] ?? [];
+            if (!is_array($ps) || !in_array($persona, $ps, true)) {
                 continue;
             }
             $items = $s['items'] ?? [];
@@ -458,35 +599,51 @@ function rc_person_json_ld(array $resume, string $persona, string $canonicalUrl)
         }
     }
 
-    $schema = [
-        '@context' => 'https://schema.org',
+    $jobTitle = (string) ($p['title'] ?? $basics['label'] ?? '');
+    $personId = $canonicalUrl . '#person';
+
+    $pageName = $name !== '' && $jobTitle !== ''
+        ? $name . ' — ' . $jobTitle
+        : ($name !== '' ? $name : ($jobTitle !== '' ? $jobTitle : null));
+
+    $person = $filterNulls([
         '@type' => 'Person',
-        'name' => $name,
+        '@id' => $personId,
+        'name' => $name !== '' ? $name : null,
         'image' => $imageAbsolute,
-        'url' => $canonicalUrl,
-        'email' => $email !== '' ? 'mailto:' . $email : null,
+        'url' => $personSiteUrl !== '' ? $personSiteUrl : $canonicalUrl,
+        'email' => $email !== '' ? $email : null,
         'telephone' => $phone !== '' ? $phone : null,
-        'jobTitle' => (string) ($p['title'] ?? ''),
-        'description' => (string) ($p['summary'] ?? ''),
+        'jobTitle' => $jobTitle !== '' ? $jobTitle : null,
+        'description' => (string) ($p['summary'] ?? '') !== '' ? (string) $p['summary'] : null,
         'address' => [
             '@type' => 'PostalAddress',
             'addressLocality' => 'Fort Worth',
             'addressRegion' => 'TX',
             'addressCountry' => 'US',
         ],
-        'worksFor' => $worksFor !== [] ? $worksFor : null,
-        'alumniOf' => $alumniOf !== [] ? $alumniOf : null,
+        'worksFor' => $worksFor !== [] ? (count($worksFor) === 1 ? $worksFor[0] : $worksFor) : null,
+        'alumniOf' => $alumniOf !== [] ? (count($alumniOf) === 1 ? $alumniOf[0] : $alumniOf) : null,
         'knowsAbout' => $knowsAbout !== [] ? array_values(array_unique($knowsAbout)) : null,
         'sameAs' => $sameAs !== [] ? $sameAs : null,
-    ];
-    if ($url !== '') {
-        $schema['mainEntityOfPage'] = ['@type' => 'ProfilePage', '@id' => $canonicalUrl];
+        'mainEntityOfPage' => [
+            '@type' => 'ProfilePage',
+            '@id' => $canonicalUrl,
+        ],
+    ]);
+
+    $pageDescription = (string) ($p['metaDescription'] ?? '');
+    if ($pageDescription === '') {
+        $pageDescription = (string) ($p['summary'] ?? '');
     }
 
-    return array_filter(
-        $schema,
-        static function ($v): bool {
-            return $v !== null && $v !== [] && $v !== '';
-        }
-    );
+    return $filterNulls([
+        '@context' => 'https://schema.org',
+        '@type' => 'ProfilePage',
+        '@id' => $canonicalUrl,
+        'url' => $canonicalUrl,
+        'name' => $pageName,
+        'description' => $pageDescription !== '' ? $pageDescription : null,
+        'mainEntity' => $person,
+    ]);
 }

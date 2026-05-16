@@ -9,7 +9,7 @@ header(
     . "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.logr-in.com https://embed.tawk.to https://*.tawk.to; "
     . "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
     . "font-src 'self' https://fonts.gstatic.com; "
-    . "img-src 'self' data: https://assets.redfearn.co https://placehold.co; "
+    . "img-src 'self' data: https://assets.redfearn.co https://placehold.co https://lh3.googleusercontent.com; "
     . "connect-src 'self' wss: https:; "
     . "frame-src https://embed.tawk.to https://*.tawk.to;"
 );
@@ -40,15 +40,47 @@ foreach ($persona_keys as $k) {
     }
 }
 
+// ── Platform / Theme config from viewConfig SSOT ──────────────────────────
+$view_config     = is_array($initial_resume) ? ($initial_resume['viewConfig'] ?? []) : [];
+$platform_config = is_array($view_config['platforms'] ?? null) ? $view_config['platforms'] : [
+    'wordpress' => ['label' => 'WordPress (Timber / REST)'],
+    'shopify'   => ['label' => 'Shopify (Liquid)'],
+    'headless'  => ['label' => 'Headless (Decoupled API)'],
+];
+$theme_config = is_array($view_config['themes'] ?? null) ? $view_config['themes'] : [
+    'modern'     => ['label' => 'Modern Architect'],
+    'legacy'     => ['label' => 'Legacy Terminal'],
+    'accessible' => ['label' => 'Accessible / Enterprise'],
+];
+$valid_platforms = array_keys($platform_config);
+$valid_themes    = array_keys($theme_config);
+
+// Priority: URL → cookie → default
 $active_persona = 'fullstack';
 if ($initial_resume !== null && isset($_GET['show_as']) && is_string($_GET['show_as']) && in_array($_GET['show_as'], $persona_keys, true)) {
     $active_persona = $_GET['show_as'];
+}
+
+$active_platform = 'wordpress';
+if (isset($_GET['platform']) && is_string($_GET['platform']) && in_array($_GET['platform'], $valid_platforms, true)) {
+    $active_platform = $_GET['platform'];
+} elseif (isset($_COOKIE['rc_platform']) && is_string($_COOKIE['rc_platform']) && in_array($_COOKIE['rc_platform'], $valid_platforms, true)) {
+    $active_platform = $_COOKIE['rc_platform'];
+}
+
+$active_theme = 'modern';
+if (isset($_GET['theme']) && is_string($_GET['theme']) && in_array($_GET['theme'], $valid_themes, true)) {
+    $active_theme = $_GET['theme'];
+} elseif (isset($_COOKIE['rc_theme']) && is_string($_COOKIE['rc_theme']) && in_array($_COOKIE['rc_theme'], $valid_themes, true)) {
+    $active_theme = $_COOKIE['rc_theme'];
 }
 
 $base_trim = rtrim(RC_BASE_URL, '/');
 $canonical_url = $active_persona === 'fullstack'
     ? $base_trim . '/'
     : $base_trim . '/?show_as=' . rawurlencode($active_persona);
+
+rc_redirect_to_canonical_url_if_needed($canonical_url, $active_persona, $valid_platforms, $valid_themes);
 
 $assets_base = rtrim($cloudflare['public_url'], '/') . '/';
 $og_image = $assets_base . 'og/' . rawurlencode($active_persona) . '.png';
@@ -81,9 +113,16 @@ if ($initial_resume !== null) {
 
 $critical_css_path = __DIR__ . '/assets/css/critical.min.css';
 $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_css_path) : '';
+
+if ($initial_resume === null) {
+    http_response_code(503);
+    header('Retry-After: 3600');
+} else {
+    header('Link: <' . $canonical_url . '>; rel="canonical"');
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="<?php echo rc_esc($active_theme); ?>">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -125,7 +164,7 @@ $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_cs
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://assets.redfearn.co" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bebas+Neue&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
     <style><?php echo $critical_css; ?></style>
@@ -147,6 +186,7 @@ $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_cs
     </script>
     <main id="resume-root" class="resume-component"
          data-persona="<?php echo rc_esc($active_persona); ?>"
+         data-platform="<?php echo rc_esc($active_platform); ?>"
          data-assets-base="<?php echo rc_esc($assets_base); ?>"
          data-hydrated="true">
 
@@ -167,29 +207,14 @@ $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_cs
           </div>
         </div>
         <div class="rc-contact" id="rc-contact">
-          <?php
-            $b = $initial_resume['basics'] ?? [];
-            $em = (string) ($b['email'] ?? '');
-            $ph = (string) ($b['phone'] ?? '');
-            $u = (string) ($b['url'] ?? '');
-            if ($em !== '') {
-                echo '<a href="mailto:' . rc_esc($em) . '">' . rc_esc($em) . '</a>';
-            }
-            if ($ph !== '') {
-                $tel = preg_replace('/[^\d+]/', '', $ph);
-                echo '<a href="tel:' . rc_esc($tel) . '">' . rc_esc($ph) . '</a>';
-            }
-            if ($u !== '') {
-                echo '<a href="' . rc_esc($u) . '" target="_blank" rel="noopener noreferrer">' . rc_esc($u) . '</a>';
-            }
-          ?>
+          <?php echo rc_render_contact($initial_resume['basics'] ?? []); ?>
         </div>
       </header>
 
-      <form id="persona-form" class="rc-persona-bar" method="get" action="/" aria-label="Persona view">
+      <form id="persona-form" class="rc-persona-bar" method="get" action="/" aria-label="View controls">
         <label for="persona-select">View as</label>
         <div class="rc-select-wrap">
-          <select id="persona-select" name="show_as">
+          <select id="persona-select" name="show_as" class="rc-control-select">
             <?php
             foreach ($persona_order as $pk) {
                 $pl = $initial_resume['personas'][$pk]['selectLabel'] ?? $pk;
@@ -200,20 +225,49 @@ $critical_css = is_readable($critical_css_path) ? file_get_contents($critical_cs
           </select>
         </div>
         <span class="rc-persona-badge" id="rc-badge"><?php echo rc_esc((string) ($p_meta['badgeLabel'] ?? '')); ?></span>
+
+        <label for="platform-select" style="display:none">Platform</label>
+        <div class="rc-select-wrap" style="display:none">
+          <select id="platform-select" name="platform" class="rc-control-select">
+            <?php
+            foreach ($platform_config as $pk => $pmeta) {
+                $pl = is_array($pmeta) ? ($pmeta['label'] ?? $pk) : $pk;
+                $sel = $pk === $active_platform ? ' selected' : '';
+                echo '<option value="' . rc_esc((string) $pk) . '"' . $sel . '>' . rc_esc((string) $pl) . '</option>';
+            }
+            ?>
+          </select>
+        </div>
+
+        <label for="theme-select" style="display:none">Skin</label>
+        <div class="rc-select-wrap" style="display:none">
+          <select id="theme-select" name="theme" class="rc-control-select">
+            <?php
+            foreach ($theme_config as $tk => $tmeta) {
+                $tl = is_array($tmeta) ? ($tmeta['label'] ?? $tk) : $tk;
+                $sel = $tk === $active_theme ? ' selected' : '';
+                echo '<option value="' . rc_esc((string) $tk) . '"' . $sel . '>' . rc_esc((string) $tl) . '</option>';
+            }
+            ?>
+          </select>
+        </div>
+
         <label class="rc-dark-toggle" id="dark-toggle" title="Toggle dark mode">
           <span id="dark-label"><?php echo $dark_initial ? 'Light' : 'Dark'; ?></span>
           <div class="rc-toggle-track">
             <div class="rc-toggle-knob"></div>
           </div>
         </label>
-        <button type="submit" class="rc-sr-only">Apply persona</button>
+        <button type="submit" class="rc-sr-only">Apply view settings</button>
       </form>
+
+      <aside id="rc-platform-flyout" class="rc-platform-flyout" hidden aria-live="polite" aria-label="Platform render log"></aside>
 
       <div id="rc-summary" class="rc-summary"><?php echo rc_render_summary($initial_resume, $active_persona); ?></div>
 
       <section class="rc-section" aria-labelledby="skills-heading">
-        <h2 id="skills-heading" class="rc-section-heading">Skills</h2>
-        <div class="rc-skills-grid" id="rc-skills"><?php echo rc_render_skills($initial_resume, $active_persona); ?></div>
+        <h2 id="skills-heading" class="rc-section-heading"><?php echo $active_platform === 'shopify' ? 'Product Collections' : 'Skills'; ?></h2>
+        <div class="rc-skills-grid" id="rc-skills"><?php echo rc_render_skills_for_platform($initial_resume, $active_persona, $active_platform); ?></div>
       </section>
 
       <section class="rc-section" aria-labelledby="exp-heading">
