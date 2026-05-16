@@ -10,6 +10,11 @@
   --radius: 10px;
   --transition: 220ms ease;
 
+  /* ambient page background wash (slower than UI --transition) */
+  --bg-wash-angle: 135deg;
+  --bg-wash-duration: 18s;
+  --bg-wash-easing: ease-in-out;
+
   /* persona accent refs (used in badge / select border rules) */
   --c-frontend:  #c2410c;
   --c-backend:   #6d28d9;
@@ -261,14 +266,41 @@ body.dark[data-persona="seo"] {
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--bg);
+  position: relative;
+  background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-family, "Inter", sans-serif);
   font-size: 17px;
   line-height: 1.65;
   min-height: 100vh;
   padding: 40px 24px 100px;
-  transition: background var(--transition), color var(--transition), font-family var(--transition);
+  transition: background-color var(--transition), color var(--transition), font-family var(--transition);
+}
+
+/* Persona + theme wash: fixed layer, slow opacity breathe (see @keyframes subtleBgWash) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    var(--bg-wash-angle),
+    color-mix(in srgb, var(--bg) 96%, var(--accent)) 0%,
+    color-mix(in srgb, var(--bg) 90%, var(--accent)) 100%
+  );
+  opacity: 0.32;
+  animation: subtleBgWash var(--bg-wash-duration) var(--bg-wash-easing) alternate infinite;
+}
+
+html[data-theme="legacy"] body::before {
+  background-image: linear-gradient(
+    var(--bg-wash-angle),
+    color-mix(in srgb, var(--bg) 98%, var(--accent)) 0%,
+    color-mix(in srgb, var(--bg) 94%, var(--accent)) 100%
+  );
+  animation-name: subtleBgWashLegacy;
+  animation-duration: 22s;
 }
 
 /* ── accessible theme: wider line-height + larger base size ──────────────── */
@@ -364,6 +396,12 @@ html[data-theme="accessible"] :focus-visible {
 }
 
 /* ── wrapper ── */
+#resume-root,
+.resume-component {
+  position: relative;
+  z-index: 1;
+}
+
 .resume-component {
   max-width: 1100px;
   margin: 0 auto;
@@ -975,6 +1013,15 @@ html[data-theme="legacy"] #rc-name {
     animation: none;
   }
 
+  body::before {
+    animation: none;
+    opacity: 0.32;
+  }
+
+  html[data-theme="legacy"] body::before {
+    opacity: 0.2;
+  }
+
   *,
   *::before,
   *::after {
@@ -982,6 +1029,16 @@ html[data-theme="legacy"] #rc-name {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+@keyframes subtleBgWash {
+  from { opacity: 0.26; }
+  to   { opacity: 0.44; }
+}
+
+@keyframes subtleBgWashLegacy {
+  from { opacity: 0.14; }
+  to   { opacity: 0.24; }
 }
 
 @keyframes fadeIn {
