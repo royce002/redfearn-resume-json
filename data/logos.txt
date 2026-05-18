@@ -1,0 +1,56 @@
+# Brand logos: NAME<TAB>value — local refs must be .webp or .svg only
+#
+# ── Fossil Inc. client brands (agencyGrid) ──
+A/X (Armani Exchange)	brands/fort-worth-wordpress-developer-armani-client-logo.webp
+AAVAN ALLIANCE LTD	text
+ADIDAS	brands/fort-worth-wordpress-developer-adidas-client-logo.webp
+ADIDAS ORIGINALS	brands/fort-worth-wordpress-developer-adidas-client-logo.webp
+ARMANI	brands/fort-worth-wordpress-developer-armani-client-logo.webp
+AVIA	https://upload.wikimedia.org/wikipedia/en/5/5a/Avia_Logo.svg
+BILLABONG	https://upload.wikimedia.org/wikipedia/en/7/72/Billabong_logo.svg
+BURBERRY	north-texas-web-developer-agency-client-brand.webp
+CALLAWAY	https://upload.wikimedia.org/wikipedia/en/2/2c/Callaway_Golf_Company_logo.svg
+CHRIST	https://upload.wikimedia.org/wikipedia/commons/1/1a/Christ_Juweliere_und_Uhrmacher_Logo.svg
+COLE HAAN	https://upload.wikimedia.org/wikipedia/commons/3/3a/Cole_Haan_logo.svg
+COLUMBIA	https://upload.wikimedia.org/wikipedia/en/7/7c/Columbia_Sportswear_Co_logo.svg
+DIESEL	fort-worth-frontend-developer-portfolio-client-logo.webp
+DKNY	https://upload.wikimedia.org/wikipedia/commons/4/4f/DKNY_logo.svg
+FOSSIL	brands/dfw-wordpress-developer-fossil-client-logo.webp
+FOSSIL.COM	dfw-wordpress-developer-brand-mark-client-logo.webp
+FRANCK GEHRY	https://upload.wikimedia.org/wikipedia/commons/8/87/Frank_Gehry_Signature.svg
+GEHRY	https://upload.wikimedia.org/wikipedia/commons/8/87/Frank_Gehry_Signature.svg
+KARL LAGERFELD	https://upload.wikimedia.org/wikipedia/commons/9/9e/Karl_Lagerfeld_logo.svg
+LILU	text
+MARC BY MARC	https://upload.wikimedia.org/wikipedia/commons/6/6e/Marc_Jacobs_logo.svg
+MASS MARKET	text
+MICHAEL KORS	https://upload.wikimedia.org/wikipedia/commons/1/17/Michael_Kors_Logo.svg
+MW	text
+NURSE MATES	https://upload.wikimedia.org/wikipedia/commons/a/ae/Nurse_Mates_Text_Logo.svg
+PAUL FRANK	https://upload.wikimedia.org/wikipedia/en/e/e8/Paul_Frank_logo.svg
+PHILIPPE STARCK	https://upload.wikimedia.org/wikipedia/commons/1/10/Starck_logo.svg
+PL (Private Label)	text
+PREMIUM	text
+PRIVATE LABEL	text
+RADIANT	text
+RELIC	https://upload.wikimedia.org/wikipedia/commons/0/07/Relic_Brand_Logo.svg
+SKAGEN	https://upload.wikimedia.org/wikipedia/en/9/9a/Skagen_Denmark_logo.svg
+SONY ERICSSON	https://upload.wikimedia.org/wikipedia/commons/1/14/Sony_Ericsson_logo.svg
+#
+# ── AGENCY BRANDS (career employers & clients) ──
+AMPLIFI COMMERCE	fort-worth-web-developer-amplifi-commerce-agency-logo.webp
+ADVANTIS MEDICAL STAFFING	brands/advantis-medical.svg
+KENNETH COPELAND MINISTRIES	text
+LOCK&LOCK	https://upload.wikimedia.org/wikipedia/commons/b/bb/LocknLock_logo.svg
+LOCK&LOCK TEXAS INC.	https://upload.wikimedia.org/wikipedia/commons/b/bb/LocknLock_logo.svg
+PAMPILLONIA JEWELERS	brands/pampillonia.svg
+QUICK TECHNOLOGIES (SAGE)	brands/sage-qti.svg
+QUICK TECHNOLOGIES INC	brands/sage-qti.svg
+TARRANT REGIONAL WATER DISTRICT	brands/trwd-logo.svg
+TRINITY RIVER VISION AUTHORITY	brands/trwd-logo.svg
+TRYRDESIGN	brands/tryrdesign.svg
+TRYRDESIGN | REDFEARN.CO	brands/tryrdesign.svg
+DEEP WELL CONSULTING	brands/deep-well.svg
+FOSSIL INC.	brands/dfw-wordpress-developer-fossil-client-logo.webp
+NINTENDO	brands/fort-worth-web-developer-nintendo-client-logo.webp
+NINTENDO 3DS	brands/fort-worth-web-developer-nintendo-client-logo.webp
+WEB VIDEO 360	fort-worth-web-developer-webvideo360-agency-logo.webp

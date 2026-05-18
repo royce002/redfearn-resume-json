@@ -1,0 +1,128 @@
+/*
+ * PERFORM BASIC FORM VALIDATION
+ */
+( function () {
+    'use strict';
+    window.addEventListener( 'load', function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName( 'needs-validation' );
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call( forms, function ( form ) {
+            form.addEventListener( 'submit', function ( event ) {
+                console.log( form.name );
+                if ( form.name === "ORR" ) {
+                    // alert('TADAAA!');
+                }
+                if ( form.checkValidity() === false ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    event.preventDefault();
+                    $.ajax( {
+                        type: "POST",
+                        url: 'php/form-process.php',
+                        data: $( 'form[name="' + form.name + '"]' ).serialize(),
+                        success: function ( data ) {
+                            console.log( 'form[name="' + form.name + '"] submitted' );
+                            $( 'form[name="' + form.name + '"] .form-status' ).html( data );
+
+                            $( 'form[name="' + form.name + '"] input, form[name="' + form.name + '"] textarea' ).attr( 'readonly', 'readonly' );
+                            $( 'form[name="' + form.name + '"] button[type=submit]' ).attr( "disabled", "disabled" );
+                        },
+                        error: function () {
+                            console.log( 'Error Detected' );
+                        }
+                    } );
+                }
+                form.classList.add( 'was-validated' );
+            }, false );
+        } );
+    }, false );
+} )();
+
+/*
+ * LETS DO JQUERY STUFF
+ */
+$(document).ready(function() {
+    /*
+     * DONT APPEND HASH TO TABBED ITEMS IN MODAL
+     */
+    $('a[data-toggle="tab"]').click(function(e) {
+        e.preventDefault();
+        //console.log("stop me from appending to the url");// dont append hash to url
+        $(this).tab('show');
+    });
+
+    $('a[data-toggle="modal"]').click(function(e) {
+        e.preventDefault();
+        console.log("This was triggered by a modal");
+        window.location.hash = $(this).attr('href');
+    });
+    /*
+     * ADD CURRENT SLIDER CLASS TO BODY TAG
+     */
+    // I dont really need to do this anymore, nuke in the future. 2020-02-27
+    // $('.carousel').on('slid.bs.carousel', function() {
+    //     var boop = $(this).find(".active").attr("class");
+    //     boop = boop.replace(" carousel-item active", "");
+    // });
+
+    document.onkeydown = checkKey;
+    // Move carousel depending on keypress
+    function checkKey(e) {
+        e = e || window.event;
+
+        if (e.keyCode == '32') {
+            // spacebar
+            $('.carousel').carousel('pause');
+        } else if (e.keyCode == '37') {
+            // left arrow
+            $('.carousel').carousel('next');
+        } else if (e.keyCode == '39') {
+            // right arrow
+            $('.carousel').carousel('prev');
+        }
+    }
+    $(document).click(function(e) {
+        /*
+         * CLOSE MOBILE MENU IF OUTSIDE OF BUTTON DROPDOWN IS CLICKED
+         */
+        if (!$(this).is('.navbar-nav')) {
+            $('.collapse').collapse('hide');
+        }
+        // CHECK IF LINK IS A MODAL TRIGGER
+        // if ($(this).attr('data-toggle', 'modal')) {
+        //     console.log("This was triggered by a modal");
+        //     window.location.hash = $(this).attr('href');
+        // }
+
+        // if ($(this).attr('data-toggle', 'tab')) {
+        //     e.preventDefault();
+        //     console.log('default not prevented' + $(this).attr('href'));
+        //     $(this).tab('show');
+        // }
+
+    }); // END OF CLICK EVENT HANDLERS
+
+    /*
+     * ON PAGELOAD DETECT IF HASH IS IN URL AND OPEN ASSOCIATED MODAL
+     */
+    if (window.location.hash) {
+        var hash = window.location.hash;
+        $(hash).modal('toggle');
+    }
+
+    /*
+     * REMOVE HASH FROM URL ONCE MODAL IS CLOSED
+     */
+    $('.modal').on('hidden.bs.modal', function(e) {
+        var currentHash = window.location.href.split('#')[0];
+        // console.log(currentHash);
+        history.replaceState(null, null, ' ');
+    });
+
+    // TODO: HIDE THE CONTACT MODAL ONCE THE ORR MODAL IS ACTIVATED. CODE BELOW DIDNT WORK...
+    // $(".btn-outline-info").on('shown.bs.modal', function (e) {
+    //     $('#contactForm').modal("hide");
+    // });
+}); // END OF DOCUMENT READY

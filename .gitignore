@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+.vscode/
+
+# Resume media lives on R2 (https://assets.redfearn.co/images/)
+assets/images/*
+!assets/images/.gitkeep
+!assets/images/image-grabber.py
+!assets/images/urls.txt
+!assets/images/site.webmanifest

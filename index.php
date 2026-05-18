@@ -1,18 +1,8 @@
 <?php
 declare(strict_types=1);
 
-header('X-Frame-Options: DENY');
-header('X-Content-Type-Options: nosniff');
-header('Referrer-Policy: strict-origin-when-cross-origin');
-header(
-    "Content-Security-Policy: default-src 'self'; "
-    . "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.logr-in.com https://embed.tawk.to https://*.tawk.to; "
-    . "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-    . "font-src 'self' https://fonts.gstatic.com; "
-    . "img-src 'self' data: https://assets.redfearn.co https://placehold.co https://lh3.googleusercontent.com; "
-    . "connect-src 'self' wss: https:; "
-    . "frame-src https://embed.tawk.to https://*.tawk.to;"
-);
+require_once __DIR__ . '/config/security.php';
+rc_send_security_headers();
 
 require_once __DIR__ . '/config/personas.php';
 require_once __DIR__ . '/config/render.php';
@@ -57,8 +47,10 @@ $valid_themes    = array_keys($theme_config);
 
 // Priority: URL → cookie → default
 $active_persona = 'fullstack';
-if ($initial_resume !== null && isset($_GET['show_as']) && is_string($_GET['show_as']) && in_array($_GET['show_as'], $persona_keys, true)) {
-    $active_persona = $_GET['show_as'];
+if ($initial_resume !== null && isset($_GET['show_as']) && is_string($_GET['show_as'])) {
+    if ($_GET['show_as'] === RC_VIEW_ALL_PERSONA || in_array($_GET['show_as'], $persona_keys, true)) {
+        $active_persona = $_GET['show_as'];
+    }
 }
 
 $active_platform = 'wordpress';
@@ -83,17 +75,20 @@ $canonical_url = $active_persona === 'fullstack'
 rc_redirect_to_canonical_url_if_needed($canonical_url, $active_persona, $valid_platforms, $valid_themes);
 
 $assets_base = rtrim($cloudflare['public_url'], '/') . '/';
-$og_image = $assets_base . 'og/' . rawurlencode($active_persona) . '.png';
+$og_persona = $active_persona === RC_VIEW_ALL_PERSONA ? 'fullstack' : $active_persona;
+$og_image = $assets_base . 'og/' . rawurlencode($og_persona) . '.png';
 
 $p_meta = $initial_resume !== null && isset($initial_resume['personas'][$active_persona])
     ? $initial_resume['personas'][$active_persona]
     : [];
-$og_title = 'Royce Redfearn Jr. — ' . (string) ($p_meta['title'] ?? 'Resume');
+$og_title = $active_persona === RC_VIEW_ALL_PERSONA
+    ? 'Royce Redfearn Jr. — Resume (all personas)'
+    : 'Royce Redfearn Jr. — ' . (string) ($p_meta['title'] ?? 'Resume');
 $og_desc = (string) ($p_meta['metaDescription'] ?? '');
 
 $avatar_url = $initial_resume !== null
-    ? (string) ($p_meta['image'] ?? $initial_resume['basics']['image'] ?? '/assets/images/image_738ca0.jpg')
-    : '/assets/images/image_738ca0.jpg';
+    ? (string) ($p_meta['image'] ?? $initial_resume['basics']['image'] ?? '')
+    : '';
 
 $dark_initial = false;
 if (isset($_COOKIE['rc_dark']) && $_COOKIE['rc_dark'] === '1') {
@@ -159,12 +154,12 @@ if ($initial_resume === null) {
     <meta name="description" content="<?php echo rc_esc($og_desc); ?>" />
     <link rel="canonical" href="<?php echo rc_esc($canonical_url); ?>" />
 
-    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg" />
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="<?php echo rc_esc($assets_base . 'favicon-96x96.png'); ?>" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="<?php echo rc_esc($assets_base . 'favicon.svg'); ?>" />
+    <link rel="shortcut icon" href="<?php echo rc_esc($assets_base . 'favicon.ico'); ?>" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo rc_esc($assets_base . 'apple-touch-icon.png'); ?>" />
     <meta name="apple-mobile-web-app-title" content="Resume Royce Redfearn" />
-    <link rel="manifest" href="/assets/images/site.webmanifest" />
+    <link rel="manifest" href="<?php echo rc_esc($assets_base . 'site.webmanifest'); ?>" />
 
     <meta name="theme-color" content="<?php echo rc_esc($theme_color); ?>" />
     <meta name="color-scheme" content="light dark" />
@@ -210,6 +205,7 @@ if ($initial_resume === null) {
 <?php } else { ?>
     <script>
       window.INITIAL_RESUME_DATA = <?php echo json_encode($initial_resume, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
+      window.RC_BRAND_LOGOS = <?php echo json_encode(rc_load_brand_logos(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
     </script>
     <main id="resume-root" class="resume-component"
          data-persona="<?php echo rc_esc($active_persona); ?>"
@@ -226,6 +222,8 @@ if ($initial_resume === null) {
             class="rc-avatar"
             width="96"
             height="96"
+            loading="eager"
+            decoding="async"
             fetchpriority="high"
           />
           <div class="rc-identity">
@@ -248,10 +246,18 @@ if ($initial_resume === null) {
                 $sel = $pk === $active_persona ? ' selected' : '';
                 echo '<option value="' . rc_esc($pk) . '"' . $sel . '>' . rc_esc((string) $pl) . '</option>';
             }
+            $viewAllSel = $active_persona === RC_VIEW_ALL_PERSONA ? ' selected' : '';
+            echo '<option value="' . rc_esc(RC_VIEW_ALL_PERSONA) . '"' . $viewAllSel . '>View All</option>';
             ?>
           </select>
         </div>
-        <span class="rc-persona-badge" id="rc-badge"><?php echo rc_esc((string) ($p_meta['badgeLabel'] ?? '')); ?></span>
+        <span class="rc-persona-badge" id="rc-badge"><?php
+            echo rc_esc(
+                $active_persona === RC_VIEW_ALL_PERSONA
+                    ? 'View All'
+                    : (string) ($p_meta['badgeLabel'] ?? '')
+            );
+        ?></span>
 
         <label for="platform-select" style="display:none">Platform</label>
         <div class="rc-select-wrap" style="display:none">
@@ -303,6 +309,15 @@ if ($initial_resume === null) {
       </section>
 
       <?php
+        $portfolio_html = rc_render_portfolio($initial_resume, $active_persona, $assets_base);
+        $portfolio_hidden = $portfolio_html === '';
+      ?>
+      <section class="rc-section rc-section-portfolio" id="rc-section-portfolio"<?php echo $portfolio_hidden ? ' hidden' : ''; ?> aria-labelledby="portfolio-heading">
+        <h2 id="portfolio-heading" class="rc-section-heading">Portfolio</h2>
+        <div id="rc-portfolio"><?php echo $portfolio_html; ?></div>
+      </section>
+
+      <?php
         $edu_html = rc_render_education($initial_resume);
         $edu_hidden = $edu_html === '';
       ?>
@@ -311,35 +326,66 @@ if ($initial_resume === null) {
         <div id="rc-education"><?php echo $edu_html; ?></div>
       </section>
 
-      <?php
-        $rec_html = rc_render_recommendations($initial_resume, $active_persona);
-        $rec_hidden = $rec_html === '';
-      ?>
-      <section class="rc-section rc-section-recommendations" id="rc-section-recommendations"<?php echo $rec_hidden ? ' hidden' : ''; ?> aria-labelledby="rec-heading">
+      <section class="rc-section rc-section-recommendations" id="rc-section-recommendations" hidden aria-labelledby="rec-heading">
         <h2 id="rec-heading" class="rc-section-heading">Recommendations</h2>
-        <div id="rc-recommendations"><?php echo $rec_html; ?></div>
+        <div id="rc-recommendations"></div>
       </section>
 
     </main>
 <?php } ?>
-    <script src="https://cdn.logr-in.com/LogRocket.min.js" crossorigin="anonymous"></script>
-    <script>
-      window.LogRocket && window.LogRocket.init("3iqi5o/redfearnco");
+
+    <dialog id="rc-project-modal" class="rc-project-modal" aria-labelledby="rc-modal-title">
+      <div class="rc-project-modal__panel">
+        <header class="rc-project-modal__header">
+          <div>
+            <p class="rc-modal-company" hidden></p>
+            <h2 id="rc-modal-title" class="rc-modal-title"></h2>
+          </div>
+          <button type="button" class="rc-modal-close" aria-label="Close project details">×</button>
+        </header>
+        <div class="rc-project-modal__body">
+          <div class="rc-modal-showcase">
+            <div class="rc-modal-desktop">
+              <img src="" alt="" decoding="async" />
+            </div>
+            <div class="rc-modal-mobile">
+              <div class="rc-modal-mobile-frame">
+                <img src="" alt="" decoding="async" />
+              </div>
+            </div>
+          </div>
+          <p class="rc-modal-description" hidden></p>
+        </div>
+        <footer class="rc-project-modal__footer">
+          <button type="button" class="rc-modal-prev" aria-label="Previous project">‹</button>
+          <span class="rc-modal-counter" aria-live="polite"></span>
+          <button type="button" class="rc-modal-next" aria-label="Next project">›</button>
+        </footer>
+      </div>
+    </dialog>
+
+    <script src="https://cdn.logr-in.com/LogRocket.min.js" crossorigin="anonymous" defer></script>
+    <script defer>
+      window.addEventListener("load", function () {
+        window.LogRocket && window.LogRocket.init("3iqi5o/redfearnco");
+      });
     </script>
     <script src="/assets/js/resume.js" defer></script>
     <!--Start of Tawk.to Script-->
-    <script>
-      var Tawk_API = Tawk_API || {},
-        Tawk_LoadStart = new Date();
-      (function () {
-        var s1 = document.createElement("script"),
-          s0 = document.getElementsByTagName("script")[0];
-        s1.async = true;
-        s1.src = "https://embed.tawk.to/6a03bd49defb6f1c3776f438/1jof9mps8";
-        s1.charset = "UTF-8";
-        s1.setAttribute("crossorigin", "*");
-        s0.parentNode.insertBefore(s1, s0);
-      })();
+    <script defer>
+      window.addEventListener("load", function () {
+        var Tawk_API = Tawk_API || {},
+          Tawk_LoadStart = new Date();
+        (function () {
+          var s1 = document.createElement("script"),
+            s0 = document.getElementsByTagName("script")[0];
+          s1.async = true;
+          s1.src = "https://embed.tawk.to/6a03bd49defb6f1c3776f438/1jof9mps8";
+          s1.charset = "UTF-8";
+          s1.setAttribute("crossorigin", "*");
+          s0.parentNode.insertBefore(s1, s0);
+        })();
+      });
     </script>
     <!--End of Tawk.to Script-->
   </body>

@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Lato Black'), local('Lato-Black'), url(https://web.archive.org/web/20151011113852im_/http://fonts.gstatic.com/s/lato/v11/tI4j516nok_GrVf4dhunkg.woff2) format('woff2');
+}
+
+/*
+     FILE ARCHIVED ON 11:38:52 Oct 11, 2015 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 16:27:37 May 17, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  capture_cache.get: 1.189
+  load_resource: 204.582 (2)
+  PetaboxLoader3.resolve: 90.549 (2)
+  PetaboxLoader3.datanode: 50.048 (2)
+*/

@@ -1,0 +1,21 @@
+# Google crawlers (Search Console / indexing / URL Inspection uses these user-agents)
+# Site verification itself is meta tag / DNS / file — not controlled here.
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Google-InspectionTool
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://redfearn.co/sitemap.php

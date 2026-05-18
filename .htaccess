@@ -1,0 +1,24 @@
+# Fix for Cloudflare Flexible SSL Redirect Loops
+SetEnvIf X-Forwarded-Proto https HTTPS=on
+
+# Force HTTPS (Optional, Cloudflare usually handles this)
+RewriteEngine On
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+<IfModule mod_headers.c>
+    # Enforce HSTS Policy
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # Enforce Browser Window Isolation (COOP)
+    Header set Cross-Origin-Opener-Policy "same-origin"
+
+    # CSP — keep in sync with config/security.php rc_content_security_policy()
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdn.logr-in.com https://embed.tawk.to https://www.googletagmanager.com https://static.cloudflareinsights.com 'unsafe-inline'; worker-src 'self' blob:; style-src 'self' https://fonts.googleapis.com https://embed.tawk.to https://*.tawk.to 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://assets.redfearn.co https://placehold.co https://upload.wikimedia.org https://*.tawk.to https://lh3.googleusercontent.com; connect-src 'self' https://*.logrocket.io https://*.tawk.to wss://*.tawk.to https://www.googletagmanager.com https://*.google-analytics.com; frame-src 'self' https://*.tawk.to; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+
+    # Supplemental Security Defenses
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "DENY"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Content-Signal "search=yes,ai-train=no"
+</IfModule>

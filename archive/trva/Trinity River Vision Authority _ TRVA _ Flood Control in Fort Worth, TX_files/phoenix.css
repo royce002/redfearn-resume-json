@@ -1,0 +1,441 @@
+/*
+ * Globals
+ */
+/* Links */
+a,
+a:focus,
+a:hover {
+    color: #2a374f;
+}
+
+/*
+ * Base structure
+ */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    color: #fff;
+}
+
+.hero-back .lead {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight:500;
+    line-height: 1.7;
+    font-size:1.6rem;
+}
+
+.pad-top {
+    padding-top: 75px;
+}
+
+@media (min-width: 768px) {
+    .pad-top {
+        padding-top: 100px;
+    }
+}
+
+/*
+ * Header
+ */
+.masthead-brand,
+.masthead-brand img,
+.masthead-brand svg {
+    display: block;
+}
+
+.masthead-brand img,
+.masthead-brand svg {
+    width: 89px;
+    height: 30px;
+}
+
+@media (min-width: 768px) {
+    .masthead-brand img,
+    .masthead-brand svg {
+        width: 121px;
+        height: 50px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+}
+
+header > nav {
+    background-color: #2a374f;
+}
+
+header nav .navbar-toggler {
+    border-color: rgba(255, 255, 255, .5);
+    color: rgba(255, 255, 255, .5);
+}
+
+header nav .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+header a,
+header a:focus,
+header a:hover {
+    color: #fff;
+}
+header .nav-link:hover {
+    background: #263146;
+}
+
+.icon-pdf-solid {
+    width: 12px;
+    height: 15px;
+    margin-top: -6px;
+    margin-right: .5rem;
+}
+
+@media (max-width:768px) {
+    #navDocument>ul {
+        margin-top: 1rem;
+    }
+
+    #navDocument>ul>li {
+        border-top: 1px solid rgba(255, 255, 255, .5);
+    }
+}
+
+#risk .icon-pdf-solid,
+#financials .icon-pdf-solid {
+    fill: #2a374f;
+
+}
+
+#navDocument .icon-pdf-solid {
+    fill: #fff;
+}
+
+.icon-email {
+    fill: #fff;
+    width: 18px;
+    height: 26px;
+}
+
+/*
+ * Callouts
+ */
+.callout {
+    background: rgba(40, 54, 79, 0.9);
+    padding: 1rem;
+}
+
+/*
+ * Footer
+ */
+.mastfoot {
+    color: rgba(255, 255, 255, .5);
+}
+
+footer {
+    background: #1b2433;
+    font-size: 12px;
+
+}
+
+main {
+    color: #000;
+}
+
+@media (min-width: 768px) {
+    main {
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0) 100%);
+    }
+}
+
+.hero-back {
+    background: rgba(255, 255, 255, .8);
+}
+
+.hero-back .lead {
+    font-weight: normal;
+    font-size: 1.2rem;
+}
+
+@media (min-width: 768px) {
+    .hero-back {
+        background: rgba(255, 255, 255, 0);
+    }
+
+    .hero-back .lead {
+        font-weight: bold;
+        font-size: 1.8rem;
+        line-height:1.4;
+        font-weight: 600;
+    }
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.85);
+    transition: all 250ms ease-in-out;
+}
+
+.card:hover,
+.card:focus {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+@media (min-width: 768px) {
+    .card {
+        background: rgba(255, 255, 255, 0.7);
+
+    }
+}
+
+@media (min-width: 1200px) {
+    .card h4 {
+        font-size: 1.65rem;
+    }
+}
+
+.card h4 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 700 !important;
+    line-height: 1;
+    font-size: 1.5rem;
+}
+
+.card p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 600;
+    color: #000;
+    font-size:1.2rem;
+}
+
+@media (min-width:1200px) {
+    .card p {
+        font-size: 1.3rem
+    }
+}
+
+/*
+* Buttons
+*/
+
+.btn-red {
+    background: #cc5651;
+    border-color: #a64642;
+    color: #fff;
+}
+
+.btn-trva {
+    background: #465b82;
+    border-color: #2a374f;
+    color: #fff;
+}
+
+.btn.btn-trva:hover,
+.btn.btn-trva:focus {
+    background: #5b76a9;
+    color: #fff;
+}
+
+.btn-usace {
+    background-color: #DE1E2E;
+    border-color: #de1e2e;
+    color: #fff;
+}
+
+.btn-usace:hover,
+.btn-usace:focus {
+    background-color: #b01925;
+    color: #fff;
+}
+
+.btn-picc {
+    background-color: #252525;
+    border-color: #252525;
+    color: #fff;
+}
+
+.btn-picc:hover,
+.btn-picc:focus {
+    background-color: #000;
+    color: #fff;
+}
+
+@media (max-width:768px) {
+    .btn-callout.btn-sm {
+        padding: .5rem 1rem;
+        font-weight: 700;
+        font-size: 1rem;
+    }
+
+    .card p {
+        font-size: 1.05rem;
+    }
+}
+
+#navDocument a {
+    cursor: pointer;
+    padding: .75rem 1rem;
+    /*font-weight: bold;*/
+    font-size: 1.05rem;
+}
+
+@media (min-width:768px) {
+    #navDocument a {
+        border-left: 1px solid rgba(255, 255, 255, .5);
+    }
+}
+
+
+.carousel {
+    z-index: -99;
+}
+
+.carousel .carousel-item {
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    background-size: cover;
+    position: fixed;
+    left: 0 !important;
+    width: 100%;
+    height: 100%;
+}
+
+/*
+* Carousel Slides
+*/
+.webp .carousel .one {
+    background-image: url(../images/1922-flood-full-res.webp);
+    background-position: 50% 40%;
+}
+
+.webp .carousel .two {
+    background-image: url(../images/1949-full-res.webp);
+    background-position: 50% 40%;
+}
+
+.webp .carousel .three {
+    background-image: url(../images/1949-alt-full-res.webp);
+    background-position: 50% 40%;
+}
+
+.webp .carousel .four {
+    background-image: url(../images/1949-alt2-full-res.webp);
+    /*     background-position: 50% 40%; */
+}
+
+.webp .carousel .five {
+    background-image: url(../images/1949-05-17-Montgomery-Plaza.webp);
+    /*     background-position: 50% 40%; */
+}
+
+/*
+* Fallbacks for non webp browsers
+*/
+.carousel .one {
+    background-image: url(../images/1922-flood-640px.jpg);
+    background-position: 50% 40%;
+}
+
+.carousel .two {
+    background-image: url(../images/1949-640px.jpg);
+    background-position: 50% 40%;
+}
+
+.carousel .three {
+    background-image: url(../images/1949-alt-640px.jpg);
+    background-position: 50% 40%;
+}
+
+.carousel .four {
+    background-image: url(../images/1949-alt2-full-res.jpg);
+    /*     background-position: 50% 40%; */
+}
+
+.carousel .five {
+    background-image: url(../images/1949-05-17-Montgomery-Plaza.jpg);
+    /*     background-position: 50% 40%; */
+}
+
+
+@media (min-width: 640px) {}
+
+@media (min-width: 992px) {}
+
+@media (min-width: 1200px) {
+    .carousel .one {
+        background-image: url(../images/1922-flood-full-res.jpg);
+        background-position: 0 40%;
+    }
+
+    .carousel .two {
+        background-image: url(../images/1949-full-res.jpg);
+        background-position: 0 73%;
+    }
+
+    .carousel .three {
+        background-image: url(../images/1949-alt-full-res.jpg);
+    }
+}
+
+/*
+* Modal Styles
+*/
+
+.modal-title,
+.modal-body,
+.list-group-item a {
+    color: #2a374f;
+}
+
+.gray-back {
+    background: #efefef;
+}
+
+
+.fontswitcharoo {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+    font-weight: 500 !important;
+}
+.lead.fontswitcharoo{
+    font-weight:500;
+    line-height: 1.7;
+    font-size:1.6rem;
+}
+.card h4.fontswitcharoo{
+
+}
+.card p.fontswitcharoo{
+
+
+}
+
+/*
+* Tabs in pane windows
+*/
+a[data-toggle="tab"]{
+
+}
+.nav-tabs .nav-link.active {
+    color: #fff;
+    font-weight: bold;
+    background-color: #2a374f;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+/*html{background: #1b2433}*/
+
+body.ie .body-wrapper.d-flex,
+body.ie footer{
+    display:block !important;
+}
+body.ie footer{
+    position: fixed;
+    bottom:0;
+    width:100%;
+}
+/*@media (min-width: 769px){
+    body.ie footer{
+        position: absolute !important;
+        width:100%;
+    }
+}*/
+/*body.ie footer{position: fixed;bottom:0; width:100%;}*/
+body.ie > div.body-wrapper.d-flex.flex-column.h-100 > main > div:nth-child(2) > div{padding-bottom:50px;}

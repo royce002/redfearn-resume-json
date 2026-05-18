@@ -2,9 +2,69 @@
 
 declare(strict_types=1);
 
+if (!defined('RC_VIEW_ALL_PERSONA')) {
+    define('RC_VIEW_ALL_PERSONA', 'all');
+}
+
 /**
  * SSR helpers mirroring assets/js/resume.js rendering rules.
  */
+
+function rc_is_view_all_persona(string $persona): bool
+{
+    return $persona === RC_VIEW_ALL_PERSONA;
+}
+
+/**
+ * @param array<string, mixed> $a
+ */
+function rc_accomplishment_matches_persona(array $a, string $persona): bool
+{
+    if (!isset($a['text']) || (string) $a['text'] === '') {
+        return false;
+    }
+    if (rc_is_view_all_persona($persona)) {
+        return true;
+    }
+    $aps = $a['personas'] ?? [];
+
+    return is_array($aps) && in_array($persona, $aps, true);
+}
+
+/**
+ * @param array<string, mixed> $a
+ * @param array<string, mixed> $resume
+ */
+function rc_render_accomplishment_item(array $a, array $resume, string $persona): string
+{
+    $text = (string) ($a['text'] ?? '');
+    if (!rc_is_view_all_persona($persona)) {
+        return '<li>' . rc_esc($text) . '</li>';
+    }
+    $aps = $a['personas'] ?? [];
+    $tags = '';
+    if (is_array($aps) && $aps !== []) {
+        $personas = $resume['personas'] ?? [];
+        $spans = [];
+        foreach ($aps as $pk) {
+            if (!is_string($pk) || $pk === '') {
+                continue;
+            }
+            $pm = $personas[$pk] ?? null;
+            $label = is_array($pm)
+                ? (string) ($pm['selectLabel'] ?? $pm['badgeLabel'] ?? $pk)
+                : $pk;
+            $spans[] = '<span class="rc-persona-tag" data-persona-tag="' . rc_esc($pk) . '">' . rc_esc($label) . '</span>';
+        }
+        if ($spans !== []) {
+            $tags = '<span class="rc-bullet-personas">' . implode('', $spans) . '</span>';
+        }
+    }
+
+    return '<li class="rc-accomplishment-item rc-accomplishment-item--audit">'
+        . $tags
+        . '<span class="rc-accomplishment-text">' . rc_esc($text) . '</span></li>';
+}
 
 function rc_esc(?string $s): string
 {
@@ -13,7 +73,7 @@ function rc_esc(?string $s): string
 
 function rc_contact_link_label(string $url): string
 {
-    if (preg_match('#github\.com/([^/?#]+)#i', $url, $m)) {
+    if (preg_match('~github\.com/([^/?#]+)~i', $url, $m)) {
         return 'github.com/' . $m[1];
     }
     $host = parse_url($url, PHP_URL_HOST);
@@ -107,10 +167,42 @@ function rc_slugify($str): string
     return trim($s, '-');
 }
 
-/** Absolute asset URL; encode filename once (spaces, unicode). */
+/** Absolute asset URL; encode each path segment (supports brands/foo.svg). */
 function rc_asset_url(string $assetsBase, string $file): string
 {
-    return rtrim($assetsBase, '/') . '/' . rawurlencode($file);
+    $file = str_replace('\\', '/', trim($file));
+    $segments = array_filter(explode('/', $file), static fn (string $s): bool => $s !== '');
+    $encoded = implode('/', array_map(rawurlencode(...), $segments));
+
+    return rtrim($assetsBase, '/') . '/' . $encoded;
+}
+
+function rc_img_placeholder_src(): string
+{
+    return 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%201%201%27%2F%3E';
+}
+
+/** @return array{loading: string, fetch: string} */
+function rc_lazy_img_priority(bool $eager = false): array
+{
+    if ($eager) {
+        return ['loading' => 'eager', 'fetch' => ' fetchpriority="high"'];
+    }
+
+    return ['loading' => 'lazy', 'fetch' => ' fetchpriority="low"'];
+}
+
+function rc_render_deferred_img(string $class, string $dataSrc, string $alt, string $extraAttrs = ''): string
+{
+    $extraAttrs = trim($extraAttrs);
+
+    return '<img class="' . rc_esc(trim($class . ' rc-deferred-img')) . '"'
+        . ' src="' . rc_esc(rc_img_placeholder_src()) . '"'
+        . ' data-rc-src="' . rc_esc($dataSrc) . '"'
+        . ' alt="' . rc_esc($alt) . '"'
+        . ' loading="lazy" decoding="async" fetchpriority="low"'
+        . ($extraAttrs !== '' ? ' ' . $extraAttrs : '')
+        . ' />';
 }
 
 /**
@@ -148,6 +240,9 @@ function rc_render_name_html($name): string
  */
 function rc_persona_headline(array $resume, string $persona): string
 {
+    if (rc_is_view_all_persona($persona)) {
+        return (string) ($resume['basics']['label'] ?? 'Resume');
+    }
     $p = $resume['personas'][$persona] ?? [];
     if (!empty($p['headline'])) {
         return (string) $p['headline'];
@@ -164,6 +259,9 @@ function rc_persona_headline(array $resume, string $persona): string
  */
 function rc_render_summary(array $resume, string $persona): string
 {
+    if (rc_is_view_all_persona($persona)) {
+        return '<strong>Summary</strong><em class="rc-view-all-note">Viewing all personas — experience lists every tagged bullet with persona labels.</em>';
+    }
     $p = $resume['personas'][$persona] ?? [];
     $summary = (string) ($p['summary'] ?? '');
 
@@ -184,9 +282,11 @@ function rc_render_skills(array $resume, string $persona): string
         if (!is_array($s)) {
             continue;
         }
-        $ps = $s['personas'] ?? [];
-        if (!is_array($ps) || !in_array($persona, $ps, true)) {
-            continue;
+        if (!rc_is_view_all_persona($persona)) {
+            $ps = $s['personas'] ?? [];
+            if (!is_array($ps) || !in_array($persona, $ps, true)) {
+                continue;
+            }
         }
         $cat = (string) ($s['category'] ?? '');
         $items = $s['items'] ?? [];
@@ -233,9 +333,11 @@ function rc_render_skills_shopify(array $resume, string $persona): string
         if (!is_array($s)) {
             continue;
         }
-        $ps = $s['personas'] ?? [];
-        if (!is_array($ps) || !in_array($persona, $ps, true)) {
-            continue;
+        if (!rc_is_view_all_persona($persona)) {
+            $ps = $s['personas'] ?? [];
+            if (!is_array($ps) || !in_array($persona, $ps, true)) {
+                continue;
+            }
         }
         $cat = (string) ($s['category'] ?? '');
         $handle = strtolower((string) preg_replace('/[^a-z0-9]+/i', '-', $cat));
@@ -278,49 +380,347 @@ function rc_render_skills_headless_skeleton(): string
     return $out;
 }
 
+function rc_is_mobile_gallery_file(string $file): bool
+{
+    return (bool) preg_match('/[-_]mobile\./i', $file);
+}
+
+/**
+ * @param list<array<string, mixed>> $gallery
+ * @return list<array{desktop: array<string, mixed>, mobile: array<string, mixed>|null}>
+ */
+function rc_pair_gallery_items(array $gallery): array
+{
+    $byFile = [];
+    foreach ($gallery as $item) {
+        if (!is_array($item) || !isset($item['file'])) {
+            continue;
+        }
+        $byFile[(string) $item['file']] = $item;
+    }
+    $pairs = [];
+    foreach ($gallery as $item) {
+        if (!is_array($item) || !isset($item['file'])) {
+            continue;
+        }
+        $file = (string) $item['file'];
+        if (rc_is_mobile_gallery_file($file)) {
+            continue;
+        }
+        $mobile = null;
+        if (preg_match('/-desktop\./i', $file)) {
+            $mobileFile = preg_replace('/-desktop\./i', '-mobile.', $file);
+            $mobile = $byFile[$mobileFile] ?? null;
+        }
+        $pairs[] = ['desktop' => $item, 'mobile' => $mobile];
+    }
+
+    return $pairs;
+}
+
+/**
+ * @param array<string, mixed> $item
+ */
+function rc_render_gallery_slide_img(array $item, string $assetsBase, string $class, bool $decorative = false): string
+{
+    $file = (string) $item['file'];
+    $alt = $decorative ? '' : (string) ($item['alt'] ?? '');
+    $w = isset($item['width']) ? (int) $item['width'] : 0;
+    $h = isset($item['height']) ? (int) $item['height'] : 0;
+    $src = rc_asset_url($assetsBase, $file);
+    $srcset = $decorative ? '' : rc_gallery_img_srcset_attr($item, $assetsBase);
+    $sizes = $srcset !== '' ? ' sizes="(max-width: 768px) 90vw, 33vw"' : '';
+    $prio = rc_lazy_img_priority(false);
+    $aria = $decorative ? ' alt="" aria-hidden="true"' : ' alt="' . rc_esc($alt) . '"';
+
+    return '<img class="' . rc_esc($class) . '" src="' . rc_esc($src) . '"' . $srcset . $sizes . $aria
+        . ($w > 0 ? ' width="' . $w . '"' : '')
+        . ($h > 0 ? ' height="' . $h . '"' : '')
+        . ' loading="' . $prio['loading'] . '" decoding="async"' . $prio['fetch'] . ' />';
+}
+
+function rc_brand_display_name(array $brand): string
+{
+    $name = trim((string) ($brand['name'] ?? ''));
+    if ($name !== '') {
+        return $name;
+    }
+
+    return trim((string) ($brand['caption'] ?? ''));
+}
+
+function rc_brand_initials(string $name): string
+{
+    $name = trim($name);
+    if ($name === '') {
+        return '?';
+    }
+    if (preg_match('/^A\/X\b/i', $name) === 1) {
+        return 'AX';
+    }
+    $clean = preg_replace('/[()\/]/', ' ', $name) ?? $name;
+    $words = preg_split('/\s+/', $clean, -1, PREG_SPLIT_NO_EMPTY) ?: [];
+    $skip = ['LTD', 'BY', 'THE', 'AND', 'OF', 'LABEL', 'PRIVATE'];
+    $letters = '';
+    foreach ($words as $word) {
+        $upper = strtoupper($word);
+        if (in_array($upper, $skip, true)) {
+            continue;
+        }
+        $letters .= strtoupper(substr($word, 0, 1));
+        if (strlen($letters) >= 2) {
+            break;
+        }
+    }
+
+    return $letters !== '' ? substr($letters, 0, 3) : '?';
+}
+
+/**
+ * @return array<string, array{type: string, src?: string}> uppercase label => logo entry
+ */
+function rc_load_brand_logos(): array
+{
+    static $cache = null;
+    if (is_array($cache)) {
+        return $cache;
+    }
+    $cache = [];
+    $path = dirname(__DIR__) . '/data/logos.txt';
+    if (!is_readable($path)) {
+        return $cache;
+    }
+    $lines = file($path, FILE_IGNORE_NEW_LINES);
+    if ($lines === false) {
+        return $cache;
+    }
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($line === '' || str_starts_with($line, '#')) {
+            continue;
+        }
+        $parts = preg_split("/\t+/", $line, 2);
+        if (!is_array($parts) || $parts === []) {
+            continue;
+        }
+        $key = strtoupper(trim($parts[0]));
+        if ($key === '') {
+            continue;
+        }
+        $entry = rc_parse_brand_logo_value(isset($parts[1]) ? (string) $parts[1] : '');
+        if ($entry !== null) {
+            $cache[$key] = $entry;
+        }
+    }
+
+    return $cache;
+}
+
+function rc_brand_logo_key(string $label): string
+{
+    return strtoupper(trim($label));
+}
+
+/**
+ * @return array{type: string, src?: string}|null
+ */
+function rc_parse_brand_logo_value(string $raw): ?array
+{
+    $raw = trim($raw);
+    if ($raw === '') {
+        return null;
+    }
+    if (strcasecmp($raw, 'text') === 0 || str_contains(strtolower($raw), 'text-fallback')) {
+        return ['type' => 'text'];
+    }
+    if (str_starts_with($raw, 'https://') && filter_var($raw, FILTER_VALIDATE_URL)) {
+        if (preg_match('/\.(svg|webp)(\?|#|$)/i', $raw) === 1) {
+            return ['type' => 'url', 'src' => $raw];
+        }
+
+        return null;
+    }
+    if (preg_match('#/assets/images/(.+)$#i', $raw, $m) === 1) {
+        $raw = $m[1];
+    }
+    if (preg_match('/\.(svg|webp)$/i', $raw) === 1) {
+        return ['type' => 'file', 'src' => $raw];
+    }
+
+    return null;
+}
+
+/**
+ * @return array{type: string, src?: string}|null
+ */
+function rc_resolve_brand_logo_entry(string $label): ?array
+{
+    $key = rc_brand_logo_key($label);
+    if ($key === '') {
+        return null;
+    }
+    $logos = rc_load_brand_logos();
+
+    return $logos[$key] ?? null;
+}
+
+function rc_brand_fallback_display_text(string $label): string
+{
+    $key = rc_brand_logo_key($label);
+    $short = [
+        'PL (PRIVATE LABEL)' => 'PL',
+        'AAVAN ALLIANCE LTD' => 'AAVAN',
+        'MASS MARKET' => 'MASS',
+        'PRIVATE LABEL' => 'PRIVATE',
+        'PHILIPPE STARCK' => 'STARCK',
+    ];
+    if (isset($short[$key])) {
+        return $short[$key];
+    }
+
+    return mb_strtoupper(trim($label));
+}
+
+function rc_brand_text_fallback_markup(string $label): string
+{
+    return '<span class="rc-job-brand-text" aria-hidden="true">' . rc_esc(rc_brand_fallback_display_text($label)) . '</span>';
+}
+
+/**
+ * @param array<string, mixed> $brand
+ */
+function rc_render_brand_cell(array $brand, string $assetsBase): string
+{
+    $label = rc_brand_display_name($brand);
+    if ($label === '') {
+        return '';
+    }
+    $file = trim((string) ($brand['file'] ?? ''));
+    $alt = (string) ($brand['alt'] ?? $label);
+    $prio = rc_lazy_img_priority(false);
+    $lazyAttrs = ' loading="' . $prio['loading'] . '" decoding="async"' . $prio['fetch'];
+    if ($file !== '') {
+        $src = rc_asset_url($assetsBase, $file);
+        $media = '<img class="rc-job-brand-img" src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '"' . $lazyAttrs . ' />';
+    } else {
+        $entry = null;
+        $external = trim((string) ($brand['url'] ?? ''));
+        if ($external !== '' && filter_var($external, FILTER_VALIDATE_URL) && str_starts_with($external, 'https://')) {
+            $entry = ['type' => 'url', 'src' => $external];
+        } else {
+            $entry = rc_resolve_brand_logo_entry($label);
+        }
+        if ($entry !== null && ($entry['type'] ?? '') === 'text') {
+            $media = rc_brand_text_fallback_markup($label);
+        } elseif ($entry !== null && ($entry['type'] ?? '') === 'url' && isset($entry['src'])) {
+            $media = rc_render_deferred_img('rc-job-brand-img', (string) $entry['src'], $alt, 'referrerpolicy="no-referrer"');
+        } elseif ($entry !== null && ($entry['type'] ?? '') === 'file' && isset($entry['src'])) {
+            $src = rc_asset_url($assetsBase, (string) $entry['src']);
+            $media = '<img class="rc-job-brand-img" src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '"' . $lazyAttrs . ' />';
+        } else {
+            $media = rc_brand_text_fallback_markup($label);
+        }
+    }
+
+    return '<li class="rc-fifth-grid__cell rc-job-brand-cell">'
+        . $media
+        . '<span class="rc-job-brand-caption">' . rc_esc($label) . '</span>'
+        . '</li>';
+}
+
+/**
+ * Legacy Integrity #x-content-band-11: 5 columns, 4% gap, 30px row gap, 1180px max-width.
+ */
+function rc_render_fifth_grid(string $cellsHtml, string $ariaLabel = '', string $wrapClass = ''): string
+{
+    if ($cellsHtml === '') {
+        return '';
+    }
+    $wrapClass = trim('rc-fifth-grid-wrap ' . $wrapClass);
+    $attrs = $ariaLabel !== ''
+        ? ' role="group" aria-label="' . rc_esc($ariaLabel) . '"'
+        : '';
+
+    return '<div class="' . rc_esc($wrapClass) . '"' . $attrs . '>'
+        . '<ul class="rc-fifth-grid">' . $cellsHtml . '</ul>'
+        . '</div>';
+}
+
+/**
+ * @param list<array<string, mixed>> $brands
+ */
+function rc_render_job_brand_grid(array $brands, string $assetsBase, string $ariaLabel): string
+{
+    if ($brands === []) {
+        return '';
+    }
+    $cells = '';
+    foreach ($brands as $brand) {
+        if (!is_array($brand)) {
+            continue;
+        }
+        $cells .= rc_render_brand_cell($brand, $assetsBase);
+    }
+    return rc_render_fifth_grid($cells, $ariaLabel, 'rc-job-brand-grid');
+}
+
+/**
+ * @param list<array<string, mixed>> $agency
+ * @param list<array<string, mixed>> $marks
+ */
+function rc_render_job_brand_grids(array $agency, array $marks, string $assetsBase): string
+{
+    $agencyHtml = rc_render_job_brand_grid($agency, $assetsBase, 'Client and agency brands');
+    $marksHtml = rc_render_job_brand_grid($marks, $assetsBase, 'WPMU brand marks');
+    if ($agencyHtml === '' && $marksHtml === '') {
+        return '';
+    }
+
+    return '<div class="rc-job-brand-grids">' . $agencyHtml . $marksHtml . '</div>';
+}
+
 /**
  * @param list<array<string, mixed>> $gallery
  */
-function rc_render_gallery_html(array $gallery, string $assetsBase, bool &$pageLcpAssigned): string
+function rc_render_gallery_html(array $gallery, string $assetsBase, string $company = ''): string
 {
-    $gallery = array_values(array_filter($gallery, static function ($item): bool {
-        if (!is_array($item) || !isset($item['file'])) {
-            return false;
-        }
-
-        return !preg_match('/_mobile\./i', (string) $item['file']);
-    }));
-    if ($gallery === []) {
+    $pairs = rc_pair_gallery_items($gallery);
+    if ($pairs === []) {
         return '';
     }
     $slides = '';
-    foreach ($gallery as $item) {
-        $file = (string) $item['file'];
-        $alt = (string) ($item['alt'] ?? '');
-        $caption = (string) ($item['caption'] ?? '');
-        $w = isset($item['width']) ? (int) $item['width'] : 0;
-        $h = isset($item['height']) ? (int) $item['height'] : 0;
-        $loading = (string) ($item['loading'] ?? 'lazy');
-        $src = rc_asset_url($assetsBase, $file);
-        $srcset = rc_gallery_img_srcset_attr($item, $assetsBase);
-        $sizes = $srcset !== '' ? ' sizes="(max-width: 768px) 90vw, 33vw"' : '';
-        $fetch = '';
-        if ($loading === 'eager' && !$pageLcpAssigned) {
-            $fetch = ' fetchpriority="high"';
-            $pageLcpAssigned = true;
-        }
+    foreach ($pairs as $index => $pair) {
+        $desktop = $pair['desktop'];
+        $mobile = $pair['mobile'];
+        $file = (string) $desktop['file'];
+        $caption = (string) ($desktop['caption'] ?? '');
+        $description = (string) ($desktop['description'] ?? '');
+        $desktopSrc = rc_asset_url($assetsBase, $file);
+        $mobileSrc = $mobile !== null ? rc_asset_url($assetsBase, (string) $mobile['file']) : '';
+        $mobileAlt = $mobile !== null ? (string) ($mobile['alt'] ?? '') : '';
+        $pairedClass = $mobile !== null ? ' rc-slide-figure--paired' : '';
         $capHtml = $caption !== '' ? '<figcaption class="rc-slide-caption">' . rc_esc($caption) . '</figcaption>' : '';
-        $slides .= '<figure class="rc-slide-figure">'
-            . '<img src="' . rc_esc($src) . '"' . $srcset . $sizes
-            . ' alt="' . rc_esc($alt) . '"'
-            . ($w > 0 ? ' width="' . $w . '"' : '')
-            . ($h > 0 ? ' height="' . $h . '"' : '')
-            . ' loading="' . rc_esc($loading) . '" decoding="async"' . $fetch . ' />'
+        $mobileImg = $mobile !== null
+            ? rc_render_gallery_slide_img($mobile, $assetsBase, 'rc-slide-mobile', true)
+            : '';
+        $slides .= '<figure class="rc-slide-figure' . $pairedClass . '" role="button" tabindex="0"'
+            . ' data-rc-slide-index="' . $index . '"'
+            . ' data-rc-desktop="' . rc_esc($desktopSrc) . '"'
+            . ($mobileSrc !== '' ? ' data-rc-mobile="' . rc_esc($mobileSrc) . '"' : '')
+            . ' data-rc-desktop-alt="' . rc_esc((string) ($desktop['alt'] ?? '')) . '"'
+            . ($mobileAlt !== '' ? ' data-rc-mobile-alt="' . rc_esc($mobileAlt) . '"' : '')
+            . ' data-rc-title="' . rc_esc($caption) . '"'
+            . ' data-rc-description="' . rc_esc($description) . '">'
+            . '<div class="rc-slide-stack">'
+            . rc_render_gallery_slide_img($desktop, $assetsBase, 'rc-slide-desktop', false)
+            . $mobileImg
+            . '</div>'
             . $capHtml
             . '</figure>';
     }
+    $companyAttr = $company !== '' ? ' data-rc-company="' . rc_esc($company) . '"' : '';
 
-    return '<div class="rc-job-gallery" data-rc-gallery>'
+    return '<div class="rc-job-gallery" data-rc-gallery' . $companyAttr . '>'
         . '<div class="rc-job-gallery-scroll" tabindex="0" role="region" aria-label="Project screenshots">'
         . $slides
         . '</div>'
@@ -329,9 +729,6 @@ function rc_render_gallery_html(array $gallery, string $assetsBase, bool &$pageL
         . '</div>';
 }
 
-/**
- * @param array<string, mixed> $resume
- */
 function rc_render_experience(array $resume, string $persona, string $assetsBase): string
 {
     $experience = $resume['experience'] ?? [];
@@ -349,13 +746,10 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
         }
         $filtered = [];
         foreach ($accomplishments as $a) {
-            if (!is_array($a) || !isset($a['text'])) {
+            if (!is_array($a) || !rc_accomplishment_matches_persona($a, $persona)) {
                 continue;
             }
-            $aps = $a['personas'] ?? [];
-            if (is_array($aps) && in_array($persona, $aps, true)) {
-                $filtered[] = (string) $a['text'];
-            }
+            $filtered[] = $a;
         }
         if ($filtered !== []) {
             $jobs[] = [
@@ -364,7 +758,9 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
                 'startDate' => (string) ($job['startDate'] ?? ''),
                 'endDate' => (string) ($job['endDate'] ?? ''),
                 'gallery' => is_array($job['gallery'] ?? null) ? $job['gallery'] : [],
-                'bullets' => $filtered,
+                'agencyGrid' => is_array($job['agencyGrid'] ?? null) ? $job['agencyGrid'] : [],
+                'brandGrid' => is_array($job['brandGrid'] ?? null) ? $job['brandGrid'] : [],
+                'accomplishments' => $filtered,
             ];
         }
     }
@@ -385,7 +781,6 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
             return $startB <=> $startA;
         }
     );
-    $pageLcpAssigned = false;
     $html = '';
     foreach ($jobs as $job) {
         $id = rc_slugify($job['company']);
@@ -398,11 +793,17 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
                 ? 'Present'
                 : '<time' . $endDtAttr . '>' . rc_fmt_date($endD) . '</time>');
         $lis = '';
-        foreach ($job['bullets'] as $t) {
-            $lis .= '<li>' . rc_esc($t) . '</li>';
+        foreach ($job['accomplishments'] as $a) {
+            if (!is_array($a)) {
+                continue;
+            }
+            $lis .= rc_render_accomplishment_item($a, $resume, $persona);
         }
         $gal = is_array($job['gallery']) ? $job['gallery'] : [];
-        $galleryHtml = rc_render_gallery_html($gal, $assetsBase, $pageLcpAssigned);
+        $agency = is_array($job['agencyGrid']) ? $job['agencyGrid'] : [];
+        $marks = is_array($job['brandGrid']) ? $job['brandGrid'] : [];
+        $brandGridHtml = rc_render_job_brand_grids($agency, $marks, $assetsBase);
+        $galleryHtml = rc_render_gallery_html($gal, $assetsBase, $job['company']);
         $html .= '<article class="rc-job" id="' . rc_esc($id) . '">'
             . '<header class="rc-job-header">'
             . '<div>'
@@ -411,6 +812,7 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
             . '</div>'
             . '<p class="rc-job-dates">' . $datesInner . '</p>'
             . '</header>'
+            . $brandGridHtml
             . $galleryHtml
             . '<ul class="rc-accomplishments">' . $lis . '</ul>'
             . '</article>';
@@ -504,12 +906,211 @@ function rc_render_recommendations(array $resume, string $persona): string
     return $out;
 }
 
+function rc_resolve_portfolio_image(string $file, string $assetsBase): string
+{
+    return rc_asset_url($assetsBase, $file);
+}
+
+/**
+ * @param array<string, mixed> $item
+ */
+function rc_portfolio_item_visible(array $item, string $persona): bool
+{
+    $personas = $item['personas'] ?? null;
+    if (!is_array($personas) || $personas === []) {
+        return true;
+    }
+
+    return in_array($persona, $personas, true);
+}
+
+function rc_portfolio_format_icon_svg(string $format): string
+{
+    if ($format === 'pdf') {
+        return '<svg class="rc-cred-icon" viewBox="0 0 48 48" aria-hidden="true">'
+            . '<rect width="48" height="48" rx="10" fill="#dc2626"/>'
+            . '<text x="24" y="31" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Inter,sans-serif">PDF</text>'
+            . '</svg>';
+    }
+
+    return '<svg class="rc-cred-icon" viewBox="0 0 48 48" aria-hidden="true">'
+        . '<rect width="48" height="48" rx="10" fill="#2563eb"/>'
+        . '<text x="24" y="31" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter,sans-serif">W</text>'
+        . '</svg>';
+}
+
+/**
+ * @param array<string, mixed> $block
+ */
+function rc_render_credentials_block(array $block): string
+{
+    $heading = (string) ($block['heading'] ?? 'Credentials');
+    $intro = (string) ($block['intro'] ?? '');
+    $downloads = $block['downloads'] ?? [];
+    if (!is_array($downloads) || $downloads === []) {
+        return '';
+    }
+
+    $cards = '';
+    foreach ($downloads as $dl) {
+        if (!is_array($dl)) {
+            continue;
+        }
+        $format = (string) ($dl['format'] ?? '');
+        $label = (string) ($dl['label'] ?? $format);
+        $file = (string) ($dl['file'] ?? '');
+        $hint = (string) ($dl['hint'] ?? '');
+        if ($file === '') {
+            continue;
+        }
+        $cards .= '<a class="rc-cred-card rc-cred-card--' . rc_esc($format) . '" href="' . rc_esc($file) . '" download>'
+            . rc_portfolio_format_icon_svg($format)
+            . '<span class="rc-cred-label">' . rc_esc($label) . '</span>'
+            . ($hint !== '' ? '<span class="rc-cred-hint">' . rc_esc($hint) . '</span>' : '')
+            . '</a>';
+    }
+
+    if ($cards === '') {
+        return '';
+    }
+
+    $introHtml = $intro !== '' ? '<p class="rc-portfolio-lead">' . rc_esc($intro) . '</p>' : '';
+
+    return '<div class="rc-portfolio-block rc-portfolio-credentials">'
+        . '<h3 class="rc-portfolio-subheading">' . rc_esc($heading) . '</h3>'
+        . $introHtml
+        . '<div class="rc-cred-grid">' . $cards . '</div></div></div>';
+}
+
+/**
+ * @param array<string, mixed> $block
+ */
+function rc_render_agency_block(array $block, string $assetsBase): string
+{
+    $heading = (string) ($block['heading'] ?? 'Agency Experience');
+    $intro = (string) ($block['intro'] ?? '');
+    $grid = $block['grid'] ?? [];
+    $gridHtml = '';
+    if (is_array($grid) && $grid !== []) {
+        $gridHtml = rc_render_job_brand_grid($grid, $assetsBase, 'Career employers and agency clients');
+    }
+    $partners = $block['partners'] ?? [];
+    if ($gridHtml === '' && (!is_array($partners) || $partners === [])) {
+        return '';
+    }
+
+    $logos = '';
+    foreach ($partners as $partner) {
+        if (!is_array($partner)) {
+            continue;
+        }
+        $file = (string) ($partner['file'] ?? '');
+        $alt = (string) ($partner['alt'] ?? '');
+        if ($file === '') {
+            continue;
+        }
+        $src = rc_resolve_portfolio_image($file, $assetsBase);
+        $url = (string) ($partner['url'] ?? '');
+        $inner = '<img src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '" loading="lazy" decoding="async" fetchpriority="low" />';
+        if ($url !== '') {
+            $inner = '<a href="' . rc_esc($url) . '" target="_blank" rel="noopener noreferrer">' . $inner . '</a>';
+        }
+        $logos .= '<li class="rc-fifth-grid__cell rc-agency-logo">' . $inner . '</li>';
+    }
+
+    $introHtml = $intro !== '' ? '<p class="rc-portfolio-lead rc-portfolio-lead--center">' . rc_esc($intro) . '</p>' : '';
+    $stripHtml = $logos !== '' ? rc_render_fifth_grid($logos, 'Agency partners', 'rc-agency-strip') : '';
+
+    return '<div class="rc-portfolio-block rc-portfolio-agency rc-fifth-band">'
+        . '<h3 class="rc-portfolio-subheading rc-portfolio-subheading--center">' . rc_esc($heading) . '</h3>'
+        . $introHtml
+        . $gridHtml
+        . $stripHtml
+        . '</div>';
+}
+
+/**
+ * @param array<string, mixed> $block
+ */
+function rc_render_showcase_block(array $block, string $assetsBase): string
+{
+    $heading = (string) ($block['heading'] ?? 'Example Websites');
+    $intro = (string) ($block['intro'] ?? '');
+    $gridOrder = $block['gridOrder'] ?? [];
+    if (!is_array($gridOrder) || $gridOrder === []) {
+        return '';
+    }
+
+    $cells = '';
+    $index = 0;
+    foreach ($gridOrder as $file) {
+        if (!is_string($file) || $file === '') {
+            continue;
+        }
+        $index++;
+        $src = rc_resolve_portfolio_image($file, $assetsBase);
+        $alt = 'Fort Worth web developer portfolio sample ' . $index;
+        $cells .= '<li class="rc-fifth-grid__cell rc-showcase-cell">'
+            . '<img src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '" loading="lazy" decoding="async" fetchpriority="low" />'
+            . '</li>';
+    }
+
+    if ($cells === '') {
+        return '';
+    }
+
+    $introHtml = $intro !== '' ? '<p class="rc-portfolio-lead rc-portfolio-lead--center">' . rc_esc($intro) . '</p>' : '';
+    $gridHtml = rc_render_fifth_grid($cells, '', 'rc-showcase-grid');
+
+    return '<div class="rc-portfolio-block rc-portfolio-showcase rc-fifth-band">'
+        . '<h3 class="rc-portfolio-subheading rc-portfolio-subheading--center">' . rc_esc($heading) . '</h3>'
+        . $introHtml
+        . $gridHtml
+        . '</div>';
+}
+
+/**
+ * @param array<string, mixed> $resume
+ */
+function rc_render_portfolio(array $resume, string $persona, string $assetsBase): string
+{
+    $portfolio = $resume['portfolio'] ?? null;
+    if (!is_array($portfolio)) {
+        return '';
+    }
+    $sectionPersonas = $portfolio['personas'] ?? [];
+    if (!rc_is_view_all_persona($persona)
+        && is_array($sectionPersonas) && $sectionPersonas !== [] && !in_array($persona, $sectionPersonas, true)) {
+        return '';
+    }
+
+    $out = '';
+    $credentials = $portfolio['credentials'] ?? null;
+    if (is_array($credentials)) {
+        $out .= rc_render_credentials_block($credentials);
+    }
+    $agency = $portfolio['agency'] ?? null;
+    if (is_array($agency)) {
+        $out .= rc_render_agency_block($agency, $assetsBase);
+    }
+    $showcase = $portfolio['showcase'] ?? null;
+    if (is_array($showcase)) {
+        $out .= rc_render_showcase_block($showcase, $assetsBase);
+    }
+
+    return $out;
+}
+
 /**
  * @param array<string, mixed> $resume
  * @return array<string, mixed>
  */
 function rc_person_json_ld(array $resume, string $persona, string $canonicalUrl): array
 {
+    if (rc_is_view_all_persona($persona)) {
+        $persona = 'fullstack';
+    }
+
     $filterNulls = static function (array $a): array {
         return array_filter(
             $a,

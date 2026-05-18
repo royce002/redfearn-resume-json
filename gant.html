@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Timeline & Milestones | Royce Redfearn Jr.</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://redfearn.co/assets/css/resume.css?v=2">
+
+  <style>
+    /* --- Core Horizontal Gantt Layout Engine --- */
+    :root {
+      --year-width: 180px; /* Width per year column block - handles visual scale density */
+      --track-height: 95px; /* Vertical height of individual task channels */
+    }
+
+    .timeline-viewport {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius, 8px);
+      padding: 2.5rem 1.5rem;
+      box-sizing: border-box;
+      cursor: grab;
+      position: relative;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      margin: 2rem 0;
+    }
+
+    .timeline-viewport:active {
+      cursor: grabbing;
+    }
+
+    .timeline-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      /* Fits full historical range from 2006 baseline to 2026 bounds (20 years * width variable) */
+      width: calc(20.5 * var(--year-width)); 
+      padding-bottom: 2rem;
+      z-index: 2;
+    }
+
+    .timeline-track-group {
+      position: relative;
+      height: var(--track-height);
+      display: flex;
+      align-items: flex-end;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .group-banner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-family: 'Bebas Neue', var(--font-display, sans-serif);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-transform: uppercase;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .timeline-node {
+      position: absolute;
+      /* Computational horizontal anchoring: (Target Year - Baseline Index 2006) * Unit Column Width */
+      left: calc((var(--node-start) - 2006) * var(--year-width));
+      width: calc(var(--node-span) * var(--year-width));
+      height: 68px;
+      box-sizing: border-box;
+      padding-right: 8px; /* Safe padding barrier to prevent physical card collisions */
+    }
+
+    /* Integration with your custom component card design schemas */
+    .timeline-node .node-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.6rem 0.8rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .timeline-node:hover .node-card {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Distinct indicators matching your active portfolio feature frames */
+    .timeline-node .node-card.highlight-consultancy {
+      border-left: 4px solid #10b981;
+    }
+    .timeline-node .node-card.highlight-lead {
+      border-left: 4px solid var(--accent);
+      background: var(--surface2);
+    }
+
+    .node-meta {
+      font-family: 'Inter', var(--font-sans, sans-serif);
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .node-title {
+      font-family: 'Inter', var(--font-sans, sans-serif);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .node-badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--surface2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    
+    .node-card.highlight-consultancy .node-badge {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+
+    /* Absolute Background Grid Overlay Lines */
+    .timeline-grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .timeline-grid-overlay span {
+      width: calc(2 * var(--year-width));
+      border-left: 1px solid var(--border);
+      opacity: 0.35;
+      padding-left: 8px;
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      align-items: flex-end;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body class="inside-portfolio-container" data-persona="fullstack">
+
+  <main style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
+    
+    <header style="margin-bottom: 2rem;">
+      <h1 class="font-bebas text-4xl tracking-wide">Interactive Engineering Timeline</h1>
+      <p class="node-meta" style="font-size: 1rem;">Click, grab, or flick horizontally to explore parallel execution paths, long-term consultation brackets, and enterprise deployments.</p>
+    </header>
+
+    <section class="timeline-viewport" id="timelineViewport">
+      <div class="timeline-container" id="timelineContainer">
+        
+        <div class="timeline-track-group">
+          <div class="group-banner">Agency Origins & early contracts</div>
+          
+          <div class="timeline-node" style="--node-start: 2006.2; --node-span: 3.5;">
+            <div class="node-card">
+              <div class="node-meta">2006 - 2009</div>
+              <h4 class="node-title">Quick Technologies (SAGE)</h4>
+              <span class="node-badge">Web Developer</span>
+            </div>
+          </div>
+          
+          <div class="timeline-node" style="--node-start: 2009.75; --node-span: 0.75;">
+            <div class="node-card">
+              <div class="node-meta">2009 - 2010</div>
+              <h4 class="node-title">Pampillonia Jewelers</h4>
+              <span class="node-badge">E-Commerce Dev</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-track-group">
+          <div class="group-banner">Independent Consultancy Architecture</div>
+          
+          <div class="timeline-node" style="--node-start: 2010.5; --node-span: 15.5;">
+            <div class="node-card highlight-consultancy">
+              <div class="node-meta">2010 - Present</div>
+              <h4 class="node-title">TRYRDESIGN | REDFEARN.CO</h4>
+              <span class="node-badge">Principal Consultant</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-track-group">
+          <div class="group-banner">Enterprise Integrations & Multi-Tenant Frameworks</div>
+          
+          <div class="timeline-node" style="--node-start: 2011.0; --node-span: 0.25;">
+            <div class="node-card">
+              <div class="node-meta">2011</div>
+              <h4 class="node-title">Amplifi (Nintendo 3DS)</h4>
+              <span class="node-badge">Launch System</span>
+            </div>
+          </div>
+          
+          <div class="timeline-node" style="--node-start: 2011.3; --node-span: 0.5;">
+            <div class="node-card">
+              <div class="node-meta">2011</div>
+              <h4 class="node-title">Lock&Lock Texas Inc.</h4>
+              <span class="node-badge">Magento Contract</span>
+            </div>
+          </div>
+          
+          <div class="timeline-node" style="--node-start: 2012.8; --node-span: 0.6;">
+            <div class="node-card">
+              <div class="node-meta">2012 - 2013</div>
+              <h4 class="node-title">Fossil Inc.</h4>
+              <span class="node-badge">WordPress WPMU</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-track-group">
+          <div class="group-banner">Enterprise Architecture & Engineering Leadership</div>
+          
+          <div class="timeline-node" style="--node-start: 2014.3; --node-span: 8.6;">
+            <div class="node-card">
+              <div class="node-meta">2014 - 2022</div>
+              <h4 class="node-title">Tarrant Regional Water District</h4>
+              <span class="node-badge">Senior Applications Developer</span>
+            </div>
+          </div>
+          
+          <div class="timeline-node" style="--node-start: 2023.3; --node-span: 0.25;">
+            <div class="node-card">
+              <div class="node-meta">2023</div>
+              <h4 class="node-title">Advantis Medical Staffing</h4>
+              <span class="node-badge">Programmatic SEO</span>
+            </div>
+          </div>
+          
+          <div class="timeline-node" style="--node-start: 2023.8; --node-span: 2.5;">
+            <div class="node-card highlight-lead">
+              <div class="node-meta">2023 - Present</div>
+              <h4 class="node-title">Kenneth Copeland Ministries</h4>
+              <span class="node-badge active-badge">Lead Developer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-grid-overlay">
+          <span>2006</span><span>2008</span><span>2010</span><span>2012</span><span>2014</span>
+          <span>2016</span><span>2018</span><span>2020</span><span>2022</span><span>2024</span><span>2026</span>
+        </div>
+
+      </div>
+    </section>
+    
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const viewport = document.getElementById('timelineViewport');
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+      let velocity = 0;
+      let momentumID;
+
+      // Primary Click/Grab Down Handler
+      viewport.addEventListener('mousedown', (e) => {
+        isDown = true;
+        viewport.style.cursor = 'grabbing';
+        startX = e.pageX - viewport.offsetLeft;
+        scrollLeft = viewport.scrollLeft;
+        cancelAnimationFrame(momentumID); // Halt any residual passive sliding states instantly
+      });
+
+      // Browser Bounds Escape Management
+      viewport.addEventListener('mouseleave', () => {
+        isDown = false;
+        viewport.style.cursor = 'grab';
+      });
+
+      // Release/Flick Mouse Lifecycle Trigger
+      viewport.addEventListener('mouseup', () => {
+        isDown = false;
+        viewport.style.cursor = 'grab';
+        executePhysicsMomentum();
+      });
+
+      // Drag Tracking Vector Analysis Loop
+      viewport.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        
+        const currentX = e.pageX - viewport.offsetLeft;
+        const dragDistanceWalked = (currentX - startX) * 1.3; // Speed tuning coefficient scalar
+        const baselinePreviousScroll = viewport.scrollLeft;
+        
+        viewport.scrollLeft = scrollLeft - dragDistanceWalked;
+        velocity = viewport.scrollLeft - baselinePreviousScroll; // Track delta adjustments for physics computation
+      });
+
+      // Exponential Decay Momentum Decay Execution Frame loop
+      function executePhysicsMomentum() {
+        if (Math.abs(velocity) > 0.4) {
+          viewport.scrollLeft += velocity;
+          velocity *= 0.93; // Friction dampener profile coefficient - handles smooth slide roll off
+          momentumID = requestAnimationFrame(executePhysicsMomentum);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

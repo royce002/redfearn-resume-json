@@ -1,5 +1,10 @@
 // ── skeleton snapshot (persona swap only) ───────────────────────────────────
 const SKELETON_KEY = "rc_skeleton_v1";
+const VIEW_ALL_PERSONA = "all";
+
+function isViewAllPersona(persona) {
+  return persona === VIEW_ALL_PERSONA;
+}
 
 const SKELETON_DEFAULTS = {
   summary: { lines: 4 },
@@ -150,7 +155,13 @@ function loadResumeData() {
 }
 
 function assetUrl(base, file) {
-  return `${base.replace(/\/$/, "")}/${encodeURIComponent(file)}`;
+  const path = String(file || "").replace(/\\/g, "/");
+  const encoded = path
+    .split("/")
+    .filter(Boolean)
+    .map((seg) => encodeURIComponent(seg))
+    .join("/");
+  return `${base.replace(/\/$/, "")}/${encoded}`;
 }
 
 function gallerySrcsetAttr(item, assetsBase) {
@@ -162,19 +173,258 @@ function gallerySrcsetAttr(item, assetsBase) {
   return parts.length ? ` srcset="${parts.join(", ")}"` : "";
 }
 
+function isMobileGalleryFile(file) {
+  return /[-_]mobile\./i.test(file);
+}
+
+function pairGalleryItems(gallery) {
+  if (!Array.isArray(gallery)) return [];
+  const byFile = Object.fromEntries(
+    gallery.filter((item) => item && item.file).map((item) => [item.file, item])
+  );
+  const pairs = [];
+  for (const item of gallery) {
+    if (!item || !item.file || isMobileGalleryFile(item.file)) continue;
+    let mobile = null;
+    if (/-desktop\./i.test(item.file)) {
+      const mobileFile = item.file.replace(/-desktop\./i, "-mobile.");
+      mobile = byFile[mobileFile] || null;
+    }
+    pairs.push({ desktop: item, mobile });
+  }
+  return pairs;
+}
+
+const projectModalState = {
+  galleryEl: null,
+  index: 0,
+  lastFocus: null,
+};
+
+function getGallerySlides(galleryEl) {
+  return [...galleryEl.querySelectorAll(".rc-slide-figure[data-rc-slide-index]")];
+}
+
+function slideModalPayload(slideEl) {
+  return {
+    desktop: slideEl.dataset.rcDesktop || "",
+    mobile: slideEl.dataset.rcMobile || "",
+    desktopAlt: slideEl.dataset.rcDesktopAlt || "",
+    mobileAlt: slideEl.dataset.rcMobileAlt || "",
+    title: slideEl.dataset.rcTitle || "",
+    description: slideEl.dataset.rcDescription || "",
+  };
+}
+
+const IMG_PLACEHOLDER =
+  "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%201%201%27%2F%3E";
+
+function initDeferredImages(root = document) {
+  const scope = root instanceof Element ? root : document;
+  const imgs = scope.querySelectorAll("img[data-rc-src]:not([data-rc-loaded])");
+  if (!imgs.length) return;
+
+  const load = (img) => {
+    const src = img.dataset.rcSrc;
+    if (!src || img.dataset.rcLoaded === "1") return;
+    img.src = src;
+    img.removeAttribute("data-rc-src");
+    img.dataset.rcLoaded = "1";
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    imgs.forEach(load);
+    return;
+  }
+
+  const io = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        load(entry.target);
+        obs.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "240px 0px", threshold: 0.01 }
+  );
+
+  imgs.forEach((img) => io.observe(img));
+}
+
+function preloadModalImages(galleryEl, index) {
+  const slides = getGallerySlides(galleryEl);
+  [index - 1, index + 1].forEach((i) => {
+    if (i < 0 || i >= slides.length) return;
+    const p = slideModalPayload(slides[i]);
+    [p.desktop, p.mobile].filter(Boolean).forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  });
+}
+
+function populateProjectModal(galleryEl, index) {
+  const dialog = document.getElementById("rc-project-modal");
+  if (!dialog) return;
+  const slides = getGallerySlides(galleryEl);
+  const slide = slides[index];
+  if (!slide) return;
+
+  const company = galleryEl.dataset.rcCompany || "";
+  const p = slideModalPayload(slide);
+
+  const titleEl = dialog.querySelector(".rc-modal-title");
+  const companyEl = dialog.querySelector(".rc-modal-company");
+  const descEl = dialog.querySelector(".rc-modal-description");
+  const counterEl = dialog.querySelector(".rc-modal-counter");
+  const desktopImg = dialog.querySelector(".rc-modal-desktop img");
+  const mobileWrap = dialog.querySelector(".rc-modal-mobile");
+  const mobileImg = dialog.querySelector(".rc-modal-mobile img");
+
+  if (titleEl) titleEl.textContent = p.title;
+  if (companyEl) {
+    companyEl.textContent = company;
+    companyEl.hidden = !company;
+  }
+  if (descEl) {
+    if (p.description) {
+      descEl.textContent = p.description;
+      descEl.hidden = false;
+    } else {
+      descEl.textContent = "";
+      descEl.hidden = true;
+    }
+  }
+  if (counterEl) counterEl.textContent = `${index + 1} / ${slides.length}`;
+  if (desktopImg) {
+    desktopImg.src = p.desktop;
+    desktopImg.alt = p.desktopAlt;
+  }
+  if (mobileWrap && mobileImg) {
+    if (p.mobile) {
+      mobileWrap.hidden = false;
+      mobileImg.src = p.mobile;
+      mobileImg.alt = p.mobileAlt || p.desktopAlt;
+    } else {
+      mobileWrap.hidden = true;
+      mobileImg.removeAttribute("src");
+    }
+  }
+
+  const prevBtn = dialog.querySelector(".rc-modal-prev");
+  const nextBtn = dialog.querySelector(".rc-modal-next");
+  if (prevBtn) prevBtn.disabled = index <= 0;
+  if (nextBtn) nextBtn.disabled = index >= slides.length - 1;
+
+  projectModalState.galleryEl = galleryEl;
+  projectModalState.index = index;
+  preloadModalImages(galleryEl, index);
+}
+
+function openProjectModal(galleryEl, slideIndex) {
+  const dialog = document.getElementById("rc-project-modal");
+  if (!dialog) return;
+  projectModalState.lastFocus = document.activeElement;
+  populateProjectModal(galleryEl, slideIndex);
+  if (!dialog.open) dialog.showModal();
+}
+
+function closeProjectModal() {
+  const dialog = document.getElementById("rc-project-modal");
+  if (!dialog || !dialog.open) return;
+  dialog.close();
+  const focus = projectModalState.lastFocus;
+  projectModalState.galleryEl = null;
+  if (focus && typeof focus.focus === "function") focus.focus();
+}
+
+function stepProjectModal(delta) {
+  const { galleryEl, index } = projectModalState;
+  if (!galleryEl) return;
+  const slides = getGallerySlides(galleryEl);
+  const next = index + delta;
+  if (next < 0 || next >= slides.length) return;
+  populateProjectModal(galleryEl, next);
+}
+
+let projectModalBound = false;
+
+function initProjectModal() {
+  if (projectModalBound) return;
+  const dialog = document.getElementById("rc-project-modal");
+  if (!dialog) return;
+  projectModalBound = true;
+
+  dialog.querySelector(".rc-modal-close")?.addEventListener("click", closeProjectModal);
+  dialog.querySelector(".rc-modal-prev")?.addEventListener("click", () => stepProjectModal(-1));
+  dialog.querySelector(".rc-modal-next")?.addEventListener("click", () => stepProjectModal(1));
+
+  dialog.addEventListener("cancel", (e) => {
+    e.preventDefault();
+    closeProjectModal();
+  });
+
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) closeProjectModal();
+  });
+
+  dialog.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      stepProjectModal(-1);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      stepProjectModal(1);
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    const slide = e.target.closest(".rc-slide-figure[data-rc-slide-index]");
+    if (!slide) return;
+    if (e.target.closest(".rc-gallery-prev, .rc-gallery-next")) return;
+    const gallery = slide.closest("[data-rc-gallery]");
+    if (!gallery) return;
+    const index = Number(slide.dataset.rcSlideIndex);
+    if (Number.isNaN(index)) return;
+    openProjectModal(gallery, index);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!(e.target instanceof Element)) return;
+    const slide = e.target.closest(".rc-slide-figure[data-rc-slide-index]");
+    if (!slide) return;
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+    const gallery = slide.closest("[data-rc-gallery]");
+    if (!gallery) return;
+    openProjectModal(gallery, Number(slide.dataset.rcSlideIndex));
+  });
+}
+
 function destroyGalleryControllers() {
+  closeProjectModal();
   document.querySelectorAll("[data-rc-gallery]").forEach((el) => {
-    const id = el.dataset.rcGalleryTimer;
-    if (id) {
-      clearInterval(Number(id));
+    const timerId = el.dataset.rcGalleryTimer;
+    if (timerId) {
+      clearInterval(Number(timerId));
       delete el.dataset.rcGalleryTimer;
     }
+    const startId = el.dataset.rcGalleryStartTimer;
+    if (startId) {
+      clearTimeout(Number(startId));
+      delete el.dataset.rcGalleryStartTimer;
+    }
     delete el.dataset.rcGalleryInit;
+    delete el.dataset.rcGalleryPaused;
   });
 }
 
 function initJobGalleries() {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const modalOpen = () => {
+    const d = document.getElementById("rc-project-modal");
+    return d && d.open;
+  };
 
   document.querySelectorAll("[data-rc-gallery]").forEach((wrap) => {
     const sc = wrap.querySelector(".rc-job-gallery-scroll");
@@ -185,13 +435,37 @@ function initJobGalleries() {
     wrap.dataset.rcGalleryInit = "1";
 
     const step = () => Math.max(260, Math.round(sc.clientWidth * 0.88));
-    prev.addEventListener("click", () => sc.scrollBy({ left: -step(), behavior: reduce ? "auto" : "smooth" }));
-    next.addEventListener("click", () => sc.scrollBy({ left: step(), behavior: reduce ? "auto" : "smooth" }));
+    prev.addEventListener("click", (e) => {
+      e.stopPropagation();
+      sc.scrollBy({ left: -step(), behavior: reduce ? "auto" : "smooth" });
+    });
+    next.addEventListener("click", (e) => {
+      e.stopPropagation();
+      sc.scrollBy({ left: step(), behavior: reduce ? "auto" : "smooth" });
+    });
+
+    const isPaused = () =>
+      wrap.dataset.rcGalleryPaused === "1" || wrap.matches(":hover") || modalOpen();
+
+    const pauseAutoScroll = () => {
+      wrap.dataset.rcGalleryPaused = "1";
+    };
+    const resumeAutoScroll = () => {
+      if (!wrap.matches(":hover") && !modalOpen()) {
+        delete wrap.dataset.rcGalleryPaused;
+      }
+    };
+
+    wrap.addEventListener("focusin", pauseAutoScroll);
+    wrap.addEventListener("focusout", (e) => {
+      if (e.relatedTarget && wrap.contains(e.relatedTarget)) return;
+      resumeAutoScroll();
+    });
 
     if (!reduce && sc.scrollWidth > sc.clientWidth + 8) {
       let dir = 1;
       const tick = () => {
-        if (wrap.matches(":hover")) return;
+        if (isPaused()) return;
         const max = sc.scrollWidth - sc.clientWidth;
         if (max <= 0) return;
         let t = sc.scrollLeft + dir * step();
@@ -204,8 +478,12 @@ function initJobGalleries() {
         }
         sc.scrollTo({ left: t, behavior: "smooth" });
       };
-      const timer = window.setInterval(tick, 5200);
-      wrap.dataset.rcGalleryTimer = String(timer);
+      const startDelay = reduce ? 0 : 3000;
+      const startTimer = window.setTimeout(() => {
+        const timer = window.setInterval(tick, 9000);
+        wrap.dataset.rcGalleryTimer = String(timer);
+      }, startDelay);
+      wrap.dataset.rcGalleryStartTimer = String(startTimer);
     }
   });
 }
@@ -223,6 +501,7 @@ loadResumeData()
   .then((RESUME) => {
 
     const ASSETS_BASE = document.getElementById("resume-root").dataset.assetsBase || "";
+    const BRAND_LOGOS = window.RC_BRAND_LOGOS || {};
 
     // ── View config from SSOT ─────────────────────────────────────────────────
     const viewConfig = RESUME.viewConfig || {};
@@ -238,7 +517,8 @@ loadResumeData()
     };
     const VALID_PLATFORMS = Object.keys(platformConfig);
     const VALID_THEMES    = Object.keys(themeConfig);
-    const VALID_PERSONAS  = Object.keys(RESUME.personas || {});
+    const VALID_PERSONAS = Object.keys(RESUME.personas || {});
+    const SELECTABLE_PERSONAS = [...VALID_PERSONAS, VIEW_ALL_PERSONA];
 
     const DEFAULTS = { persona: "fullstack", platform: "wordpress", theme: "modern" };
 
@@ -275,7 +555,7 @@ loadResumeData()
       const urlPlatform  = params.get("platform");
       const urlTheme     = params.get("theme");
 
-      const persona  = (VALID_PERSONAS.includes(urlPersona)   ? urlPersona  : null)
+      const persona  = (SELECTABLE_PERSONAS.includes(urlPersona) ? urlPersona : null)
                     ?? getCookie("rc_persona")
                     ?? local.persona
                     ?? DEFAULTS.persona;
@@ -289,7 +569,7 @@ loadResumeData()
                     ?? DEFAULTS.theme;
 
       return {
-        persona:  VALID_PERSONAS.includes(persona)   ? persona  : DEFAULTS.persona,
+        persona:  SELECTABLE_PERSONAS.includes(persona) ? persona : DEFAULTS.persona,
         platform: VALID_PLATFORMS.includes(platform) ? platform : DEFAULTS.platform,
         theme:    VALID_THEMES.includes(theme)        ? theme    : DEFAULTS.theme,
       };
@@ -368,11 +648,39 @@ loadResumeData()
     }
 
     function badgeFor(persona) {
+      if (isViewAllPersona(persona)) return "View All";
       const p = RESUME.personas[persona] || {};
       return p.badgeLabel || persona;
     }
 
+    function accomplishmentMatchesPersona(a, persona) {
+      if (!a || !a.text) return false;
+      if (isViewAllPersona(persona)) return true;
+      return Array.isArray(a.personas) && a.personas.includes(persona);
+    }
+
+    function renderAccomplishmentItem(a, persona) {
+      const text = a.text || "";
+      if (!isViewAllPersona(persona)) {
+        return `<li>${esc(text)}</li>`;
+      }
+      const tags = (a.personas || [])
+        .map((pk) => {
+          const p = RESUME.personas[pk] || {};
+          const label = p.selectLabel || p.badgeLabel || pk;
+          return `<span class="rc-persona-tag" data-persona-tag="${esc(pk)}">${esc(label)}</span>`;
+        })
+        .join("");
+      const tagWrap = tags ? `<span class="rc-bullet-personas">${tags}</span>` : "";
+      return `<li class="rc-accomplishment-item rc-accomplishment-item--audit">${tagWrap}<span class="rc-accomplishment-text">${esc(text)}</span></li>`;
+    }
+
     function renderSummary(persona) {
+      if (isViewAllPersona(persona)) {
+        document.getElementById("rc-summary").innerHTML =
+          `<strong>Summary</strong><em class="rc-view-all-note">Viewing all personas — experience lists every tagged bullet with persona labels.</em>`;
+        return;
+      }
       const p = RESUME.personas[persona];
       const text = p && p.summary ? esc(p.summary) : "";
       document.getElementById("rc-summary").innerHTML = `<strong>Summary</strong>${text}`;
@@ -438,7 +746,7 @@ loadResumeData()
     // ── Platform: Shopify Liquid skills ───────────────────────────────────────
     function renderSkillsShopify(persona) {
       const grid = document.getElementById("rc-skills");
-      const filtered = liquidWhere(RESUME.skills, "personas", persona);
+      const filtered = isViewAllPersona(persona) ? RESUME.skills : liquidWhere(RESUME.skills, "personas", persona);
 
       document.getElementById("skills-heading").textContent = "Product Collections";
 
@@ -504,7 +812,9 @@ loadResumeData()
     // ── Unified skills renderer (dispatches by platform) ─────────────────────
     function renderSkills(persona) {
       const grid = document.getElementById("rc-skills");
-      const filtered = RESUME.skills.filter((s) => s.personas.includes(persona));
+      const filtered = isViewAllPersona(persona)
+        ? RESUME.skills
+        : RESUME.skills.filter((s) => s.personas.includes(persona));
       const heading = document.getElementById("skills-heading");
       if (heading) heading.textContent = "Skills";
 
@@ -538,34 +848,111 @@ loadResumeData()
       }
     }
 
-    let pageLcpAssigned = false;
+    function renderGallerySlideImg(item, className, decorative) {
+      const src = assetUrl(ASSETS_BASE, item.file);
+      const srcset = decorative ? "" : gallerySrcsetAttr(item, ASSETS_BASE);
+      const sizes = srcset ? ' sizes="(max-width: 768px) 90vw, 33vw"' : "";
+      const altAttr = decorative ? ' alt="" aria-hidden="true"' : ` alt="${esc(item.alt || "")}"`;
+      return `<img class="${className}" src="${esc(src)}"${srcset}${sizes}${altAttr} width="${item.width || ""}" height="${item.height || ""}" loading="lazy" decoding="async" fetchpriority="low" />`;
+    }
 
-    function galleryMarkup(gallery) {
-      if (!gallery || !gallery.length) return "";
-      gallery = gallery.filter((item) => !/_mobile\./i.test(item.file));
-      const slides = gallery
-        .map((item) => {
-          const { file, alt, caption, width, height, loading = "lazy" } = item;
-          const src = assetUrl(ASSETS_BASE, file);
-          const srcset = gallerySrcsetAttr(item, ASSETS_BASE);
-          const sizes = srcset ? ' sizes="(max-width: 768px) 90vw, 33vw"' : "";
-          let fetchP = "";
-          if (loading === "eager" && !pageLcpAssigned) {
-            fetchP = ' fetchpriority="high"';
-            pageLcpAssigned = true;
-          }
+    function brandDisplayName(brand) {
+      const name = (brand.name || "").trim();
+      if (name) return name;
+      return (brand.caption || "").trim();
+    }
+
+    function brandLogoEntry(label) {
+      const key = (label || "").trim().toUpperCase();
+      return key ? BRAND_LOGOS[key] || null : null;
+    }
+
+    function brandFallbackText(label) {
+      const key = (label || "").trim().toUpperCase();
+      const short = {
+        "PL (PRIVATE LABEL)": "PL",
+        "AAVAN ALLIANCE LTD": "AAVAN",
+        "MASS MARKET": "MASS",
+        "PRIVATE LABEL": "PRIVATE",
+        "PHILIPPE STARCK": "STARCK",
+      };
+      return short[key] || (label || "").trim().toUpperCase();
+    }
+
+    function brandCellMarkup(brand) {
+      const label = brandDisplayName(brand);
+      if (!label) return "";
+      const alt = brand.alt || label;
+      let media;
+      if (brand.file) {
+        const src = assetUrl(ASSETS_BASE, brand.file);
+        media = `<img class="rc-job-brand-img" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" fetchpriority="low" />`;
+      } else {
+        let entry =
+          typeof brand.url === "string" && /^https:\/\//i.test(brand.url.trim())
+            ? { type: "url", src: brand.url.trim() }
+            : brandLogoEntry(label);
+        if (entry && entry.type === "text") {
+          media = `<span class="rc-job-brand-text" aria-hidden="true">${esc(brandFallbackText(label))}</span>`;
+        } else if (entry && entry.type === "url" && entry.src) {
+          media = `<img class="rc-job-brand-img rc-deferred-img" src="${IMG_PLACEHOLDER}" data-rc-src="${esc(entry.src)}" alt="${esc(alt)}" loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />`;
+        } else if (entry && entry.type === "file" && entry.src) {
+          const src = assetUrl(ASSETS_BASE, entry.src);
+          media = `<img class="rc-job-brand-img" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" fetchpriority="low" />`;
+        } else {
+          media = `<span class="rc-job-brand-text" aria-hidden="true">${esc(brandFallbackText(label))}</span>`;
+        }
+      }
+      return `<li class="rc-fifth-grid__cell rc-job-brand-cell">${media}<span class="rc-job-brand-caption">${esc(label)}</span></li>`;
+    }
+
+    function brandGridSection(brands, ariaLabel) {
+      if (!Array.isArray(brands) || !brands.length) return "";
+      const cells = brands.map((b) => (b ? brandCellMarkup(b) : "")).join("");
+      if (!cells) return "";
+      return `<div class="rc-fifth-grid-wrap rc-job-brand-grid" role="group" aria-label="${esc(ariaLabel)}">
+        <ul class="rc-fifth-grid">${cells}</ul>
+      </div>`;
+    }
+
+    function jobBrandGridsMarkup(agency, marks) {
+      const agencyHtml = brandGridSection(agency, "Client and agency brands");
+      const marksHtml = brandGridSection(marks, "WPMU brand marks");
+      if (!agencyHtml && !marksHtml) return "";
+      return `<div class="rc-job-brand-grids">${agencyHtml}${marksHtml}</div>`;
+    }
+
+    function galleryMarkup(gallery, company) {
+      const pairs = pairGalleryItems(gallery || []);
+      if (!pairs.length) return "";
+      const slides = pairs
+        .map(({ desktop, mobile }, index) => {
+          const caption = desktop.caption || "";
+          const description = desktop.description || "";
+          const desktopSrc = assetUrl(ASSETS_BASE, desktop.file);
+          const mobileSrc = mobile ? assetUrl(ASSETS_BASE, mobile.file) : "";
+          const pairedClass = mobile ? " rc-slide-figure--paired" : "";
           const cap = caption ? `<figcaption class="rc-slide-caption">${esc(caption)}</figcaption>` : "";
+          const mobileImg = mobile ? renderGallerySlideImg(mobile, "rc-slide-mobile", true) : "";
           return `
-          <figure class="rc-slide-figure">
-            <img src="${esc(src)}"${srcset}${sizes} alt="${esc(alt)}" width="${width || ""}" height="${height || ""}" loading="${esc(
-            loading
-          )}" decoding="async"${fetchP} />
+          <figure class="rc-slide-figure${pairedClass}" role="button" tabindex="0"
+            data-rc-slide-index="${index}"
+            data-rc-desktop="${esc(desktopSrc)}"
+            ${mobileSrc ? `data-rc-mobile="${esc(mobileSrc)}"` : ""}
+            data-rc-desktop-alt="${esc(desktop.alt || "")}"
+            ${mobile ? `data-rc-mobile-alt="${esc(mobile.alt || "")}"` : ""}
+            data-rc-title="${esc(caption)}"
+            data-rc-description="${esc(description)}">
+            <div class="rc-slide-stack">
+              ${renderGallerySlideImg(desktop, "rc-slide-desktop", false)}
+              ${mobileImg}
+            </div>
             ${cap}
           </figure>`;
         })
         .join("");
       return `
-        <div class="rc-job-gallery" data-rc-gallery>
+        <div class="rc-job-gallery" data-rc-gallery data-rc-company="${esc(company || "")}">
           <div class="rc-job-gallery-scroll" tabindex="0" role="region" aria-label="Project screenshots">
             ${slides}
           </div>
@@ -576,13 +963,12 @@ loadResumeData()
 
     function renderExperience(persona) {
       destroyGalleryControllers();
-      pageLcpAssigned = false;
 
       const container = document.getElementById("rc-experience");
       const jobs = RESUME.experience
         .map((job) => ({
           ...job,
-          accomplishments: job.accomplishments.filter((a) => a.personas.includes(persona)),
+          accomplishments: job.accomplishments.filter((a) => accomplishmentMatchesPersona(a, persona)),
         }))
         .filter((job) => job.accomplishments.length > 0)
         .sort((a, b) => {
@@ -616,15 +1002,20 @@ loadResumeData()
               </div>
               <p class="rc-job-dates"><time datetime="${esc(job.startDate)}">${esc(fmtDate(job.startDate))}</time> – ${endHtml}</p>
             </header>
-            ${galleryMarkup(job.gallery)}
+            ${jobBrandGridsMarkup(job.agencyGrid, job.brandGrid)}
+            ${galleryMarkup(job.gallery, job.company)}
             <ul class="rc-accomplishments">
-              ${job.accomplishments.map((a) => `<li>${esc(a.text)}</li>`).join("")}
+              ${job.accomplishments.map((a) => renderAccomplishmentItem(a, persona)).join("")}
             </ul>
           </article>`;
         })
         .join("");
 
-      requestAnimationFrame(() => initJobGalleries());
+      requestAnimationFrame(() => {
+        initProjectModal();
+        initJobGalleries();
+        initDeferredImages(container);
+      });
     }
 
     function renderEducation() {
@@ -662,29 +1053,11 @@ loadResumeData()
         .join("");
     }
 
-    function renderRecommendations(persona) {
-      const all = RESUME.recommendations || [];
-      const filtered = all.filter((r) => !r.personas || !r.personas.length || r.personas.includes(persona));
+    function renderRecommendations(_persona) {
       const section = document.getElementById("rc-section-recommendations");
       const el = document.getElementById("rc-recommendations");
-      if (!filtered.length) {
-        section.hidden = true;
-        el.innerHTML = "";
-        return;
-      }
-      section.hidden = false;
-      el.innerHTML = filtered
-        .map(
-          (r) => `
-          <blockquote class="rc-rec-card" cite="${esc(r.name)}">
-            <p class="rc-rec-text">${esc(r.text)}</p>
-            <footer class="rc-rec-attribution">
-              <strong>${esc(r.name)}</strong>
-              ${r.title ? `<span class="rc-rec-title">${esc(r.title)}</span>` : ""}
-            </footer>
-          </blockquote>`
-        )
-        .join("");
+      if (section) section.hidden = true;
+      if (el) el.innerHTML = "";
     }
 
     // ── Theme application ─────────────────────────────────────────────────────
@@ -727,12 +1100,14 @@ loadResumeData()
       document.getElementById("rc-badge").textContent = badgeFor(persona);
       personaSelect.value = persona;
 
-      const pData = RESUME.personas[persona] || {};
-      const avatarSrc = pData.image || RESUME.basics.image || "/assets/images/image_738ca0.jpg";
+      const pData = isViewAllPersona(persona) ? {} : RESUME.personas[persona] || {};
+      const avatarSrc = pData.image || RESUME.basics.image || "";
       const av = document.getElementById("rc-avatar");
       if (av) av.src = avatarSrc;
 
-      document.getElementById("rc-role").textContent = pData.headline || pData.title || RESUME.basics.label || "";
+      document.getElementById("rc-role").textContent = isViewAllPersona(persona)
+        ? RESUME.basics.label || ""
+        : pData.headline || pData.title || RESUME.basics.label || "";
 
       const { name } = RESUME.basics;
       document.getElementById("rc-name").innerHTML = name.replace(/(Jr\.)$/, '<span class="flicker-suffix">$1</span>');
@@ -827,7 +1202,11 @@ loadResumeData()
       themeSelect.value    = prefs.theme;
       document.getElementById("rc-badge").textContent = badgeFor(prefs.persona);
       renderEducation();
-      requestAnimationFrame(() => initJobGalleries());
+      requestAnimationFrame(() => {
+        initProjectModal();
+        initJobGalleries();
+        initDeferredImages(document.getElementById("resume-root") || document);
+      });
       scrollToHash();
       requestAnimationFrame(captureSkeletonSnapshot);
 

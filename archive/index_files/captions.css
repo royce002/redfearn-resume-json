@@ -1,0 +1,138 @@
+@import url(https://web.archive.org/web/20150713115558cs_/http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900);
+
+.tp-caption.h-logo {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  font-family: Lato, "Helvetica Neue" Helvetica, sans-serif;
+  font-weight: 100;
+  line-height: 1;
+  font-size: 164px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #272727;
+  text-transform: uppercase;
+}
+
+.tp-caption.h-logo-light {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  font-family: Lato, "Helvetica Neue" Helvetica, sans-serif;
+  font-weight: 100;
+  line-height: 1;
+  font-size: 214px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.tp-caption.h-tag {
+  display: none;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  font-family: Lato, "Helvetica Neue" Helvetica, sans-serif;
+  font-weight: 100;
+  line-height: 1;
+  font-size: 72px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #272727;
+  text-transform: uppercase;
+}
+
+.tp-caption.h-tag-b {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  font-family: Lato, "Helvetica Neue" Helvetica, sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  font-size: 44px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #272727;
+  text-transform: uppercase;
+}
+
+.tp-caption.h-tag-b-light {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  font-family: Lato, "Helvetica Neue" Helvetica, sans-serif;
+  font-weight: 900;
+  line-height: 1;
+  font-size: 64px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.tp-caption.h-tag-b-light:before,
+.tp-caption.h-tag-b-light:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 7.5%;
+  right: 7.5%;
+  height: 0.035em;
+  background-color: #fff;
+}
+      
+.tp-caption.h-tag-b-light:before {
+  top: -0.35em;
+}
+
+.tp-caption.h-tag-b-light:after {
+  bottom: -0.35em;
+}
+
+.tp-caption.h-tag span {
+  font-size: 0.5em;
+}
+
+.tp-caption.a-see-for-yourself {
+  font-size: 36px;
+  letter-spacing: 0.25em;
+}
+
+.tp-caption.a-see-for-yourself a {
+  position: absolute;
+  margin: 0;
+  border: 0.075em solid #ffff00;
+  padding: 0.5em 0.6em;
+  font-family: Lato, "Helvetica Neue" Helvetica, sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  color: #ffff00;
+  text-transform: uppercase;
+}
+
+.tp-caption.a-see-for-yourself a:hover {
+  color: #000;
+  background-color: #ffff00;
+}
+
+.tp-caption.a-see-for-yourself a span {
+  letter-spacing: 0;
+}
+/*
+     FILE ARCHIVED ON 11:55:58 Jul 13, 2015 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 16:27:37 May 17, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  capture_cache.get: 0.695
+  load_resource: 83.593
+  PetaboxLoader3.resolve: 70.623
+  PetaboxLoader3.datanode: 12.203
+*/
