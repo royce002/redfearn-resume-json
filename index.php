@@ -86,9 +86,14 @@ $og_title = $active_persona === RC_VIEW_ALL_PERSONA
     : 'Royce Redfearn Jr. — ' . (string) ($p_meta['title'] ?? 'Resume');
 $og_desc = (string) ($p_meta['metaDescription'] ?? '');
 
-$avatar_url = $initial_resume !== null
+$avatar_file = $initial_resume !== null
     ? (string) ($p_meta['image'] ?? $initial_resume['basics']['image'] ?? '')
     : '';
+if ($avatar_file !== '' && !preg_match('#^https?://#i', $avatar_file)) {
+    $avatar_url = rc_asset_url($assets_base, $avatar_file);
+} else {
+    $avatar_url = $avatar_file;
+}
 
 $dark_initial = false;
 if (isset($_COOKIE['rc_dark']) && $_COOKIE['rc_dark'] === '1') {

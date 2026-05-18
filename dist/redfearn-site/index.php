@@ -86,9 +86,14 @@ $og_title = $active_persona === RC_VIEW_ALL_PERSONA
     : 'Royce Redfearn Jr. — ' . (string) ($p_meta['title'] ?? 'Resume');
 $og_desc = (string) ($p_meta['metaDescription'] ?? '');
 
-$avatar_url = $initial_resume !== null
+$avatar_file = $initial_resume !== null
     ? (string) ($p_meta['image'] ?? $initial_resume['basics']['image'] ?? '')
     : '';
+if ($avatar_file !== '' && !preg_match('#^https?://#i', $avatar_file)) {
+    $avatar_url = rc_asset_url($assets_base, $avatar_file);
+} else {
+    $avatar_url = $avatar_file;
+}
 
 $dark_initial = false;
 if (isset($_COOKIE['rc_dark']) && $_COOKIE['rc_dark'] === '1') {
@@ -222,6 +227,8 @@ if ($initial_resume === null) {
             class="rc-avatar"
             width="96"
             height="96"
+            loading="eager"
+            decoding="async"
             fetchpriority="high"
           />
           <div class="rc-identity">
@@ -362,24 +369,28 @@ if ($initial_resume === null) {
       </div>
     </dialog>
 
-    <script src="https://cdn.logr-in.com/LogRocket.min.js" crossorigin="anonymous"></script>
-    <script>
-      window.LogRocket && window.LogRocket.init("3iqi5o/redfearnco");
+    <script src="https://cdn.logr-in.com/LogRocket.min.js" crossorigin="anonymous" defer></script>
+    <script defer>
+      window.addEventListener("load", function () {
+        window.LogRocket && window.LogRocket.init("3iqi5o/redfearnco");
+      });
     </script>
     <script src="/assets/js/resume.js" defer></script>
     <!--Start of Tawk.to Script-->
-    <script>
-      var Tawk_API = Tawk_API || {},
-        Tawk_LoadStart = new Date();
-      (function () {
-        var s1 = document.createElement("script"),
-          s0 = document.getElementsByTagName("script")[0];
-        s1.async = true;
-        s1.src = "https://embed.tawk.to/6a03bd49defb6f1c3776f438/1jof9mps8";
-        s1.charset = "UTF-8";
-        s1.setAttribute("crossorigin", "*");
-        s0.parentNode.insertBefore(s1, s0);
-      })();
+    <script defer>
+      window.addEventListener("load", function () {
+        var Tawk_API = Tawk_API || {},
+          Tawk_LoadStart = new Date();
+        (function () {
+          var s1 = document.createElement("script"),
+            s0 = document.getElementsByTagName("script")[0];
+          s1.async = true;
+          s1.src = "https://embed.tawk.to/6a03bd49defb6f1c3776f438/1jof9mps8";
+          s1.charset = "UTF-8";
+          s1.setAttribute("crossorigin", "*");
+          s0.parentNode.insertBefore(s1, s0);
+        })();
+      });
     </script>
     <!--End of Tawk.to Script-->
   </body>

@@ -942,7 +942,7 @@ function rc_portfolio_format_icon_svg(string $format): string
 /**
  * @param array<string, mixed> $block
  */
-function rc_render_credentials_block(array $block): string
+function rc_render_credentials_block(array $block, string $assetsBase): string
 {
     $heading = (string) ($block['heading'] ?? 'Credentials');
     $intro = (string) ($block['intro'] ?? '');
@@ -959,12 +959,18 @@ function rc_render_credentials_block(array $block): string
         $format = (string) ($dl['format'] ?? '');
         $label = (string) ($dl['label'] ?? $format);
         $file = (string) ($dl['file'] ?? '');
+        $icon = (string) ($dl['icon'] ?? '');
         $hint = (string) ($dl['hint'] ?? '');
         if ($file === '') {
             continue;
         }
+        if ($icon !== '') {
+            $iconHtml = '<img class="rc-cred-icon" src="' . rc_esc(rc_asset_url($assetsBase, $icon)) . '" alt="" width="48" height="48" decoding="async" />';
+        } else {
+            $iconHtml = rc_portfolio_format_icon_svg($format);
+        }
         $cards .= '<a class="rc-cred-card rc-cred-card--' . rc_esc($format) . '" href="' . rc_esc($file) . '" download>'
-            . rc_portfolio_format_icon_svg($format)
+            . $iconHtml
             . '<span class="rc-cred-label">' . rc_esc($label) . '</span>'
             . ($hint !== '' ? '<span class="rc-cred-hint">' . rc_esc($hint) . '</span>' : '')
             . '</a>';
@@ -1087,7 +1093,7 @@ function rc_render_portfolio(array $resume, string $persona, string $assetsBase)
     $out = '';
     $credentials = $portfolio['credentials'] ?? null;
     if (is_array($credentials)) {
-        $out .= rc_render_credentials_block($credentials);
+        $out .= rc_render_credentials_block($credentials, $assetsBase);
     }
     $agency = $portfolio['agency'] ?? null;
     if (is_array($agency)) {

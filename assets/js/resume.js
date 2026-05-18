@@ -1103,7 +1103,11 @@ loadResumeData()
       const pData = isViewAllPersona(persona) ? {} : RESUME.personas[persona] || {};
       const avatarSrc = pData.image || RESUME.basics.image || "";
       const av = document.getElementById("rc-avatar");
-      if (av) av.src = avatarSrc;
+      if (av && avatarSrc) {
+        av.src = /^https?:\/\//i.test(avatarSrc)
+          ? avatarSrc
+          : assetUrl(ASSETS_BASE, avatarSrc);
+      }
 
       document.getElementById("rc-role").textContent = isViewAllPersona(persona)
         ? RESUME.basics.label || ""

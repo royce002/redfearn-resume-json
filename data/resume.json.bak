@@ -1,7 +1,7 @@
 {
     "basics": {
         "name": "Royce Redfearn Jr.",
-        "image": "home-splash.webp",
+        "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
         "label": "Senior Web Architect & Technical Project Lead",
         "email": "Royce.Redfearn@gmail.com",
         "phone": "(972) 900-0048",
@@ -13,7 +13,7 @@
     },
     "personas": {
         "fullstack": {
-            "image": "home-splash.webp",
+            "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
             "title": "Senior Full-Stack Architect & Technical Lead",
             "headline": "Solutions Architect & Technical Lead | Bridging Legacy Systems with Modern Performance | 20+ Years Engineering High-Velocity Enterprise Platforms",
             "summary": "Senior Full-Stack Web Architect with 15+ years of experience driving enterprise-scale digital transformations and legacy-to-modern migrations. Expert in bridging robust backend infrastructure (AWS, Docker, LAMP stack, C#/.NET) with highly optimized, modern frontends (Vue.js, Tailwind CSS, Alpine.js). Adept at aligning system architecture with business objectives, specializing in API integrations, cloud deployments, and headless CMS solutions. A proven technical leader committed to clean code (SOLID principles), CI/CD automation, and delivering scalable web applications at high velocity.",
@@ -23,7 +23,7 @@
             "ogColor": "1d4ed8"
         },
         "frontend": {
-            "image": "home-splash.webp",
+            "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
             "title": "Senior Front-End Architect & UI Engineer",
             "headline": "Senior Frontend Architect & UI Engineer | Crafting Sub-Second, Accessible Interfaces | Expert in Atomic Design, Fluid Typography & Modern Web Performance",
             "summary": "Senior Front-End Architect and UI/UX Engineer specializing in crafting high-performance, accessible (WCAG), and scalable user interfaces. Expert in modern JavaScript frameworks (Vue.js, React), utility-first CSS (Tailwind), and Atomic Design methodologies. Proven track record of spearheading enterprise framework adoption, engineering fluid typography engines, and optimizing Core Web Vitals. Master of modern build tools (Vite, Webpack) and headless WordPress (ACF-JSON, Timber/Twig) integrations, transforming complex state management into seamless, mobile-first user experiences.",
@@ -33,7 +33,7 @@
             "ogColor": "c2410c"
         },
         "backend": {
-            "image": "home-splash.webp",
+            "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
             "title": "Senior Back-End Engineer & Infrastructure Specialist",
             "headline": "Senior Systems Architect & Infrastructure Lead | Engineering Secure API Ecosystems & Scalable Data Pipelines | Hardening Enterprise Stacks for Maximum Uptime",
             "summary": "Senior Back-End Engineer and Infrastructure Architect focused on designing secure, scalable data systems and server environments. Deep expertise in Object-Oriented Programming (OOP), PHP 8.4+, C# / ASP.NET, and complex MySQL/MariaDB optimization. Specialized in developing robust RESTful APIs and microservices for medical (HIPAA-compliant environments), government, and enterprise sectors. Highly proficient in cloud architecture (AWS, Azure), Docker containerization, Nginx load balancing, and rigorous server hardening against modern web vulnerabilities.",
@@ -43,7 +43,7 @@
             "ogColor": "6d28d9"
         },
         "pm": {
-            "image": "home-splash.webp",
+            "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
             "title": "Technical Project Lead & Agile Manager",
             "headline": "Technical Project Lead & Agile Mentor | Accelerating Team Velocity & SDLC Efficiency | Specializing in Ground-Up Platform Consolidations & Strategic Execution",
             "summary": "Technical Project Lead and Interim Scrum Master acting as a 'player-coach' to stabilize operations, remove blockers, and dramatically accelerate team velocity. Leveraging 15+ years of Software Development Life Cycle (SDLC) experience, I translate complex business requirements into actionable technical scopes. Expert in Agile methodologies, Kanban/Gantt tracking, and cross-functional leadership. Proven ability to establish enterprise coding standards, manage stakeholder expectations, and drive the successful, on-time delivery of both rapid-deployment sites and complex enterprise platforms.",
@@ -53,7 +53,7 @@
             "ogColor": "0f766e"
         },
         "seo": {
-            "image": "home-splash.webp",
+            "image": "https://lh3.googleusercontent.com/a/ACg8ocJtk9WEJJvO9bYpjggBK5ByDSqTqpyn7Yc0u3aAVV2QgnzT1K-NlA=s500-c",
             "title": "Technical SEO & Growth Architecture Specialist",
             "headline": "Technical SEO & Growth Architect | Engineering Organic Traffic Engines | Optimizing Core Web Vitals to Reverse Paid Acquisition Reliance",
             "summary": "Technical SEO Specialist and Growth Engineer focused on bridging the gap between advanced web architecture and aggressive organic traffic scaling. Expert in Core Web Vitals optimization, programmatic SEO, and granular user journey tracking (GTM, GA4). I engineer automated asset optimization pipelines (WebP, S3) and complex Schema.org (JSON-LD) architectures to drastically improve search engine rankings and Conversion Rate Optimization (CRO). Proven history of reversing paid acquisition reliance by executing high-ROI, data-driven organic growth strategies.",
@@ -191,13 +191,202 @@
             ],
             "gallery": [
                 {
-                    "file": "fort-worth-web-developer-web-development-hero.webp",
-                    "alt": "Kenneth Copeland Ministries production framework core view.",
-                    "caption": "KCM Atomic Component Infrastructure",
+                    "file": "fort-worth-wordpress-developer-kcm-homepage-desktop.webp",
+                    "alt": "Kenneth Copeland Ministries homepage — high-traffic WordPress architecture with atomic design system.",
+                    "caption": "KCM Homepage",
                     "width": 1440,
                     "height": 900,
                     "loading": "eager",
-                    "description": "Deployed performance optimizations across fluid, modular system templates."
+                    "description": "Architected and shipped the Kenneth Copeland Ministries marketing homepage on a high-traffic WordPress stack—atomic components, fluid typography, and performance budgets tuned for Core Web Vitals."
+                },
+                {
+                    "file": "fort-worth-wordpress-developer-kcm-homepage-mobile.webp",
+                    "alt": "KCM homepage mobile view showcasing fluid typography engine and responsive atomic components.",
+                    "caption": "KCM Homepage (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-web-developer-kcm-partner-signup-desktop.webp",
+                    "alt": "KCM Partner portal — revenue funnel and GTM-tracked partner sign-up flow.",
+                    "caption": "Partner Sign-Up Funnel",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Built the partner acquisition funnel with GTM instrumentation and mobile-first layouts that convert organic and paid traffic into my.kcm.org sign-ups."
+                },
+                {
+                    "file": "fort-worth-web-developer-kcm-partner-signup-mobile.webp",
+                    "alt": "KCM Partner portal mobile — mobile-first responsive partner acquisition page.",
+                    "caption": "Partner Sign-Up (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-seo-web-developer-kcm-daily-devotionals-desktop.webp",
+                    "alt": "KCM Daily Devotionals — high-traffic content hub with ACF-JSON powered headless WordPress architecture.",
+                    "caption": "Daily Devotionals Hub",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Delivered a high-volume devotionals hub using ACF-JSON and headless-friendly WordPress patterns so editorial teams can publish without developer bottlenecks."
+                },
+                {
+                    "file": "fort-worth-seo-web-developer-kcm-daily-devotionals-mobile.webp",
+                    "alt": "KCM Daily Devotionals mobile view — fluid typography and optimized Core Web Vitals.",
+                    "caption": "Daily Devotionals (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-web-developer-kcm-live-broadcast-platform-desktop.webp",
+                    "alt": "KCM Watch Live — HLS video delivery and live broadcast platform built for enterprise-scale viewership.",
+                    "caption": "Live Broadcast Platform",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Implemented Watch Live with HLS delivery and resilient playback UX for enterprise-scale concurrent viewers."
+                },
+                {
+                    "file": "fort-worth-web-developer-kcm-live-broadcast-platform-mobile.webp",
+                    "alt": "KCM Watch Live mobile — responsive HLS video broadcast optimized for mobile viewership.",
+                    "caption": "Live Broadcast (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-web-developer-kcm-tv-broadcast-schedule-desktop.webp",
+                    "alt": "KCM TV Broadcast schedule page — event-driven content architecture for broadcast programming.",
+                    "caption": "TV Broadcast Schedule",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Event-driven broadcast schedule experience reusing atomic layout primitives across TV and web surfaces."
+                },
+                {
+                    "file": "fort-worth-web-developer-kcm-tv-broadcast-schedule-mobile.webp",
+                    "alt": "KCM TV Broadcast mobile schedule — responsive broadcast schedule with atomic component reuse.",
+                    "caption": "TV Broadcast (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-web-developer-kcm-about-ministry-desktop.webp",
+                    "alt": "KCM About page — institutional brand architecture with rich media and editorial content.",
+                    "caption": "About KCM",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Institutional about experience with rich media, editorial layouts, and brand-consistent component reuse."
+                },
+                {
+                    "file": "fort-worth-web-developer-kcm-about-ministry-mobile.webp",
+                    "alt": "KCM About mobile — mobile-optimized institutional page with fluid layout.",
+                    "caption": "About KCM (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-web-developer-kcm-partner-portal-desktop.webp",
+                    "alt": "KCM Partner Portal — authenticated partner dashboard with personalized content and revenue funnels.",
+                    "caption": "Partner Portal (my.kcm.org)",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Authenticated partner portal (my.kcm.org) with personalized content rails and revenue-oriented user flows."
+                },
+                {
+                    "file": "fort-worth-web-developer-kcm-partner-portal-mobile.webp",
+                    "alt": "KCM Partner Portal mobile — responsive authenticated partner experience.",
+                    "caption": "Partner Portal (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-wordpress-developer-govictory-broadcast-news-desktop.webp",
+                    "alt": "GoVictory / Victory News — rapid-deployment broadcast news property built on KCM infrastructure.",
+                    "caption": "GoVictory News Platform",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Rapid-deploy GoVictory news property on shared KCM infrastructure—editorial velocity without sacrificing stability."
+                },
+                {
+                    "file": "fort-worth-wordpress-developer-govictory-broadcast-news-mobile.webp",
+                    "alt": "GoVictory mobile — mobile-optimized news broadcast platform.",
+                    "caption": "GoVictory (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-web-developer-southwest-believers-convention-desktop.webp",
+                    "alt": "Southwest Believers Convention homepage — rapid-deploy event property with live schedule and broadcast integration.",
+                    "caption": "SW Believers Convention",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Southwest Believers Convention event site with live schedule integration and broadcast tie-ins for peak traffic windows."
+                },
+                {
+                    "file": "fort-worth-web-developer-southwest-believers-convention-mobile.webp",
+                    "alt": "Southwest Believers Convention mobile — mobile-first event site with dynamic scheduling.",
+                    "caption": "SW Believers Convention (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-web-developer-sbc-speakers-directory-desktop.webp",
+                    "alt": "Southwest Believers Convention speakers page — structured speaker profiles with Schema.org markup.",
+                    "caption": "SBC Speakers Directory",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Structured speaker directory with Schema.org markup for discoverability and reusable profile templates."
+                },
+                {
+                    "file": "fort-worth-web-developer-sbc-speakers-directory-mobile.webp",
+                    "alt": "Southwest Believers Convention speakers mobile — responsive speaker directory.",
+                    "caption": "SBC Speakers (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-web-developer-victory-news-tonight-broadcast-desktop.webp",
+                    "alt": "Victory News Tonight — high-traffic broadcast news platform built and deployed on KCM infrastructure.",
+                    "caption": "Victory News Tonight",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Victory News Tonight broadcast news platform—high-traffic publishing patterns shared with the KCM design system."
+                },
+                {
+                    "file": "fort-worth-web-developer-victory-news-tonight-broadcast-mobile.webp",
+                    "alt": "Victory News Tonight mobile — responsive broadcast news experience.",
+                    "caption": "Victory News Tonight (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
                 }
             ],
             "accomplishments": [
@@ -337,31 +526,40 @@
             ],
             "gallery": [
                 {
-                    "file": "job-trva-logo.svg",
-                    "alt": "Trinity River Vision Authority logo primitive asset.",
-                    "caption": "TRVA System Identity Mark",
-                    "width": 120,
-                    "height": 120,
-                    "loading": "lazy",
-                    "description": "Public entity brand mark driving localized civil engineering layouts."
-                },
-                {
-                    "file": "jobs/trva/trva-1922-flood-full-res.webp",
-                    "alt": "Trinity River historical flooding visual data maps.",
-                    "caption": "Historical Regional Infrastructure Asset Data",
+                    "file": "fort-worth-web-developer-trinity-river-vision-authority-desktop.webp",
+                    "alt": "Trinity River Vision Authority — TRVA public-facing property aligned with regional floodway and recreation initiatives.",
+                    "caption": "Trinity River Vision (TRVA)",
                     "width": 1440,
                     "height": 900,
                     "loading": "lazy",
-                    "description": "Municipal documentation records mapped cleanly on data layers."
+                    "description": "Public TRVA property aligning regional floodway and recreation initiatives with accessible, maintainable WordPress builds."
                 },
                 {
-                    "file": "jobs/trva/1949-full-res.webp",
-                    "alt": "Montgomery Plaza regional engineering reference capture.",
-                    "caption": "Civil Engineering Asset Reference Matrix",
+                    "file": "fort-worth-web-developer-trinity-river-vision-authority-mobile.webp",
+                    "alt": "Trinity River Vision mobile — responsive TRVA site experience.",
+                    "caption": "Trinity River Vision (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "fort-worth-web-developer-panther-island-pavilion-venue-desktop.webp",
+                    "alt": "Panther Island Pavilion — TRVA-aligned venue and events destination on the Trinity River waterfront.",
+                    "caption": "Panther Island Pavilion",
                     "width": 1440,
                     "height": 900,
                     "loading": "lazy",
-                    "description": "Historical system asset mapping preserved across municipal files."
+                    "description": "Panther Island Pavilion venue site—events, waterfront programming, and TRVA brand alignment."
+                },
+                {
+                    "file": "fort-worth-web-developer-panther-island-pavilion-venue-mobile.webp",
+                    "alt": "Panther Island Pavilion mobile — responsive venue experience.",
+                    "caption": "Panther Island Pavilion (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
                 }
             ],
             "accomplishments": [
@@ -541,13 +739,22 @@
             "endDate": "2013-05",
             "gallery": [
                 {
-                    "file": "fort-worth-web-developer-client-logo-agency-portfolio.webp",
-                    "alt": "Fossil global multi-tenant brand toolbox context frame.",
-                    "caption": "WPMU Corporate Framework Platform",
+                    "file": "dallas-wordpress-developer-fossil-inc-homepage-desktop.webp",
+                    "alt": "Fossil.com — global retail homepage; WPMU Brand Tool Box project context.",
+                    "caption": "Fossil.com",
                     "width": 1920,
                     "height": 1080,
                     "loading": "eager",
-                    "description": "Engineered corporate WordPress Multisite layouts deploying multi-tenant child setups for international visual management."
+                    "description": "Built custom WordPress Multisite 'Brand Tool Boxes' as sales and support platforms for 10+ global brands including Fossil, Adidas, and Burberry."
+                },
+                {
+                    "file": "dallas-wordpress-developer-fossil-inc-homepage-mobile.webp",
+                    "alt": "Fossil.com mobile — responsive global retail homepage.",
+                    "caption": "Fossil.com (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
                 }
             ],
             "agencyGrid": [
@@ -568,6 +775,9 @@
                 },
                 {
                     "name": "BILLABONG"
+                },
+                {
+                    "name": "BURBERRY"
                 },
                 {
                     "name": "CALLAWAY"
@@ -647,16 +857,16 @@
             ],
             "brandGrid": [
                 {
-                    "file": "brands/dfw-wordpress-developer-fossil-client-logo.webp",
-                    "caption": "Fossil Global Identity Mark"
+                    "name": "FOSSIL.COM"
                 },
                 {
-                    "file": "brands/fort-worth-wordpress-developer-armani-client-logo.webp",
-                    "caption": "Armani Exchange Structural Engine"
+                    "name": "ADIDAS ORIGINALS"
                 },
                 {
-                    "file": "brands/fort-worth-wordpress-developer-adidas-client-logo.webp",
-                    "caption": "Adidas Originals Portal Core"
+                    "name": "BURBERRY"
+                },
+                {
+                    "name": "DIESEL"
                 }
             ],
             "accomplishments": [
@@ -684,14 +894,17 @@
             "endDate": "2011-03",
             "brandGrid": [
                 {
-                    "file": "agencies/amplifi-commerce.webp",
-                    "caption": "Amplifi Commerce Strategy Platform",
+                    "file": "amplifi-icon_1.webp",
+                    "caption": "Amplifi Commerce",
                     "alt": "Amplifi Commerce agency brand mark"
                 },
                 {
-                    "file": "brands/fort-worth-web-developer-nintendo-client-logo.webp",
-                    "caption": "Nintendo 3DS Launch Core UI",
-                    "alt": "Nintendo corporate mark"
+                    "name": "Nintendo",
+                    "caption": "Nintendo"
+                },
+                {
+                    "name": "Nintendo 3DS",
+                    "caption": "Nintendo 3DS"
                 }
             ],
             "accomplishments": [
@@ -1033,14 +1246,12 @@
                     "format": "word",
                     "label": "Microsoft Word",
                     "file": "/assets/downloads/Royce-Redfearn-Resume.docx",
-                    "icon": "word-icon.webp",
                     "hint": ".docx"
                 },
                 {
                     "format": "pdf",
                     "label": "PDF",
                     "file": "/assets/downloads/Royce-Redfearn-Resume.pdf",
-                    "icon": "pdf-icon.webp",
                     "hint": ".pdf"
                 }
             ]
@@ -1088,24 +1299,24 @@
             ],
             "partners": [
                 {
-                    "file": "agencies/runner-agency.webp",
-                    "alt": "Runner"
+                    "file": "fort-worth-web-developer-webvideo360-agency-logo.webp",
+                    "alt": "Web Video 360"
                 },
                 {
-                    "file": "agencies/amplifi-commerce.webp",
-                    "alt": "Amplifi Commerce"
-                },
-                {
-                    "file": "agencies/ascend-concepts.webp",
-                    "alt": "Ascend Concepts"
-                },
-                {
-                    "file": "agencies/Envision-Interactive.webp",
+                    "file": "fort-worth-web-developer-envision-interactive-agency-logo.webp",
                     "alt": "Envision Interactive"
                 },
                 {
-                    "file": "agencies/agency-icon.webp",
-                    "alt": "Agency Creative"
+                    "file": "fort-worth-web-developer-ascend-concepts-agency-logo.webp",
+                    "alt": "Ascend Concepts"
+                },
+                {
+                    "file": "fort-worth-web-developer-runner-agency-logo.webp",
+                    "alt": "Runner"
+                },
+                {
+                    "file": "fort-worth-web-developer-amplifi-commerce-agency-logo.webp",
+                    "alt": "Amplifi Commerce"
                 }
             ]
         },
@@ -1113,23 +1324,26 @@
             "heading": "Example Websites",
             "intro": "A sampling of freelance and contract builds from the agency era — brand marks and site captures from production deployments.",
             "gridOrder": [
-                "dallas-web-developer-agency-site-screenshot.webp",
-                "dallas-web-developer-custom-site-design.webp",
-                "dfw-full-stack-developer-freelance-web-project.webp",
-                "dfw-php-developer-client-website-portfolio.webp",
-                "dfw-web-designer-agency-website-project.webp",
-                "fort-worth-cms-developer-website-portfolio.webp",
-                "fort-worth-frontend-developer-portfolio-client-logo.webp",
-                "fort-worth-php-developer-agency-website-build.webp",
-                "fort-worth-ui-developer-responsive-design-sample.webp",
-                "fort-worth-web-developer-agency-project-site.webp",
-                "frisco-web-developer-responsive-design-portfolio.webp",
-                "north-texas-ui-developer-portfolio-project.webp",
+                "fort-worth-web-developer-client-logo-agency-portfolio.webp",
+                "dfw-wordpress-developer-brand-mark-client-logo.webp",
                 "north-texas-web-developer-agency-client-brand.webp",
-                "north-texas-wordpress-developer-agency-site.webp",
-                "tarrant-county-web-developer-business-website.webp",
-                "texas-frontend-developer-agency-web-sample.webp",
+                "fort-worth-frontend-developer-portfolio-client-logo.webp",
+                "fort-worth-web-developer-agency-project-site.webp",
+                "dfw-php-developer-client-website-portfolio.webp",
                 "texas-wordpress-developer-custom-web-build.webp",
+                "fort-worth-ui-developer-responsive-design-sample.webp",
+                "dallas-web-developer-agency-site-screenshot.webp",
+                "arlington-full-stack-developer-client-build.webp",
+                "dfw-web-designer-agency-website-project.webp",
+                "north-texas-wordpress-developer-agency-site.webp",
+                "fort-worth-cms-developer-website-portfolio.webp",
+                "texas-frontend-developer-agency-web-sample.webp",
+                "dallas-web-developer-custom-site-design.webp",
+                "tarrant-county-web-developer-business-website.webp",
+                "north-texas-ui-developer-portfolio-project.webp",
+                "dfw-full-stack-developer-freelance-web-project.webp",
+                "fort-worth-php-developer-agency-website-build.webp",
+                "frisco-web-developer-responsive-design-portfolio.webp",
                 "texas-wordpress-developer-portfolio-site-sample.webp"
             ]
         }

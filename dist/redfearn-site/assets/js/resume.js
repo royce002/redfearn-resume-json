@@ -216,6 +216,41 @@ function slideModalPayload(slideEl) {
   };
 }
 
+const IMG_PLACEHOLDER =
+  "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%201%201%27%2F%3E";
+
+function initDeferredImages(root = document) {
+  const scope = root instanceof Element ? root : document;
+  const imgs = scope.querySelectorAll("img[data-rc-src]:not([data-rc-loaded])");
+  if (!imgs.length) return;
+
+  const load = (img) => {
+    const src = img.dataset.rcSrc;
+    if (!src || img.dataset.rcLoaded === "1") return;
+    img.src = src;
+    img.removeAttribute("data-rc-src");
+    img.dataset.rcLoaded = "1";
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    imgs.forEach(load);
+    return;
+  }
+
+  const io = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        load(entry.target);
+        obs.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "240px 0px", threshold: 0.01 }
+  );
+
+  imgs.forEach((img) => io.observe(img));
+}
+
 function preloadModalImages(galleryEl, index) {
   const slides = getGallerySlides(galleryEl);
   [index - 1, index + 1].forEach((i) => {
@@ -813,21 +848,12 @@ loadResumeData()
       }
     }
 
-    let pageLcpAssigned = false;
-
-    function renderGallerySlideImg(item, className, loading, decorative) {
+    function renderGallerySlideImg(item, className, decorative) {
       const src = assetUrl(ASSETS_BASE, item.file);
       const srcset = decorative ? "" : gallerySrcsetAttr(item, ASSETS_BASE);
       const sizes = srcset ? ' sizes="(max-width: 768px) 90vw, 33vw"' : "";
-      let fetchP = "";
-      if (!decorative && loading === "eager" && !pageLcpAssigned) {
-        fetchP = ' fetchpriority="high"';
-        pageLcpAssigned = true;
-      }
       const altAttr = decorative ? ' alt="" aria-hidden="true"' : ` alt="${esc(item.alt || "")}"`;
-      return `<img class="${className}" src="${esc(src)}"${srcset}${sizes}${altAttr} width="${item.width || ""}" height="${item.height || ""}" loading="${esc(
-        loading
-      )}" decoding="async"${fetchP} />`;
+      return `<img class="${className}" src="${esc(src)}"${srcset}${sizes}${altAttr} width="${item.width || ""}" height="${item.height || ""}" loading="lazy" decoding="async" fetchpriority="low" />`;
     }
 
     function brandDisplayName(brand) {
@@ -860,7 +886,7 @@ loadResumeData()
       let media;
       if (brand.file) {
         const src = assetUrl(ASSETS_BASE, brand.file);
-        media = `<img class="rc-job-brand-img" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" />`;
+        media = `<img class="rc-job-brand-img" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" fetchpriority="low" />`;
       } else {
         let entry =
           typeof brand.url === "string" && /^https:\/\//i.test(brand.url.trim())
@@ -869,10 +895,10 @@ loadResumeData()
         if (entry && entry.type === "text") {
           media = `<span class="rc-job-brand-text" aria-hidden="true">${esc(brandFallbackText(label))}</span>`;
         } else if (entry && entry.type === "url" && entry.src) {
-          media = `<img class="rc-job-brand-img" src="${esc(entry.src)}" alt="${esc(alt)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />`;
+          media = `<img class="rc-job-brand-img rc-deferred-img" src="${IMG_PLACEHOLDER}" data-rc-src="${esc(entry.src)}" alt="${esc(alt)}" loading="lazy" decoding="async" fetchpriority="low" referrerpolicy="no-referrer" />`;
         } else if (entry && entry.type === "file" && entry.src) {
           const src = assetUrl(ASSETS_BASE, entry.src);
-          media = `<img class="rc-job-brand-img" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" />`;
+          media = `<img class="rc-job-brand-img" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" fetchpriority="low" />`;
         } else {
           media = `<span class="rc-job-brand-text" aria-hidden="true">${esc(brandFallbackText(label))}</span>`;
         }
@@ -903,12 +929,11 @@ loadResumeData()
         .map(({ desktop, mobile }, index) => {
           const caption = desktop.caption || "";
           const description = desktop.description || "";
-          const loading = desktop.loading || "lazy";
           const desktopSrc = assetUrl(ASSETS_BASE, desktop.file);
           const mobileSrc = mobile ? assetUrl(ASSETS_BASE, mobile.file) : "";
           const pairedClass = mobile ? " rc-slide-figure--paired" : "";
           const cap = caption ? `<figcaption class="rc-slide-caption">${esc(caption)}</figcaption>` : "";
-          const mobileImg = mobile ? renderGallerySlideImg(mobile, "rc-slide-mobile", "lazy", true) : "";
+          const mobileImg = mobile ? renderGallerySlideImg(mobile, "rc-slide-mobile", true) : "";
           return `
           <figure class="rc-slide-figure${pairedClass}" role="button" tabindex="0"
             data-rc-slide-index="${index}"
@@ -919,7 +944,7 @@ loadResumeData()
             data-rc-title="${esc(caption)}"
             data-rc-description="${esc(description)}">
             <div class="rc-slide-stack">
-              ${renderGallerySlideImg(desktop, "rc-slide-desktop", loading, false)}
+              ${renderGallerySlideImg(desktop, "rc-slide-desktop", false)}
               ${mobileImg}
             </div>
             ${cap}
@@ -938,7 +963,6 @@ loadResumeData()
 
     function renderExperience(persona) {
       destroyGalleryControllers();
-      pageLcpAssigned = false;
 
       const container = document.getElementById("rc-experience");
       const jobs = RESUME.experience
@@ -990,6 +1014,7 @@ loadResumeData()
       requestAnimationFrame(() => {
         initProjectModal();
         initJobGalleries();
+        initDeferredImages(container);
       });
     }
 
@@ -1078,7 +1103,11 @@ loadResumeData()
       const pData = isViewAllPersona(persona) ? {} : RESUME.personas[persona] || {};
       const avatarSrc = pData.image || RESUME.basics.image || "";
       const av = document.getElementById("rc-avatar");
-      if (av) av.src = avatarSrc;
+      if (av && avatarSrc) {
+        av.src = /^https?:\/\//i.test(avatarSrc)
+          ? avatarSrc
+          : assetUrl(ASSETS_BASE, avatarSrc);
+      }
 
       document.getElementById("rc-role").textContent = isViewAllPersona(persona)
         ? RESUME.basics.label || ""
@@ -1180,6 +1209,7 @@ loadResumeData()
       requestAnimationFrame(() => {
         initProjectModal();
         initJobGalleries();
+        initDeferredImages(document.getElementById("resume-root") || document);
       });
       scrollToHash();
       requestAnimationFrame(captureSkeletonSnapshot);

@@ -177,6 +177,34 @@ function rc_asset_url(string $assetsBase, string $file): string
     return rtrim($assetsBase, '/') . '/' . $encoded;
 }
 
+function rc_img_placeholder_src(): string
+{
+    return 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%201%201%27%2F%3E';
+}
+
+/** @return array{loading: string, fetch: string} */
+function rc_lazy_img_priority(bool $eager = false): array
+{
+    if ($eager) {
+        return ['loading' => 'eager', 'fetch' => ' fetchpriority="high"'];
+    }
+
+    return ['loading' => 'lazy', 'fetch' => ' fetchpriority="low"'];
+}
+
+function rc_render_deferred_img(string $class, string $dataSrc, string $alt, string $extraAttrs = ''): string
+{
+    $extraAttrs = trim($extraAttrs);
+
+    return '<img class="' . rc_esc(trim($class . ' rc-deferred-img')) . '"'
+        . ' src="' . rc_esc(rc_img_placeholder_src()) . '"'
+        . ' data-rc-src="' . rc_esc($dataSrc) . '"'
+        . ' alt="' . rc_esc($alt) . '"'
+        . ' loading="lazy" decoding="async" fetchpriority="low"'
+        . ($extraAttrs !== '' ? ' ' . $extraAttrs : '')
+        . ' />';
+}
+
 /**
  * Optional responsive variants: item["srcsetVariants"] = [["w"=>480,"file"=>"x-480w.webp"], ...]
  */
@@ -393,7 +421,7 @@ function rc_pair_gallery_items(array $gallery): array
 /**
  * @param array<string, mixed> $item
  */
-function rc_render_gallery_slide_img(array $item, string $assetsBase, string $class, string $loading, bool &$pageLcpAssigned, bool $decorative = false): string
+function rc_render_gallery_slide_img(array $item, string $assetsBase, string $class, bool $decorative = false): string
 {
     $file = (string) $item['file'];
     $alt = $decorative ? '' : (string) ($item['alt'] ?? '');
@@ -402,17 +430,13 @@ function rc_render_gallery_slide_img(array $item, string $assetsBase, string $cl
     $src = rc_asset_url($assetsBase, $file);
     $srcset = $decorative ? '' : rc_gallery_img_srcset_attr($item, $assetsBase);
     $sizes = $srcset !== '' ? ' sizes="(max-width: 768px) 90vw, 33vw"' : '';
-    $fetch = '';
-    if (!$decorative && $loading === 'eager' && !$pageLcpAssigned) {
-        $fetch = ' fetchpriority="high"';
-        $pageLcpAssigned = true;
-    }
+    $prio = rc_lazy_img_priority(false);
     $aria = $decorative ? ' alt="" aria-hidden="true"' : ' alt="' . rc_esc($alt) . '"';
 
     return '<img class="' . rc_esc($class) . '" src="' . rc_esc($src) . '"' . $srcset . $sizes . $aria
         . ($w > 0 ? ' width="' . $w . '"' : '')
         . ($h > 0 ? ' height="' . $h . '"' : '')
-        . ' loading="' . rc_esc($loading) . '" decoding="async"' . $fetch . ' />';
+        . ' loading="' . $prio['loading'] . '" decoding="async"' . $prio['fetch'] . ' />';
 }
 
 function rc_brand_display_name(array $brand): string
@@ -573,9 +597,11 @@ function rc_render_brand_cell(array $brand, string $assetsBase): string
     }
     $file = trim((string) ($brand['file'] ?? ''));
     $alt = (string) ($brand['alt'] ?? $label);
+    $prio = rc_lazy_img_priority(false);
+    $lazyAttrs = ' loading="' . $prio['loading'] . '" decoding="async"' . $prio['fetch'];
     if ($file !== '') {
         $src = rc_asset_url($assetsBase, $file);
-        $media = '<img class="rc-job-brand-img" src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '" loading="lazy" decoding="async" />';
+        $media = '<img class="rc-job-brand-img" src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '"' . $lazyAttrs . ' />';
     } else {
         $entry = null;
         $external = trim((string) ($brand['url'] ?? ''));
@@ -587,10 +613,10 @@ function rc_render_brand_cell(array $brand, string $assetsBase): string
         if ($entry !== null && ($entry['type'] ?? '') === 'text') {
             $media = rc_brand_text_fallback_markup($label);
         } elseif ($entry !== null && ($entry['type'] ?? '') === 'url' && isset($entry['src'])) {
-            $media = '<img class="rc-job-brand-img" src="' . rc_esc((string) $entry['src']) . '" alt="' . rc_esc($alt) . '" loading="lazy" decoding="async" referrerpolicy="no-referrer" />';
+            $media = rc_render_deferred_img('rc-job-brand-img', (string) $entry['src'], $alt, 'referrerpolicy="no-referrer"');
         } elseif ($entry !== null && ($entry['type'] ?? '') === 'file' && isset($entry['src'])) {
             $src = rc_asset_url($assetsBase, (string) $entry['src']);
-            $media = '<img class="rc-job-brand-img" src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '" loading="lazy" decoding="async" />';
+            $media = '<img class="rc-job-brand-img" src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '"' . $lazyAttrs . ' />';
         } else {
             $media = rc_brand_text_fallback_markup($label);
         }
@@ -656,7 +682,7 @@ function rc_render_job_brand_grids(array $agency, array $marks, string $assetsBa
 /**
  * @param list<array<string, mixed>> $gallery
  */
-function rc_render_gallery_html(array $gallery, string $assetsBase, bool &$pageLcpAssigned, string $company = ''): string
+function rc_render_gallery_html(array $gallery, string $assetsBase, string $company = ''): string
 {
     $pairs = rc_pair_gallery_items($gallery);
     if ($pairs === []) {
@@ -669,14 +695,13 @@ function rc_render_gallery_html(array $gallery, string $assetsBase, bool &$pageL
         $file = (string) $desktop['file'];
         $caption = (string) ($desktop['caption'] ?? '');
         $description = (string) ($desktop['description'] ?? '');
-        $loading = (string) ($desktop['loading'] ?? 'lazy');
         $desktopSrc = rc_asset_url($assetsBase, $file);
         $mobileSrc = $mobile !== null ? rc_asset_url($assetsBase, (string) $mobile['file']) : '';
         $mobileAlt = $mobile !== null ? (string) ($mobile['alt'] ?? '') : '';
         $pairedClass = $mobile !== null ? ' rc-slide-figure--paired' : '';
         $capHtml = $caption !== '' ? '<figcaption class="rc-slide-caption">' . rc_esc($caption) . '</figcaption>' : '';
         $mobileImg = $mobile !== null
-            ? rc_render_gallery_slide_img($mobile, $assetsBase, 'rc-slide-mobile', 'lazy', $pageLcpAssigned, true)
+            ? rc_render_gallery_slide_img($mobile, $assetsBase, 'rc-slide-mobile', true)
             : '';
         $slides .= '<figure class="rc-slide-figure' . $pairedClass . '" role="button" tabindex="0"'
             . ' data-rc-slide-index="' . $index . '"'
@@ -687,7 +712,7 @@ function rc_render_gallery_html(array $gallery, string $assetsBase, bool &$pageL
             . ' data-rc-title="' . rc_esc($caption) . '"'
             . ' data-rc-description="' . rc_esc($description) . '">'
             . '<div class="rc-slide-stack">'
-            . rc_render_gallery_slide_img($desktop, $assetsBase, 'rc-slide-desktop', $loading, $pageLcpAssigned, false)
+            . rc_render_gallery_slide_img($desktop, $assetsBase, 'rc-slide-desktop', false)
             . $mobileImg
             . '</div>'
             . $capHtml
@@ -756,7 +781,6 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
             return $startB <=> $startA;
         }
     );
-    $pageLcpAssigned = false;
     $html = '';
     foreach ($jobs as $job) {
         $id = rc_slugify($job['company']);
@@ -779,7 +803,7 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
         $agency = is_array($job['agencyGrid']) ? $job['agencyGrid'] : [];
         $marks = is_array($job['brandGrid']) ? $job['brandGrid'] : [];
         $brandGridHtml = rc_render_job_brand_grids($agency, $marks, $assetsBase);
-        $galleryHtml = rc_render_gallery_html($gal, $assetsBase, $pageLcpAssigned, $job['company']);
+        $galleryHtml = rc_render_gallery_html($gal, $assetsBase, $job['company']);
         $html .= '<article class="rc-job" id="' . rc_esc($id) . '">'
             . '<header class="rc-job-header">'
             . '<div>'
@@ -918,7 +942,7 @@ function rc_portfolio_format_icon_svg(string $format): string
 /**
  * @param array<string, mixed> $block
  */
-function rc_render_credentials_block(array $block): string
+function rc_render_credentials_block(array $block, string $assetsBase): string
 {
     $heading = (string) ($block['heading'] ?? 'Credentials');
     $intro = (string) ($block['intro'] ?? '');
@@ -935,12 +959,18 @@ function rc_render_credentials_block(array $block): string
         $format = (string) ($dl['format'] ?? '');
         $label = (string) ($dl['label'] ?? $format);
         $file = (string) ($dl['file'] ?? '');
+        $icon = (string) ($dl['icon'] ?? '');
         $hint = (string) ($dl['hint'] ?? '');
         if ($file === '') {
             continue;
         }
+        if ($icon !== '') {
+            $iconHtml = '<img class="rc-cred-icon" src="' . rc_esc(rc_asset_url($assetsBase, $icon)) . '" alt="" width="48" height="48" decoding="async" />';
+        } else {
+            $iconHtml = rc_portfolio_format_icon_svg($format);
+        }
         $cards .= '<a class="rc-cred-card rc-cred-card--' . rc_esc($format) . '" href="' . rc_esc($file) . '" download>'
-            . rc_portfolio_format_icon_svg($format)
+            . $iconHtml
             . '<span class="rc-cred-label">' . rc_esc($label) . '</span>'
             . ($hint !== '' ? '<span class="rc-cred-hint">' . rc_esc($hint) . '</span>' : '')
             . '</a>';
@@ -987,7 +1017,7 @@ function rc_render_agency_block(array $block, string $assetsBase): string
         }
         $src = rc_resolve_portfolio_image($file, $assetsBase);
         $url = (string) ($partner['url'] ?? '');
-        $inner = '<img src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '" loading="lazy" decoding="async" />';
+        $inner = '<img src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '" loading="lazy" decoding="async" fetchpriority="low" />';
         if ($url !== '') {
             $inner = '<a href="' . rc_esc($url) . '" target="_blank" rel="noopener noreferrer">' . $inner . '</a>';
         }
@@ -1027,7 +1057,7 @@ function rc_render_showcase_block(array $block, string $assetsBase): string
         $src = rc_resolve_portfolio_image($file, $assetsBase);
         $alt = 'Fort Worth web developer portfolio sample ' . $index;
         $cells .= '<li class="rc-fifth-grid__cell rc-showcase-cell">'
-            . '<img src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '" loading="lazy" decoding="async" />'
+            . '<img src="' . rc_esc($src) . '" alt="' . rc_esc($alt) . '" loading="lazy" decoding="async" fetchpriority="low" />'
             . '</li>';
     }
 
@@ -1063,7 +1093,7 @@ function rc_render_portfolio(array $resume, string $persona, string $assetsBase)
     $out = '';
     $credentials = $portfolio['credentials'] ?? null;
     if (is_array($credentials)) {
-        $out .= rc_render_credentials_block($credentials);
+        $out .= rc_render_credentials_block($credentials, $assetsBase);
     }
     $agency = $portfolio['agency'] ?? null;
     if (is_array($agency)) {
