@@ -9,9 +9,7 @@
   /* structural - shared across all themes */
   --radius: 10px;
   --transition: 550ms ease;
-  --fade-duration: 700ms;
-  --animation-delay: 2.5s;
-  --fade-stagger-step: 120ms;
+  --fade-duration: 320ms;
 
   /* ambient page background wash (slower than UI --transition) */
   --bg-wash-angle: 135deg;
@@ -433,6 +431,10 @@ html[data-theme="accessible"] :focus-visible {
   z-index: 1;
 }
 
+#resume-root {
+  animation: pageFadeDown var(--fade-duration) ease-out both;
+}
+
 .resume-component {
   max-width: 1100px;
   margin: 0 auto;
@@ -671,8 +673,6 @@ html[data-theme="accessible"] :focus-visible {
   border-radius: var(--radius);
   margin-bottom: 16px;
   overflow: hidden;
-  animation: fadeIn var(--fade-duration) ease both;
-  animation-delay: calc(var(--animation-delay) + var(--fade-stagger, 0s));
 }
 
 .rc-platform-flyout[hidden] { display: none; }
@@ -758,8 +758,6 @@ html[data-theme="accessible"] :focus-visible {
   font-family: "IBM Plex Mono", "Courier New", monospace;
   font-size: 12px;
   color: var(--muted);
-  animation: fadeIn var(--fade-duration) ease both;
-  animation-delay: calc(var(--animation-delay) + var(--fade-stagger, 0s));
 }
 
 .rc-network-status__method {
@@ -789,8 +787,6 @@ html[data-theme="accessible"] :focus-visible {
   line-height: 1.75;
   color: var(--accomplishment-text);
   transition: background var(--transition), border-color var(--transition), color var(--transition);
-  animation: fadeIn var(--fade-duration) ease both;
-  animation-delay: calc(var(--animation-delay) + var(--fade-stagger, 0s));
 }
 
 .rc-summary strong {
@@ -837,8 +833,6 @@ html[data-theme="legacy"] .rc-section-heading {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px 20px;
-  animation: fadeIn var(--fade-duration) ease both;
-  animation-delay: calc(var(--animation-delay) + var(--fade-stagger, 0s));
   transition: background var(--transition), border-color var(--transition);
 }
 
@@ -872,8 +866,6 @@ html[data-theme="legacy"] .rc-section-heading {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px 20px;
-  animation: fadeIn var(--fade-duration) ease both;
-  animation-delay: calc(var(--animation-delay) + var(--fade-stagger, 0s));
   transition: background var(--transition), border-color var(--transition);
   position: relative;
 }
@@ -932,19 +924,10 @@ html[data-theme="legacy"] .rc-section-heading {
   border-radius: var(--radius);
   overflow: hidden;
   margin-bottom: var(--gap);
-  animation: fadeIn var(--fade-duration) ease both;
-  animation-delay: calc(var(--animation-delay) + var(--fade-stagger, 0s));
   transition: background var(--transition), border-color var(--transition);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
 }
-
-#rc-experience .rc-job:nth-child(1) { --fade-stagger: 0ms; }
-#rc-experience .rc-job:nth-child(2) { --fade-stagger: 120ms; }
-#rc-experience .rc-job:nth-child(3) { --fade-stagger: 240ms; }
-#rc-experience .rc-job:nth-child(4) { --fade-stagger: 360ms; }
-#rc-experience .rc-job:nth-child(5) { --fade-stagger: 480ms; }
-#rc-experience .rc-job:nth-child(6) { --fade-stagger: 600ms; }
-#rc-experience .rc-job:nth-child(7) { --fade-stagger: 720ms; }
-#rc-experience .rc-job:nth-child(8) { --fade-stagger: 840ms; }
 
 .rc-job-header {
   display: flex;
@@ -985,8 +968,6 @@ html[data-theme="legacy"] .rc-section-heading {
   line-height: 1.7;
   color: var(--accomplishment-text);
   border-bottom: 1px solid var(--border);
-  animation: fadeIn var(--fade-duration) ease both;
-  animation-delay: calc(var(--animation-delay) + var(--fade-stagger, 0s));
   display: flex;
   gap: 12px;
   align-items: flex-start;
@@ -1090,8 +1071,13 @@ html[data-theme="legacy"] #rc-name {
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --animation-delay: 0s;
     --fade-duration: 0.01ms;
+  }
+
+  #resume-root {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 
   .flicker-suffix,
@@ -1127,9 +1113,15 @@ html[data-theme="legacy"] #rc-name {
   to   { opacity: 0.24; }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes pageFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* -- project case-study modal -- */
@@ -1755,8 +1747,6 @@ ul.rc-fifth-grid {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px 20px;
-  animation: fadeIn var(--fade-duration) ease both;
-  animation-delay: calc(var(--animation-delay) + var(--fade-stagger, 0s));
   transition: background var(--transition), border-color var(--transition);
 }
 
@@ -1822,8 +1812,6 @@ ul.rc-fifth-grid {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   border-left: 4px solid var(--accent);
-  animation: fadeIn var(--fade-duration) ease both;
-  animation-delay: calc(var(--animation-delay) + var(--fade-stagger, 0s));
 }
 
 .rc-rec-text {
@@ -1852,6 +1840,8 @@ ul.rc-fifth-grid {
 /* -- portfolio sections -- */
 .rc-portfolio-block {
   margin-bottom: 28px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 360px;
 }
 
 .rc-portfolio-subheading {

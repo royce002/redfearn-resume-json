@@ -84,25 +84,115 @@ function rc_contact_link_label(string $url): string
         : $url;
 }
 
-/**
- * @param array<string, mixed> $basics
- */
-function rc_render_contact(array $basics): string
+function rc_contact_type_from_url(string $url): string
 {
-    $html = '';
+    if (preg_match('~linkedin\.com~i', $url)) {
+        return 'linkedin';
+    }
+    if (preg_match('~github\.com~i', $url)) {
+        return 'github';
+    }
+
+    return 'website';
+}
+
+function rc_contact_icon_svg(string $type): string
+{
+    return match ($type) {
+        'email' => '<svg class="rc-contact-icon" viewBox="0 0 24 24" aria-hidden="true">'
+            . '<path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 2v.01L12 13 4 6.01V6h16ZM4 18V8.24l7.38 6.46a1 1 0 0 0 1.24 0L20 8.24V18H4Z"/>'
+            . '</svg>',
+        'phone' => '<svg class="rc-contact-icon" viewBox="0 0 24 24" aria-hidden="true">'
+            . '<path fill="currentColor" d="M15.5 1h-7A2.5 2.5 0 0 0 6 3.5v17A2.5 2.5 0 0 0 8.5 23h7a2.5 2.5 0 0 0 2.5-2.5v-17A2.5 2.5 0 0 0 15.5 1Zm-3.5 20a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5Z"/>'
+            . '</svg>',
+        'linkedin' => '<svg class="rc-contact-icon" viewBox="0 0 24 24" aria-hidden="true">'
+            . '<path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.35-1.85 3.59 0 4.25 2.36 4.25 5.43v6.31ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V9h3.56v11.45ZM22 0H2C.9 0 0 .9 0 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2Z"/>'
+            . '</svg>',
+        'github' => '<svg class="rc-contact-icon" viewBox="0 0 24 24" aria-hidden="true">'
+            . '<path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.01-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.47.11-3.06 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 2.88-.39c.98.01 1.97.13 2.88.39 2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.77.11 3.06.73.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.68.42.36.8 1.08.8 2.18 0 1.57-.01 2.84-.01 3.22 0 .31.21.68.8.56A10.51 10.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>'
+            . '</svg>',
+        default => '<svg class="rc-contact-icon" viewBox="0 0 24 24" aria-hidden="true">'
+            . '<path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 17.93V18a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v1.93A8.001 8.001 0 0 1 4.07 13H6a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H4.07A8.001 8.001 0 0 1 11 4.07V6a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V4.07A8.001 8.001 0 0 1 19.93 11H18a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h1.93A8.001 8.001 0 0 1 13 19.93Z"/>'
+            . '</svg>',
+    };
+}
+
+/**
+ * @param array{type: string, href: string, label: string, showLabel: bool, external: bool, ariaLabel: string} $item
+ */
+function rc_render_contact_item(array $item): string
+{
+    $type = (string) ($item['type'] ?? 'website');
+    $href = (string) ($item['href'] ?? '');
+    if ($href === '') {
+        return '';
+    }
+    $label = (string) ($item['label'] ?? '');
+    $showLabel = (bool) ($item['showLabel'] ?? false);
+    $external = (bool) ($item['external'] ?? false);
+    $ariaLabel = (string) ($item['ariaLabel'] ?? $label);
+
+    $attrs = ' class="rc-contact-item rc-contact-item--' . rc_esc($type) . '" href="' . rc_esc($href) . '"';
+    if ($external) {
+        $attrs .= ' target="_blank" rel="noopener noreferrer"';
+    }
+    if (!$showLabel) {
+        $attrs .= ' aria-label="' . rc_esc($ariaLabel) . '"';
+    }
+
+    $icon = rc_contact_icon_svg($type);
+    $text = $showLabel && $label !== ''
+        ? '<span class="rc-contact-label">' . rc_esc($label) . '</span>'
+        : '';
+
+    return '<a' . $attrs . '>' . $icon . $text . '</a>';
+}
+
+/**
+ * @return list<array{type: string, href: string, label: string, showLabel: bool, external: bool, ariaLabel: string}>
+ */
+function rc_build_contact_items(array $basics): array
+{
+    $items = [];
+
     $em = (string) ($basics['email'] ?? '');
-    $ph = (string) ($basics['phone'] ?? '');
-    $u = (string) ($basics['url'] ?? '');
     if ($em !== '') {
-        $html .= '<a href="mailto:' . rc_esc($em) . '">' . rc_esc($em) . '</a>';
+        $items[] = [
+            'type' => 'email',
+            'href' => 'mailto:' . $em,
+            'label' => $em,
+            'showLabel' => true,
+            'external' => false,
+            'ariaLabel' => 'Email ' . $em,
+        ];
     }
+
+    $ph = (string) ($basics['phone'] ?? '');
     if ($ph !== '') {
-        $tel = preg_replace('/[^\d+]/', '', $ph);
-        $html .= '<a href="tel:' . rc_esc($tel) . '">' . rc_esc($ph) . '</a>';
+        $tel = preg_replace('/[^\d+]/', '', $ph) ?? '';
+        $items[] = [
+            'type' => 'phone',
+            'href' => 'tel:' . $tel,
+            'label' => $ph,
+            'showLabel' => true,
+            'external' => false,
+            'ariaLabel' => 'Phone ' . $ph,
+        ];
     }
+
+    $u = (string) ($basics['url'] ?? '');
     if ($u !== '') {
-        $html .= '<a href="' . rc_esc($u) . '" target="_blank" rel="noopener noreferrer">' . rc_esc($u) . '</a>';
+        $hostLabel = rc_contact_link_label($u);
+        $items[] = [
+            'type' => 'website',
+            'href' => $u,
+            'label' => $hostLabel,
+            'showLabel' => false,
+            'external' => true,
+            'ariaLabel' => 'Website: ' . $hostLabel,
+        ];
     }
+
     $sameAs = $basics['sameAs'] ?? [];
     if (!is_array($sameAs)) {
         $sameAs = [];
@@ -111,11 +201,45 @@ function rc_render_contact(array $basics): string
         if (!is_string($link) || $link === '') {
             continue;
         }
-        $label = rc_contact_link_label($link);
-        $html .= '<a href="' . rc_esc($link) . '" target="_blank" rel="noopener noreferrer">' . rc_esc($label) . '</a>';
+        $type = rc_contact_type_from_url($link);
+        $hostLabel = rc_contact_link_label($link);
+        $aria = match ($type) {
+            'linkedin' => 'LinkedIn profile',
+            'github' => 'GitHub profile',
+            default => $hostLabel,
+        };
+        $items[] = [
+            'type' => $type,
+            'href' => $link,
+            'label' => $hostLabel,
+            'showLabel' => false,
+            'external' => true,
+            'ariaLabel' => $aria,
+        ];
     }
 
-    return $html;
+    return $items;
+}
+
+/**
+ * @param array<string, mixed> $basics
+ */
+function rc_render_contact(array $basics): string
+{
+    $labeled = '';
+    $social = '';
+    foreach (rc_build_contact_items($basics) as $item) {
+        if (!empty($item['showLabel'])) {
+            $labeled .= rc_render_contact_item($item);
+        } else {
+            $social .= rc_render_contact_item($item);
+        }
+    }
+    if ($social !== '') {
+        $labeled .= '<div class="rc-contact-social" aria-label="Social and web links">' . $social . '</div>';
+    }
+
+    return $labeled;
 }
 
 /** Accept JSON scalars; strict_types-safe for odd resume data. */
@@ -175,6 +299,23 @@ function rc_asset_url(string $assetsBase, string $file): string
     $encoded = implode('/', array_map(rawurlencode(...), $segments));
 
     return rtrim($assetsBase, '/') . '/' . $encoded;
+}
+
+/** Same-origin path under /assets/images/ (profile, local dev). */
+function rc_site_image_url(string $file): string
+{
+    $file = str_replace('\\', '/', trim($file));
+    if ($file === '') {
+        return '';
+    }
+    if (preg_match('#^https?://#i', $file)) {
+        return $file;
+    }
+    $file = preg_replace('#^assets/images/#i', '', $file) ?? $file;
+    $segments = array_filter(explode('/', $file), static fn (string $s): bool => $s !== '');
+    $encoded = implode('/', array_map(rawurlencode(...), $segments));
+
+    return '/assets/images/' . $encoded;
 }
 
 function rc_img_placeholder_src(): string

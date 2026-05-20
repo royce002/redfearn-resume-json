@@ -177,6 +177,23 @@ function rc_asset_url(string $assetsBase, string $file): string
     return rtrim($assetsBase, '/') . '/' . $encoded;
 }
 
+/** Same-origin path under /assets/images/ (profile, local dev). */
+function rc_site_image_url(string $file): string
+{
+    $file = str_replace('\\', '/', trim($file));
+    if ($file === '') {
+        return '';
+    }
+    if (preg_match('#^https?://#i', $file)) {
+        return $file;
+    }
+    $file = preg_replace('#^assets/images/#i', '', $file) ?? $file;
+    $segments = array_filter(explode('/', $file), static fn (string $s): bool => $s !== '');
+    $encoded = implode('/', array_map(rawurlencode(...), $segments));
+
+    return '/assets/images/' . $encoded;
+}
+
 function rc_img_placeholder_src(): string
 {
     return 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%201%201%27%2F%3E';

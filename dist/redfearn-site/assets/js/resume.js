@@ -164,6 +164,20 @@ function assetUrl(base, file) {
   return `${base.replace(/\/$/, "")}/${encoded}`;
 }
 
+/** Same-origin /assets/images/ (profile avatar; matches rc_site_image_url in PHP). */
+function siteImageUrl(file) {
+  const raw = String(file || "").replace(/\\/g, "/").trim();
+  if (!raw) return "";
+  if (/^https?:\/\//i.test(raw)) return raw;
+  const rel = raw.replace(/^assets\/images\//i, "");
+  const encoded = rel
+    .split("/")
+    .filter(Boolean)
+    .map((seg) => encodeURIComponent(seg))
+    .join("/");
+  return `/assets/images/${encoded}`;
+}
+
 function gallerySrcsetAttr(item, assetsBase) {
   const v = item.srcsetVariants;
   if (!Array.isArray(v) || !v.length) return "";
@@ -232,6 +246,11 @@ function initDeferredImages(root = document) {
     img.dataset.rcLoaded = "1";
   };
 
+  const isNearViewport = (img) => {
+    const rect = img.getBoundingClientRect();
+    return rect.top < window.innerHeight + 320 && rect.bottom > -320;
+  };
+
   if (!("IntersectionObserver" in window)) {
     imgs.forEach(load);
     return;
@@ -248,7 +267,10 @@ function initDeferredImages(root = document) {
     { rootMargin: "240px 0px", threshold: 0.01 }
   );
 
-  imgs.forEach((img) => io.observe(img));
+  imgs.forEach((img) => {
+    if (isNearViewport(img)) load(img);
+    else io.observe(img);
+  });
 }
 
 function preloadModalImages(galleryEl, index) {
@@ -1104,9 +1126,7 @@ loadResumeData()
       const avatarSrc = pData.image || RESUME.basics.image || "";
       const av = document.getElementById("rc-avatar");
       if (av && avatarSrc) {
-        av.src = /^https?:\/\//i.test(avatarSrc)
-          ? avatarSrc
-          : assetUrl(ASSETS_BASE, avatarSrc);
+        av.src = siteImageUrl(avatarSrc);
       }
 
       document.getElementById("rc-role").textContent = isViewAllPersona(persona)
@@ -1193,38 +1213,53 @@ loadResumeData()
     });
 
     // ── Initial hydration ──────────────────────────────────────────────────────
-    const root          = document.getElementById("resume-root");
-    const prefs         = getPrefs();
-    const hydrated      = root.dataset.hydrated === "true";
-    const serverPersona = root.dataset.persona || "fullstack";
+    const root           = document.getElementById("resume-root");
+    const urlParams      = new URLSearchParams(window.location.search);
+    const prefs          = getPrefs();
+    const hydrated       = root.dataset.hydrated === "true";
+    const serverPersona  = root.dataset.persona || "fullstack";
+    const serverPlatform = root.dataset.platform || "wordpress";
+    const urlPersona     = urlParams.get("show_as");
+    const urlPlatform    = urlParams.get("platform");
+    const initialPersona =
+      urlPersona && SELECTABLE_PERSONAS.includes(urlPersona) ? urlPersona : serverPersona;
+    const initialPlatform =
+      urlPlatform && VALID_PLATFORMS.includes(urlPlatform) ? urlPlatform : serverPlatform;
 
     applyTheme(prefs.theme);
 
-    if (hydrated && prefs.persona === serverPersona && prefs.platform === (root.dataset.platform || "wordpress")) {
-      personaSelect.value  = prefs.persona;
-      platformSelect.value = prefs.platform;
-      themeSelect.value    = prefs.theme;
-      document.getElementById("rc-badge").textContent = badgeFor(prefs.persona);
-      renderEducation();
-      requestAnimationFrame(() => {
-        initProjectModal();
-        initJobGalleries();
-        initDeferredImages(document.getElementById("resume-root") || document);
-      });
+    function bindHydratedPage(persona, platform) {
+      personaSelect.value = persona;
+      platformSelect.value = platform;
+      themeSelect.value = prefs.theme;
+      document.getElementById("rc-badge").textContent = badgeFor(persona);
+      initProjectModal();
+      initJobGalleries();
+      initDeferredImages(root);
+      const eduGrid = document.getElementById("rc-education");
+      if (eduGrid && !eduGrid.children.length) renderEducation();
       scrollToHash();
       requestAnimationFrame(captureSkeletonSnapshot);
+      if (platform === "wordpress") showWordPressLog(persona);
+    }
 
-      // Still run platform-specific side effects even when hydrated
-      if (prefs.platform === "wordpress") {
-        showWordPressLog(prefs.persona);
-      } else if (prefs.platform === "shopify") {
-        renderSkillsShopify(prefs.persona);
-      } else if (prefs.platform === "headless") {
-        renderSkillsHeadless(prefs.persona);
+    if (hydrated) {
+      // SSR already rendered — do not wipe DOM for cookie/localStorage prefs on refresh.
+      if (!urlPersona && prefs.persona !== serverPersona) {
+        persistPrefs(
+          { persona: serverPersona, platform: initialPlatform, theme: prefs.theme },
+          { push: false }
+        );
       }
+      bindHydratedPage(initialPersona, initialPlatform);
+    } else if (
+      initialPersona === serverPersona &&
+      initialPlatform === serverPlatform
+    ) {
+      bindHydratedPage(initialPersona, initialPlatform);
     } else {
-      render(prefs.persona, {
-        platform: prefs.platform,
+      render(initialPersona, {
+        platform: initialPlatform,
         theme: prefs.theme,
         scroll: true,
         showSkeleton: false,

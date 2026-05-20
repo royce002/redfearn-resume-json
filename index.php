@@ -89,11 +89,7 @@ $og_desc = (string) ($p_meta['metaDescription'] ?? '');
 $avatar_file = $initial_resume !== null
     ? (string) ($p_meta['image'] ?? $initial_resume['basics']['image'] ?? '')
     : '';
-if ($avatar_file !== '' && !preg_match('#^https?://#i', $avatar_file)) {
-    $avatar_url = rc_asset_url($assets_base, $avatar_file);
-} else {
-    $avatar_url = $avatar_file;
-}
+$avatar_url = $avatar_file !== '' ? rc_site_image_url($avatar_file) : '';
 
 $dark_initial = false;
 if (isset($_COOKIE['rc_dark']) && $_COOKIE['rc_dark'] === '1') {
@@ -190,13 +186,15 @@ if ($initial_resume === null) {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://assets.redfearn.co" crossorigin />
+    <link rel="preconnect" href="https://0.gravatar.com" crossorigin />
+    <link rel="dns-prefetch" href="https://0.gravatar.com" />
+    <link rel="preload" href="/assets/js/resume.js" as="script" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
     <style><?php echo $critical_css; ?></style>
-    <link rel="stylesheet" href="/assets/css/resume.css" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="/assets/css/resume.css" /></noscript>
+    <link rel="stylesheet" href="/assets/css/resume.css" />
   </head>
   <body<?php echo $body_attrs; ?>>
     <a class="skip-link" href="#rc-experience">Skip to experience</a>
@@ -337,6 +335,21 @@ if ($initial_resume === null) {
       </section>
 
     </main>
+    <script>
+      (function () {
+        var imgs = document.querySelectorAll("img[data-rc-src]:not([data-rc-loaded])");
+        var vh = window.innerHeight + 320;
+        for (var i = 0; i < imgs.length; i++) {
+          var img = imgs[i];
+          var r = img.getBoundingClientRect();
+          if (r.top < vh && r.bottom > -320) {
+            img.src = img.dataset.rcSrc;
+            img.removeAttribute("data-rc-src");
+            img.dataset.rcLoaded = "1";
+          }
+        }
+      })();
+    </script>
 <?php } ?>
 
     <dialog id="rc-project-modal" class="rc-project-modal" aria-labelledby="rc-modal-title">

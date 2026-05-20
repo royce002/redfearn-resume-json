@@ -1,0 +1,13 @@
+{
+  "name": "redfearn-resume",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "dev:php": "php -S 127.0.0.1:8001 -t .",
+    "snap-window": "python ../python/snap_window.py"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "concurrently": "^9.1.2"
+  }
+}

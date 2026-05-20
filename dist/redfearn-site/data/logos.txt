@@ -36,10 +36,21 @@ RELIC	https://upload.wikimedia.org/wikipedia/commons/0/07/Relic_Brand_Logo.svg
 SKAGEN	https://upload.wikimedia.org/wikipedia/en/9/9a/Skagen_Denmark_logo.svg
 SONY ERICSSON	https://upload.wikimedia.org/wikipedia/commons/1/14/Sony_Ericsson_logo.svg
 #
+# ── KCM ministry brands (Kenneth Copeland Ministries — brandGrid) ──
+# Add .webp/.svg under assets/images/brands/, then replace "text" with brands/your-file.webp
+KENNETH COPELAND MINISTRIES	text
+# brands/fort-worth-web-developer-kcm-ministries-client-logo.webp
+EMIC	text
+GOVICTORY	text
+SWBC	text
+SOUTHWEST BELIEVERS CONVENTION	text
+VICTORY NEWS TONIGHT	text
+AMERICA STANDS	text
+UNCLASSIFIED	text
+#
 # ── AGENCY BRANDS (career employers & clients) ──
 AMPLIFI COMMERCE	fort-worth-web-developer-amplifi-commerce-agency-logo.webp
 ADVANTIS MEDICAL STAFFING	brands/advantis-medical.svg
-KENNETH COPELAND MINISTRIES	text
 LOCK&LOCK	https://upload.wikimedia.org/wikipedia/commons/b/bb/LocknLock_logo.svg
 LOCK&LOCK TEXAS INC.	https://upload.wikimedia.org/wikipedia/commons/b/bb/LocknLock_logo.svg
 PAMPILLONIA JEWELERS	brands/pampillonia.svg
