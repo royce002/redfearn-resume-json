@@ -1019,9 +1019,15 @@ loadResumeData()
       </div>`;
     }
 
-    function jobBrandGridsMarkup(agency, marks) {
-      const agencyHtml = brandGridSection(agency, "Client and agency brands");
-      const marksHtml = brandGridSection(marks, "WPMU brand marks");
+    function jobBrandGridsMarkup(agency, marks, agencyLabel, marksLabel) {
+      const agencyHtml = brandGridSection(
+        agency,
+        agencyLabel && agencyLabel.trim() !== "" ? agencyLabel : "Client and agency brands"
+      );
+      const marksHtml = brandGridSection(
+        marks,
+        marksLabel && marksLabel.trim() !== "" ? marksLabel : "WPMU brand marks"
+      );
       if (!agencyHtml && !marksHtml) return "";
       return `<div class="rc-job-brand-grids">${agencyHtml}${marksHtml}</div>`;
     }
@@ -1106,7 +1112,7 @@ loadResumeData()
               </div>
               <p class="rc-job-dates"><time datetime="${esc(job.startDate)}">${esc(fmtDate(job.startDate))}</time> – ${endHtml}</p>
             </header>
-            ${jobBrandGridsMarkup(job.agencyGrid, job.brandGrid)}
+            ${jobBrandGridsMarkup(job.agencyGrid, job.brandGrid, job.agencyGridLabel, job.brandGridLabel)}
             ${galleryMarkup(job.gallery, job.company)}
             <ul class="rc-accomplishments">
               ${job.accomplishments.map((a) => renderAccomplishmentItem(a, persona)).join("")}

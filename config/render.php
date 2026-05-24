@@ -684,7 +684,7 @@ function rc_parse_brand_logo_value(string $raw): ?array
     if (preg_match('#/assets/images/(.+)$#i', $raw, $m) === 1) {
         $raw = $m[1];
     }
-    if (preg_match('/\.(svg|webp)$/i', $raw) === 1) {
+    if (preg_match('/\.(svg|webp|avif)$/i', $raw) === 1) {
         return ['type' => 'file', 'src' => $raw];
     }
 
@@ -809,10 +809,15 @@ function rc_render_job_brand_grid(array $brands, string $assetsBase, string $ari
  * @param list<array<string, mixed>> $agency
  * @param list<array<string, mixed>> $marks
  */
-function rc_render_job_brand_grids(array $agency, array $marks, string $assetsBase): string
-{
-    $agencyHtml = rc_render_job_brand_grid($agency, $assetsBase, 'Client and agency brands');
-    $marksHtml = rc_render_job_brand_grid($marks, $assetsBase, 'WPMU brand marks');
+function rc_render_job_brand_grids(
+    array $agency,
+    array $marks,
+    string $assetsBase,
+    string $agencyLabel = 'Client and agency brands',
+    string $marksLabel = 'WPMU brand marks'
+): string {
+    $agencyHtml = rc_render_job_brand_grid($agency, $assetsBase, $agencyLabel);
+    $marksHtml = rc_render_job_brand_grid($marks, $assetsBase, $marksLabel);
     if ($agencyHtml === '' && $marksHtml === '') {
         return '';
     }
@@ -943,7 +948,15 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
         $gal = is_array($job['gallery']) ? $job['gallery'] : [];
         $agency = is_array($job['agencyGrid']) ? $job['agencyGrid'] : [];
         $marks = is_array($job['brandGrid']) ? $job['brandGrid'] : [];
-        $brandGridHtml = rc_render_job_brand_grids($agency, $marks, $assetsBase);
+        $agencyLabel = trim((string) ($job['agencyGridLabel'] ?? ''));
+        $marksLabel = trim((string) ($job['brandGridLabel'] ?? ''));
+        $brandGridHtml = rc_render_job_brand_grids(
+            $agency,
+            $marks,
+            $assetsBase,
+            $agencyLabel !== '' ? $agencyLabel : 'Client and agency brands',
+            $marksLabel !== '' ? $marksLabel : 'WPMU brand marks'
+        );
         $galleryHtml = rc_render_gallery_html($gal, $assetsBase, $job['company']);
         $html .= '<article class="rc-job" id="' . rc_esc($id) . '">'
             . '<header class="rc-job-header">'

@@ -16,7 +16,7 @@
             "image": "royce-profile.png",
             "title": "Senior Full-Stack Architect & Technical Lead",
             "headline": "Solutions Architect & Technical Lead | Bridging Legacy Systems with Modern Performance | 20+ Years Engineering High-Velocity Enterprise Platforms",
-            "summary": "Senior Full-Stack Web Architect with 15+ years of experience driving enterprise-scale digital transformations and legacy-to-modern migrations. Expert in bridging robust backend infrastructure (AWS, Docker, LAMP stack, C#/.NET) with highly optimized, modern frontends (Vue.js, Tailwind CSS, Alpine.js). Adept at aligning system architecture with business objectives, specializing in API integrations, cloud deployments, and headless CMS solutions. A proven technical leader committed to clean code (SOLID principles), CI/CD automation, and delivering scalable web applications at high velocity.",
+            "summary": "Senior Full-Stack Architect & Technical Lead with 15+ years of experience driving enterprise-scale digital transformations and legacy-to-modern migrations. Expert in bridging robust backend infrastructure (PHP, ASP.NET, Node.js) with highly optimized modern frontends (Vue.js, TypeScript, Tailwind CSS). Proven track record of accelerating Agile team velocity, optimizing Core Web Vitals, and engineering programmatic SEO architectures that drastically reduce paid acquisition costs. Committed to clean code (SOLID principles), CI/CD automation, and delivering scalable web applications at high velocity.",
             "selectLabel": "Full-Stack Developer",
             "badgeLabel": "Full-Stack",
             "metaDescription": "15+ year veteran of web architecture, specializing in high-performance legacy-to-modern migrations. Bridging robust backend infrastructure with optimized modern frontends.",
@@ -209,18 +209,171 @@
             ],
             "gallery": [
                 {
-                    "file": "fort-worth-web-developer-web-development-hero.webp",
-                    "alt": "Kenneth Copeland Ministries production framework core view.",
-                    "caption": "KCM Atomic Component Infrastructure",
+                    "file": "kcm/www.kcm.org__watch-tv-broadcast-desktop.webp",
+                    "alt": "KCM Watch TV Broadcast schedule — broadcast property frontend on Vue.js atomic architecture.",
+                    "caption": "KCM Watch TV Broadcast",
                     "width": 1440,
                     "height": 900,
                     "loading": "eager",
-                    "description": "Deployed performance optimizations across fluid, modular system templates."
+                    "description": "TV broadcast schedule UI built on the unified KCM atomic Vue.js component system."
+                },
+                {
+                    "file": "kcm/www.kcm.org__watch-tv-broadcast-mobile.png",
+                    "alt": "KCM Watch TV Broadcast — mobile responsive schedule view.",
+                    "caption": "KCM Watch TV Broadcast (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "kcm/www.kcm.org__watch-live-desktop.webp",
+                    "alt": "KCM Watch Live — HLS live streaming hub for KCM, Victory News, and America Stands.",
+                    "caption": "KCM Watch Live",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Centralized live streaming hub aggregating multi-property HLS feeds and event broadcasts."
+                },
+                {
+                    "file": "kcm/www.kcm.org__watch-live-mobile.webp",
+                    "alt": "KCM Watch Live — mobile responsive live streaming hub.",
+                    "caption": "KCM Watch Live (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "kcm/www.kcm.org__topics-faith-desktop.webp",
+                    "alt": "KCM Topics — Faith resource library powered by ACF-JSON taxonomy architecture.",
+                    "caption": "KCM Topical Resource Library",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Topic-driven resource library with custom taxonomies and version-controlled ACF-JSON schemas."
+                },
+                {
+                    "file": "kcm/www.kcm.org__topics-faith-mobile.png",
+                    "alt": "KCM Topics: Faith — mobile responsive resource library.",
+                    "caption": "KCM Topical Resource Library (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "kcm/www.kcm.org__partner-desktop.webp",
+                    "alt": "KCM Partner engagement hub — conversion funnel with unified GTM tracking envelope.",
+                    "caption": "KCM Partner Engagement Hub",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Partner engagement and revenue funnel unified under a centralized GTM tracking envelope."
+                },
+                {
+                    "file": "kcm/www.kcm.org__partner-mobile.png",
+                    "alt": "KCM Partner — mobile responsive engagement hub.",
+                    "caption": "KCM Partner Engagement Hub (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "kcm/www.kcm.org__events-desktop.webp",
+                    "alt": "KCM Events calendar — broadcast and convention event architecture for SWBC and partner properties.",
+                    "caption": "KCM Events Calendar",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Event calendar architecture supporting Southwest Believers Convention and partner broadcast events."
+                },
+                {
+                    "file": "kcm/www.kcm.org__events-mobile.png",
+                    "alt": "KCM Events — mobile responsive event calendar.",
+                    "caption": "KCM Events Calendar (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "kcm/www.kcm.org__daily-devotionals-desktop.webp",
+                    "alt": "KCM Daily Devotionals archive — high-volume content templating with optimized Core Web Vitals.",
+                    "caption": "KCM Daily Devotionals Archive",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "High-volume devotional archive engineered for sub-second load times and SEO-friendly schema."
+                },
+                {
+                    "file": "kcm/www.kcm.org__daily-devotionals-mobile.webp",
+                    "alt": "KCM Daily Devotionals — mobile responsive content archive.",
+                    "caption": "KCM Daily Devotionals (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "kcm/www.kcm.org__careers-desktop.webp",
+                    "alt": "KCM Careers portal — recruitment landing page on the atomic component framework.",
+                    "caption": "KCM Careers Portal",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Recruitment landing experience built on shared atomic UI primitives and modular content blocks."
+                },
+                {
+                    "file": "kcm/www.kcm.org__careers-mobile.png",
+                    "alt": "KCM Careers — mobile responsive recruitment portal.",
+                    "caption": "KCM Careers Portal (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "kcm/www.kcm.org__about-kcm-desktop.webp",
+                    "alt": "About KCM — ministry overview page rendered on the unified Vue.js atomic system.",
+                    "caption": "About KCM",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Ministry overview page consolidating brand, leadership, and history under shared atomic primitives."
+                },
+                {
+                    "file": "kcm/www.kcm.org__about-kcm-mobile.png",
+                    "alt": "About KCM — mobile responsive ministry overview.",
+                    "caption": "About KCM (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
+                },
+                {
+                    "file": "kcm/www.kcm.org__about-kcm-annual-report-desktop.webp",
+                    "alt": "KCM Annual Report — long-form data presentation with optimized media pipelines.",
+                    "caption": "KCM Annual Report",
+                    "width": 1440,
+                    "height": 900,
+                    "loading": "lazy",
+                    "description": "Long-form annual report layout with automated asset pipelines and high-DPI media delivery."
+                },
+                {
+                    "file": "kcm/www.kcm.org__about-kcm-annual-report-mobile.png",
+                    "alt": "KCM Annual Report — mobile responsive long-form layout.",
+                    "caption": "KCM Annual Report (Mobile)",
+                    "width": 390,
+                    "height": 844,
+                    "loading": "lazy",
+                    "description": ""
                 }
             ],
             "accomplishments": [
                 {
-                    "text": "Act as Lead Developer and Interim Scrum Master for a 6-person team, successfully transitioning the department from rigid Scrum to a high-velocity Agile workflow.",
+                    "text": "Acted as Interim Scrum Master and Technical Lead for a 6-person engineering pod, successfully transitioning the department from rigid processes to high-velocity Agile workflows.",
                     "personas": [
                         "pm",
                         "fullstack"
@@ -235,7 +388,7 @@
                     ]
                 },
                 {
-                    "text": "Led the transition to a scalable, atomic design architecture, isolating UI patterns into reusable components to drastically improve code reusability and team velocity.",
+                    "text": "Spearheaded the enterprise-wide transition to a scalable, atomic Vue.js architecture, isolating UI patterns into reusable components to drastically improve code maintainability and team velocity.",
                     "personas": [
                         "frontend",
                         "pm",
@@ -266,7 +419,7 @@
                     ]
                 },
                 {
-                    "text": "Optimized asset delivery pipelines using SVG symbol libraries and strict S3 versioning rules, ensuring performant high-DPI rendering for Core Web Vitals.",
+                    "text": "Engineered automated asset delivery pipelines using SVG symbol libraries and strict S3 versioning rules, optimizing Core Web Vitals and ensuring performant high-DPI rendering across high-traffic broadcast properties.",
                     "personas": [
                         "seo",
                         "frontend",
@@ -274,7 +427,7 @@
                     ]
                 },
                 {
-                    "text": "Developed comprehensive product and revenue funnels, unifying tracking pixels and analytics into a centralized GTM envelope to establish baseline SEO metrics.",
+                    "text": "Orchestrated unified GTM tracking envelopes and comprehensive product/revenue funnels, establishing baseline SEO and conversion metrics across multiple high-traffic broadcast properties.",
                     "personas": [
                         "seo",
                         "backend",
@@ -286,36 +439,76 @@
         {
             "company": "Advantis Medical Staffing",
             "position": "Senior Web Developer",
+            "employmentType": "job",
+            "showInAgencyPartners": true,
             "startDate": "2023-04",
             "endDate": "2023-06",
             "brandGrid": [
                 {
-                    "name": "Advantis Medical Staffing"
+                    "file": "jobs/advantis/logo.avif",
+                    "name": "Advantis Medical Staffing",
+                    "alt": "Advantis Medical logo"
                 }
             ],
             "gallery": [
                 {
-                    "file": "fort-worth-asp-net-developer-advantis-medical-staffing-homepage-desktop.webp",
-                    "alt": "Advantis Medical Staffing homepage — programmatic SEO and clinician-capture platform built on ASP.NET with Azure DevOps.",
-                    "caption": "Advantis Medical Staffing",
+                    "file": "advantis/www.advantismed.com__root-desktop.webp",
+                    "alt": "Advantis Medical homepage — top-rated travel nurse agency hero with programmatic job search and clinician-capture funnels.",
+                    "caption": "Advantis Medical Homepage",
                     "width": 1920,
                     "height": 1080,
                     "loading": "eager",
-                    "description": "Programmatic SEO and clinician-capture architecture for Advantis—reverse-proxy to Webflow that shifted acquisition from 90% paid to 85%+ organic."
+                    "description": "Homepage hero and job-search architecture built on ASP.NET with reverse-proxy to Webflow—foundation of the 90% paid to 85%+ organic acquisition shift."
                 },
                 {
-                    "file": "fort-worth-asp-net-developer-advantis-medical-staffing-homepage-mobile.webp",
-                    "alt": "Advantis Medical Staffing mobile — responsive clinician-capture platform optimized for mobile job seekers.",
-                    "caption": "Advantis Medical (Mobile)",
-                    "width": 390,
-                    "height": 844,
+                    "file": "advantis/www.advantismed.com__jobs-desktop.webp",
+                    "alt": "Advantis Medical travel nurse jobs board — dynamic specialty filtering and programmatic SEO job listings.",
+                    "caption": "Travel Nurse Jobs Board",
+                    "width": 1920,
+                    "height": 1080,
                     "loading": "lazy",
-                    "description": ""
+                    "description": "High-volume job listing interface with specialty/state filters and Scriban-templated decision-engine capture funnels."
+                },
+                {
+                    "file": "advantis/www.advantismed.com__travel-nurse-jobs-desktop.webp",
+                    "alt": "Advantis Medical travel RN jobs landing — clinician acquisition page with ranked-agency social proof and lead capture.",
+                    "caption": "Travel RN Jobs Landing",
+                    "width": 1920,
+                    "height": 1080,
+                    "loading": "lazy",
+                    "description": "Primary clinician-capture landing page driving organic job applications through programmatic SEO architecture."
+                },
+                {
+                    "file": "advantis/www.advantismed.com__jobs-travel-nurse-icu-desktop.webp",
+                    "alt": "Advantis Medical ICU travel nurse specialty route — programmatic SEO URL structure on ASP.NET.",
+                    "caption": "ICU Travel Nurse (Programmatic SEO)",
+                    "width": 1920,
+                    "height": 1080,
+                    "loading": "lazy",
+                    "description": "Specialty-tier programmatic SEO route demonstrating scalable URL taxonomy for clinician verticals."
+                },
+                {
+                    "file": "advantis/www.advantismed.com__benefits-desktop.webp",
+                    "alt": "Advantis Medical benefits page — Gold Standard recruiter value proposition and clinician retention content.",
+                    "caption": "Benefits & Gold Standard",
+                    "width": 1920,
+                    "height": 1080,
+                    "loading": "lazy",
+                    "description": "Benefits and value-proposition content supporting recruiter lead nurturing and conversion optimization."
+                },
+                {
+                    "file": "advantis/www.advantismed.com__contact-desktop.webp",
+                    "alt": "Advantis Medical contact page — clinician and facility inquiry capture with lead routing forms.",
+                    "caption": "Contact & Lead Capture",
+                    "width": 1920,
+                    "height": 1080,
+                    "loading": "lazy",
+                    "description": "Contact and inquiry funnel integrating clinician-capture forms with the .NET 7 API lead-processing layer."
                 }
             ],
             "accomplishments": [
                 {
-                    "text": "Architected a programmatic SEO strategy for the clinician-capture platform, utilizing a reverse-proxy architecture to Webflow. This reversed a 90% reliance on paid acquisition, ultimately driving 85%+ of all job applications organically.",
+                    "text": "Architected a programmatic SEO strategy and reverse-proxy architecture (Webflow to ASP.NET) for the clinician-capture platform, shifting user acquisition from 90% paid to 85%+ organic and generating an industry-recognized growth case study.",
                     "personas": [
                         "seo",
                         "fullstack",
@@ -323,7 +516,7 @@
                     ]
                 },
                 {
-                    "text": "Engineered dynamic decision-engine interfaces and clinician-capture funnels using Scriban HTML templating within an ASP.NET environment, directly consuming a .NET 7 API layer to process thousands of recruiter leads.",
+                    "text": "Engineered dynamic decision-engine interfaces and clinician-capture funnels utilizing Scriban HTML templating within an ASP.NET environment, directly consuming a .NET 7 API layer to seamlessly process thousands of recruiter leads.",
                     "personas": [
                         "frontend",
                         "backend",
@@ -343,6 +536,16 @@
         {
             "company": "Tarrant Regional Water District",
             "position": "Senior Applications Developer",
+            "aliases": [
+                "TRWD",
+                "TRVA",
+                "Trinity River Vision Authority",
+                "Panther Island",
+                "Rockin' the River",
+                "Sunday Funday",
+                "Oktoberfest",
+                "SlideTheCity"
+            ],
             "startDate": "2014-04",
             "endDate": "2022-11",
             "brandGrid": [
@@ -351,6 +554,9 @@
                 },
                 {
                     "name": "Trinity River Vision Authority"
+                },
+                {
+                    "name": "Panther Island"
                 }
             ],
             "gallery": [
@@ -384,7 +590,7 @@
             ],
             "accomplishments": [
                 {
-                    "text": "Maintained a complex network of municipal websites on a dedicated server environment, ensuring an averaged 99.5% uptime while driving office-wide adoption of Asana.",
+                    "text": "Drove office-wide adoption of Asana and established cross-functional Agile workflows, aligning developer, marketing, and engineering stakeholders around unified delivery cadences for a complex network of municipal websites.",
                     "personas": [
                         "pm",
                         "fullstack"
@@ -398,7 +604,7 @@
                     ]
                 },
                 {
-                    "text": "Built a high-performance UI utilizing custom Google Maps clustering logic to render 30,000+ data points, drastically reducing map load times from 8 seconds to sub-second rendering.",
+                    "text": "Architected a high-performance GIS mapping UI and custom CMS, utilizing advanced Google Maps clustering logic to render 30,000+ data points and reducing map load times from 8 seconds to sub-second latency.",
                     "personas": [
                         "frontend",
                         "seo",
@@ -414,7 +620,7 @@
                     ]
                 },
                 {
-                    "text": "Orchestrated data-driven email marketing and SEO campaigns centered around municipal events, increasing the subscriber base by 700% and doubling average campaign CTR.",
+                    "text": "Orchestrated data-driven email marketing and SEO architectures centered around municipal events, scaling the subscriber base by 700% and doubling average campaign Click-Through Rates (CTR).",
                     "personas": [
                         "seo",
                         "pm",
@@ -423,7 +629,7 @@
                     ]
                 },
                 {
-                    "text": "Hardened LAMP stack environments utilizing Docker, Nginx load balancing, and strict XSS/CSRF protections.",
+                    "text": "Maintained and hardened high-availability LAMP stack environments utilizing Docker, Nginx load balancing, and strict XSS/CSRF protections, achieving 99.5% average uptime for critical municipal infrastructure.",
                     "personas": [
                         "backend",
                         "fullstack"
@@ -442,6 +648,15 @@
                 },
                 {
                     "name": "Deep Well Consulting"
+                }
+            ],
+            "agencyGridLabel": "Contract & Proprietary Web Development",
+            "agencyGrid": [
+                {
+                    "name": "Pampillonia Jewelers"
+                },
+                {
+                    "name": "Web Video 360"
                 }
             ],
             "gallery": [
@@ -834,8 +1049,13 @@
             ]
         },
         {
-            "company": "Quick Technologies Inc",
+            "company": "Quick Technologies Inc (QTI / SAGE)",
             "position": "Web Developer",
+            "aliases": [
+                "QTI",
+                "SAGE",
+                "Quick Technologies (SAGE)"
+            ],
             "startDate": "2006-03",
             "endDate": "2009-09",
             "brandGrid": [
@@ -1068,37 +1288,7 @@
             "intro": "Many agencies focus purely on design without the bandwidth to ship production web builds. I partner with creative teams to take concepts and PSDs through to modern, maintainable sites.",
             "grid": [
                 {
-                    "name": "Kenneth Copeland Ministries"
-                },
-                {
-                    "name": "Advantis Medical Staffing"
-                },
-                {
-                    "name": "Tarrant Regional Water District"
-                },
-                {
-                    "name": "Trinity River Vision Authority"
-                },
-                {
-                    "name": "TRYRDESIGN"
-                },
-                {
-                    "name": "Deep Well Consulting"
-                },
-                {
-                    "name": "Fossil Inc."
-                },
-                {
-                    "name": "Amplifi Commerce"
-                },
-                {
-                    "name": "Lock&Lock"
-                },
-                {
                     "name": "Pampillonia Jewelers"
-                },
-                {
-                    "name": "Quick Technologies (SAGE)"
                 },
                 {
                     "name": "Web Video 360"
@@ -1124,6 +1314,10 @@
                 {
                     "file": "agencies/agency-icon.webp",
                     "alt": "Agency Creative"
+                },
+                {
+                    "file": "jobs/advantis/logo.avif",
+                    "alt": "Advantis Medical Staffing"
                 }
             ]
         },

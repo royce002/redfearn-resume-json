@@ -50,7 +50,7 @@ UNCLASSIFIED	text
 #
 # ── AGENCY BRANDS (career employers & clients) ──
 AMPLIFI COMMERCE	fort-worth-web-developer-amplifi-commerce-agency-logo.webp
-ADVANTIS MEDICAL STAFFING	brands/advantis-medical.svg
+ADVANTIS MEDICAL STAFFING	jobs/advantis/logo.avif
 LOCK&LOCK	https://upload.wikimedia.org/wikipedia/commons/b/bb/LocknLock_logo.svg
 LOCK&LOCK TEXAS INC.	https://upload.wikimedia.org/wikipedia/commons/b/bb/LocknLock_logo.svg
 PAMPILLONIA JEWELERS	brands/pampillonia.svg
