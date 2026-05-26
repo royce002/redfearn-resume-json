@@ -990,6 +990,40 @@ html[data-theme="legacy"] .rc-section-heading {
   white-space: nowrap;
 }
 
+.rc-job-websites {
+  margin: 0;
+  padding: 14px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rc-job-websites-title {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.rc-job-websites-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rc-job-websites-list a {
+  font-size: 14px;
+  color: var(--link);
+  text-decoration: none;
+}
+
+.rc-job-websites-list a:hover {
+  text-decoration: underline;
+}
+
 .rc-accomplishments {
   list-style: none;
   padding: 0;
@@ -1514,7 +1548,7 @@ html[data-theme="legacy"] #rc-name {
   width: 100%;
   max-width: 1180px;
   margin: 30px auto 0;
-  padding: 0;
+  padding: 0 clamp(12px, 3vw, 24px);
   box-sizing: border-box;
 }
 
@@ -1533,10 +1567,18 @@ ul.rc-fifth-grid {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   column-gap: 4%;
   row-gap: 30px;
+  align-items: center;
   list-style: none;
   padding: 0;
   margin: 0;
   width: 100%;
+}
+
+.rc-fifth-grid__cell.rc-job-brand-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .rc-fifth-grid__cell {
@@ -1566,6 +1608,19 @@ ul.rc-fifth-grid {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* KCM marks are white/light — invert on light theme for contrast */
+#kenneth-copeland-ministries .rc-job-brand-img {
+  filter: invert(1);
+}
+
+#kenneth-copeland-ministries .rc-fifth-grid__cell:nth-child(5) .rc-job-brand-img {
+  filter: none;
+}
+
+.dark #kenneth-copeland-ministries .rc-job-brand-img {
+  filter: none;
 }
 
 .rc-job-brand-text {
@@ -1830,6 +1885,54 @@ ul.rc-fifth-grid {
 
 .rc-edu-highlights li:last-child {
   margin-bottom: 0;
+}
+
+.rc-cert-block {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.rc-cert-issuer {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.rc-cert-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rc-cert-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.rc-cert-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.rc-cert-title {
+  color: var(--accomplishment-text);
+}
+
+.rc-cert-date {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 /* -- recommendations -- */

@@ -809,6 +809,42 @@ function rc_render_job_brand_grid(array $brands, string $assetsBase, string $ari
  * @param list<array<string, mixed>> $agency
  * @param list<array<string, mixed>> $marks
  */
+/**
+ * @param list<array<string, mixed>> $websites
+ */
+function rc_render_job_websites(array $websites, string $heading = 'Websites Built'): string
+{
+    if ($websites === []) {
+        return '';
+    }
+    $items = '';
+    foreach ($websites as $site) {
+        if (!is_array($site)) {
+            continue;
+        }
+        $url = trim((string) ($site['url'] ?? ''));
+        if ($url === '') {
+            continue;
+        }
+        $label = trim((string) ($site['label'] ?? ''));
+        if ($label === '') {
+            $label = rc_contact_link_label($url);
+        }
+        $items .= '<li><a href="' . rc_esc($url) . '" target="_blank" rel="noopener noreferrer">'
+            . rc_esc($label)
+            . '</a></li>';
+    }
+    if ($items === '') {
+        return '';
+    }
+    $headingText = trim($heading) !== '' ? trim($heading) : 'Websites Built';
+
+    return '<div class="rc-job-websites">'
+        . '<p class="rc-job-websites-title">' . rc_esc($headingText) . '</p>'
+        . '<ul class="rc-job-websites-list">' . $items . '</ul>'
+        . '</div>';
+}
+
 function rc_render_job_brand_grids(
     array $agency,
     array $marks,
@@ -906,6 +942,8 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
                 'gallery' => is_array($job['gallery'] ?? null) ? $job['gallery'] : [],
                 'agencyGrid' => is_array($job['agencyGrid'] ?? null) ? $job['agencyGrid'] : [],
                 'brandGrid' => is_array($job['brandGrid'] ?? null) ? $job['brandGrid'] : [],
+                'websites' => is_array($job['websites'] ?? null) ? $job['websites'] : [],
+                'websitesHeading' => (string) ($job['websitesHeading'] ?? 'Websites Built'),
                 'accomplishments' => $filtered,
             ];
         }
@@ -916,15 +954,15 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
     usort(
         $jobs,
         static function (array $a, array $b): int {
-            $endA = rc_resume_month_key((string) ($a['endDate'] ?? ''), true);
-            $endB = rc_resume_month_key((string) ($b['endDate'] ?? ''), true);
-            if ($endB !== $endA) {
-                return $endB <=> $endA;
-            }
             $startA = rc_resume_month_key((string) ($a['startDate'] ?? ''), false);
             $startB = rc_resume_month_key((string) ($b['startDate'] ?? ''), false);
+            if ($startB !== $startA) {
+                return $startB <=> $startA;
+            }
+            $endA = rc_resume_month_key((string) ($a['endDate'] ?? ''), true);
+            $endB = rc_resume_month_key((string) ($b['endDate'] ?? ''), true);
 
-            return $startB <=> $startA;
+            return $endB <=> $endA;
         }
     );
     $html = '';
@@ -958,6 +996,9 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
             $marksLabel !== '' ? $marksLabel : 'WPMU brand marks'
         );
         $galleryHtml = rc_render_gallery_html($gal, $assetsBase, $job['company']);
+        $websites = is_array($job['websites']) ? $job['websites'] : [];
+        $websitesHeading = trim((string) ($job['websitesHeading'] ?? 'Websites Built'));
+        $websitesHtml = rc_render_job_websites($websites, $websitesHeading);
         $html .= '<article class="rc-job" id="' . rc_esc($id) . '">'
             . '<header class="rc-job-header">'
             . '<div>'
@@ -968,6 +1009,7 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
             . '</header>'
             . $brandGridHtml
             . $galleryHtml
+            . $websitesHtml
             . '<ul class="rc-accomplishments">' . $lis . '</ul>'
             . '</article>';
     }
@@ -978,11 +1020,61 @@ function rc_render_experience(array $resume, string $persona, string $assetsBase
 /**
  * @param array<string, mixed> $resume
  */
+function rc_render_certifications(array $resume): string
+{
+    $certs = $resume['certifications'] ?? [];
+    if (!is_array($certs) || $certs === []) {
+        return '';
+    }
+    $byIssuer = [];
+    foreach ($certs as $cert) {
+        if (!is_array($cert)) {
+            continue;
+        }
+        $title = trim((string) ($cert['title'] ?? ''));
+        if ($title === '') {
+            continue;
+        }
+        $issuer = trim((string) ($cert['issuer'] ?? ''));
+        if ($issuer === '') {
+            $issuer = 'Certifications';
+        }
+        $byIssuer[$issuer][] = $cert;
+    }
+    if ($byIssuer === []) {
+        return '';
+    }
+    $out = '';
+    foreach ($byIssuer as $issuer => $items) {
+        $lis = '';
+        foreach ($items as $cert) {
+            $title = trim((string) ($cert['title'] ?? ''));
+            $date = trim((string) ($cert['date'] ?? ''));
+            $dateHtml = $date !== ''
+                ? '<time class="rc-cert-date" datetime="' . rc_esc($date) . '">' . rc_fmt_date($date) . '</time>'
+                : '';
+            $lis .= '<li class="rc-cert-item">'
+                . '<span class="rc-cert-title">' . rc_esc($title) . '</span>'
+                . $dateHtml
+                . '</li>';
+        }
+        $out .= '<div class="rc-cert-block">'
+            . '<h3 class="rc-cert-issuer">' . rc_esc($issuer) . '</h3>'
+            . '<ul class="rc-cert-list">' . $lis . '</ul>'
+            . '</div>';
+    }
+
+    return $out;
+}
+
+/**
+ * @param array<string, mixed> $resume
+ */
 function rc_render_education(array $resume): string
 {
     $edu = $resume['education'] ?? [];
-    if (!is_array($edu) || $edu === []) {
-        return '';
+    if (!is_array($edu)) {
+        $edu = [];
     }
     $out = '';
     foreach ($edu as $e) {
@@ -1019,7 +1111,7 @@ function rc_render_education(array $resume): string
             . '</div>';
     }
 
-    return $out;
+    return $out . rc_render_certifications($resume);
 }
 
 /**

@@ -209,164 +209,164 @@
             ],
             "gallery": [
                 {
-                    "file": "kcm/www.kcm.org__watch-tv-broadcast-desktop.webp",
+                    "file": "gallery/KCM-Gallery-Desktop-18.webp",
                     "alt": "KCM Watch TV Broadcast schedule — broadcast property frontend on Vue.js atomic architecture.",
                     "caption": "KCM Watch TV Broadcast",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2880,
+                    "height": 1800,
                     "loading": "eager",
                     "description": "TV broadcast schedule UI built on the unified KCM atomic Vue.js component system."
                 },
                 {
-                    "file": "kcm/www.kcm.org__watch-tv-broadcast-mobile.png",
+                    "file": "gallery/KCM-Gallery-Mobile-18.png",
                     "alt": "KCM Watch TV Broadcast — mobile responsive schedule view.",
                     "caption": "KCM Watch TV Broadcast (Mobile)",
-                    "width": 390,
-                    "height": 844,
+                    "width": 1287,
+                    "height": 25560,
                     "loading": "lazy",
                     "description": ""
                 },
                 {
-                    "file": "kcm/www.kcm.org__watch-live-desktop.webp",
+                    "file": "gallery/KCM-Gallery-Desktop-17.webp",
                     "alt": "KCM Watch Live — HLS live streaming hub for KCM, Victory News, and America Stands.",
                     "caption": "KCM Watch Live",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2880,
+                    "height": 1800,
                     "loading": "lazy",
                     "description": "Centralized live streaming hub aggregating multi-property HLS feeds and event broadcasts."
                 },
                 {
-                    "file": "kcm/www.kcm.org__watch-live-mobile.webp",
+                    "file": "gallery/KCM-Gallery-Mobile-17.webp",
                     "alt": "KCM Watch Live — mobile responsive live streaming hub.",
                     "caption": "KCM Watch Live (Mobile)",
-                    "width": 390,
-                    "height": 844,
+                    "width": 1170,
+                    "height": 9780,
                     "loading": "lazy",
                     "description": ""
                 },
                 {
-                    "file": "kcm/www.kcm.org__topics-faith-desktop.webp",
+                    "file": "gallery/KCM-Gallery-Desktop-16.webp",
                     "alt": "KCM Topics — Faith resource library powered by ACF-JSON taxonomy architecture.",
                     "caption": "KCM Topical Resource Library",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2880,
+                    "height": 1800,
                     "loading": "lazy",
                     "description": "Topic-driven resource library with custom taxonomies and version-controlled ACF-JSON schemas."
                 },
                 {
-                    "file": "kcm/www.kcm.org__topics-faith-mobile.png",
+                    "file": "gallery/KCM-Gallery-Mobile-16.png",
                     "alt": "KCM Topics: Faith — mobile responsive resource library.",
                     "caption": "KCM Topical Resource Library (Mobile)",
-                    "width": 390,
-                    "height": 844,
+                    "width": 1470,
+                    "height": 29958,
                     "loading": "lazy",
                     "description": ""
                 },
                 {
-                    "file": "kcm/www.kcm.org__partner-desktop.webp",
+                    "file": "gallery/KCM-Gallery-Desktop-15.webp",
                     "alt": "KCM Partner engagement hub — conversion funnel with unified GTM tracking envelope.",
                     "caption": "KCM Partner Engagement Hub",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2880,
+                    "height": 1800,
                     "loading": "lazy",
                     "description": "Partner engagement and revenue funnel unified under a centralized GTM tracking envelope."
                 },
                 {
-                    "file": "kcm/www.kcm.org__partner-mobile.png",
+                    "file": "gallery/KCM-Gallery-Mobile-15.png",
                     "alt": "KCM Partner — mobile responsive engagement hub.",
                     "caption": "KCM Partner Engagement Hub (Mobile)",
-                    "width": 390,
-                    "height": 844,
+                    "width": 1170,
+                    "height": 38394,
                     "loading": "lazy",
                     "description": ""
                 },
                 {
-                    "file": "kcm/www.kcm.org__events-desktop.webp",
+                    "file": "gallery/KCM-Gallery-Desktop-14.webp",
                     "alt": "KCM Events calendar — broadcast and convention event architecture for SWBC and partner properties.",
                     "caption": "KCM Events Calendar",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2880,
+                    "height": 1800,
                     "loading": "lazy",
                     "description": "Event calendar architecture supporting Southwest Believers Convention and partner broadcast events."
                 },
                 {
-                    "file": "kcm/www.kcm.org__events-mobile.png",
+                    "file": "gallery/KCM-Gallery-Mobile-14.png",
                     "alt": "KCM Events — mobile responsive event calendar.",
                     "caption": "KCM Events Calendar (Mobile)",
-                    "width": 390,
-                    "height": 844,
+                    "width": 1170,
+                    "height": 17772,
                     "loading": "lazy",
                     "description": ""
                 },
                 {
-                    "file": "kcm/www.kcm.org__daily-devotionals-desktop.webp",
+                    "file": "gallery/KCM-Gallery-Desktop-13.webp",
                     "alt": "KCM Daily Devotionals archive — high-volume content templating with optimized Core Web Vitals.",
                     "caption": "KCM Daily Devotionals Archive",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2880,
+                    "height": 1800,
                     "loading": "lazy",
                     "description": "High-volume devotional archive engineered for sub-second load times and SEO-friendly schema."
                 },
                 {
-                    "file": "kcm/www.kcm.org__daily-devotionals-mobile.webp",
+                    "file": "gallery/KCM-Gallery-Mobile-13.webp",
                     "alt": "KCM Daily Devotionals — mobile responsive content archive.",
                     "caption": "KCM Daily Devotionals (Mobile)",
-                    "width": 390,
-                    "height": 844,
+                    "width": 1170,
+                    "height": 7881,
                     "loading": "lazy",
                     "description": ""
                 },
                 {
-                    "file": "kcm/www.kcm.org__careers-desktop.webp",
+                    "file": "gallery/KCM-Gallery-Desktop-12.webp",
                     "alt": "KCM Careers portal — recruitment landing page on the atomic component framework.",
                     "caption": "KCM Careers Portal",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2880,
+                    "height": 1800,
                     "loading": "lazy",
                     "description": "Recruitment landing experience built on shared atomic UI primitives and modular content blocks."
                 },
                 {
-                    "file": "kcm/www.kcm.org__careers-mobile.png",
+                    "file": "gallery/KCM-Gallery-Mobile-12.png",
                     "alt": "KCM Careers — mobile responsive recruitment portal.",
                     "caption": "KCM Careers Portal (Mobile)",
-                    "width": 390,
-                    "height": 844,
+                    "width": 1170,
+                    "height": 29358,
                     "loading": "lazy",
                     "description": ""
                 },
                 {
-                    "file": "kcm/www.kcm.org__about-kcm-desktop.webp",
+                    "file": "gallery/KCM-Gallery-Desktop-11.webp",
                     "alt": "About KCM — ministry overview page rendered on the unified Vue.js atomic system.",
                     "caption": "About KCM",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2880,
+                    "height": 1800,
                     "loading": "lazy",
                     "description": "Ministry overview page consolidating brand, leadership, and history under shared atomic primitives."
                 },
                 {
-                    "file": "kcm/www.kcm.org__about-kcm-mobile.png",
+                    "file": "gallery/KCM-Gallery-Mobile-11.png",
                     "alt": "About KCM — mobile responsive ministry overview.",
                     "caption": "About KCM (Mobile)",
-                    "width": 390,
-                    "height": 844,
+                    "width": 1170,
+                    "height": 28017,
                     "loading": "lazy",
                     "description": ""
                 },
                 {
-                    "file": "kcm/www.kcm.org__about-kcm-annual-report-desktop.webp",
+                    "file": "gallery/KCM-Gallery-Desktop-10.webp",
                     "alt": "KCM Annual Report — long-form data presentation with optimized media pipelines.",
                     "caption": "KCM Annual Report",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2880,
+                    "height": 1800,
                     "loading": "lazy",
                     "description": "Long-form annual report layout with automated asset pipelines and high-DPI media delivery."
                 },
                 {
-                    "file": "kcm/www.kcm.org__about-kcm-annual-report-mobile.png",
+                    "file": "gallery/KCM-Gallery-Mobile-10.png",
                     "alt": "KCM Annual Report — mobile responsive long-form layout.",
                     "caption": "KCM Annual Report (Mobile)",
-                    "width": 390,
-                    "height": 844,
+                    "width": 1170,
+                    "height": 24969,
                     "loading": "lazy",
                     "description": ""
                 }
@@ -445,63 +445,63 @@
             "endDate": "2023-06",
             "brandGrid": [
                 {
-                    "file": "jobs/advantis/logo.avif",
+                    "file": "brands/Advantis-Brand-2-2.avif",
                     "name": "Advantis Medical Staffing",
                     "alt": "Advantis Medical logo"
                 }
             ],
             "gallery": [
                 {
-                    "file": "advantis/www.advantismed.com__root-desktop.webp",
+                    "file": "gallery/Advantis-Gallery-Desktop-18.webp",
                     "alt": "Advantis Medical homepage — top-rated travel nurse agency hero with programmatic job search and clinician-capture funnels.",
                     "caption": "Advantis Medical Homepage",
-                    "width": 1920,
-                    "height": 1080,
+                    "width": 1024,
+                    "height": 640,
                     "loading": "eager",
                     "description": "Homepage hero and job-search architecture built on ASP.NET with reverse-proxy to Webflow—foundation of the 90% paid to 85%+ organic acquisition shift."
                 },
                 {
-                    "file": "advantis/www.advantismed.com__jobs-desktop.webp",
+                    "file": "gallery/Advantis-Gallery-Desktop-14.webp",
                     "alt": "Advantis Medical travel nurse jobs board — dynamic specialty filtering and programmatic SEO job listings.",
                     "caption": "Travel Nurse Jobs Board",
-                    "width": 1920,
-                    "height": 1080,
+                    "width": 1024,
+                    "height": 640,
                     "loading": "lazy",
                     "description": "High-volume job listing interface with specialty/state filters and Scriban-templated decision-engine capture funnels."
                 },
                 {
-                    "file": "advantis/www.advantismed.com__travel-nurse-jobs-desktop.webp",
+                    "file": "gallery/Advantis-Gallery-Desktop-20.webp",
                     "alt": "Advantis Medical travel RN jobs landing — clinician acquisition page with ranked-agency social proof and lead capture.",
                     "caption": "Travel RN Jobs Landing",
-                    "width": 1920,
-                    "height": 1080,
+                    "width": 1024,
+                    "height": 576,
                     "loading": "lazy",
                     "description": "Primary clinician-capture landing page driving organic job applications through programmatic SEO architecture."
                 },
                 {
-                    "file": "advantis/www.advantismed.com__jobs-travel-nurse-icu-desktop.webp",
+                    "file": "gallery/Advantis-Gallery-Desktop-15.webp",
                     "alt": "Advantis Medical ICU travel nurse specialty route — programmatic SEO URL structure on ASP.NET.",
                     "caption": "ICU Travel Nurse (Programmatic SEO)",
-                    "width": 1920,
-                    "height": 1080,
+                    "width": 1024,
+                    "height": 640,
                     "loading": "lazy",
                     "description": "Specialty-tier programmatic SEO route demonstrating scalable URL taxonomy for clinician verticals."
                 },
                 {
-                    "file": "advantis/www.advantismed.com__benefits-desktop.webp",
+                    "file": "gallery/Advantis-Gallery-Desktop-10.webp",
                     "alt": "Advantis Medical benefits page — Gold Standard recruiter value proposition and clinician retention content.",
                     "caption": "Benefits & Gold Standard",
-                    "width": 1920,
-                    "height": 1080,
+                    "width": 1024,
+                    "height": 640,
                     "loading": "lazy",
                     "description": "Benefits and value-proposition content supporting recruiter lead nurturing and conversion optimization."
                 },
                 {
-                    "file": "advantis/www.advantismed.com__contact-desktop.webp",
+                    "file": "gallery/Advantis-Gallery-Desktop-12.webp",
                     "alt": "Advantis Medical contact page — clinician and facility inquiry capture with lead routing forms.",
                     "caption": "Contact & Lead Capture",
-                    "width": 1920,
-                    "height": 1080,
+                    "width": 1024,
+                    "height": 640,
                     "loading": "lazy",
                     "description": "Contact and inquiry funnel integrating clinician-capture forms with the .NET 7 API lead-processing layer."
                 }
@@ -544,16 +544,55 @@
                 "Rockin' the River",
                 "Sunday Funday",
                 "Oktoberfest",
-                "SlideTheCity"
+                "SlideTheCity",
+                "TRWD Flyfest"
+            ],
+            "websitesHeading": "Websites Built",
+            "websites": [
+                {
+                    "url": "https://www.trwd.com",
+                    "label": "trwd.com"
+                },
+                {
+                    "url": "https://www.trinityrivervision.org",
+                    "label": "trinityrivervision.org"
+                },
+                {
+                    "url": "https://pantherisland.com",
+                    "label": "pantherisland.com"
+                },
+                {
+                    "url": "https://pantherislandpavilion.com",
+                    "label": "pantherislandpavilion.com"
+                },
+                {
+                    "url": "https://rockintheriverfw.com",
+                    "label": "rockintheriverfw.com"
+                },
+                {
+                    "url": "https://sundayfundayfw.com",
+                    "label": "sundayfundayfw.com"
+                },
+                {
+                    "url": "https://fortworthoktoberfest.com",
+                    "label": "fortworthoktoberfest.com"
+                },
+                {
+                    "url": "https://trwdflyfest.com",
+                    "label": "trwdflyfest.com"
+                }
             ],
             "startDate": "2014-04",
             "endDate": "2022-11",
             "brandGrid": [
                 {
-                    "name": "Tarrant Regional Water District"
+                    "name": "Tarrant Regional Water District",
+                    "file": "brands/TRWD-Brand-1.svg"
                 },
                 {
-                    "name": "Trinity River Vision Authority"
+                    "name": "Trinity River Vision Authority",
+                    "file": "brands/TRWD-Brand-1.svg",
+                    "alt": "Trinity River Vision Authority logo primitive asset."
                 },
                 {
                     "name": "Panther Island"
@@ -561,29 +600,20 @@
             ],
             "gallery": [
                 {
-                    "file": "job-trva-logo.svg",
-                    "alt": "Trinity River Vision Authority logo primitive asset.",
-                    "caption": "TRVA System Identity Mark",
-                    "width": 120,
-                    "height": 120,
-                    "loading": "lazy",
-                    "description": "Public entity brand mark driving localized civil engineering layouts."
-                },
-                {
-                    "file": "jobs/trva/trva-1922-flood-full-res.webp",
+                    "file": "gallery/TRWD-Gallery-3.webp",
                     "alt": "Trinity River historical flooding visual data maps.",
                     "caption": "Historical Regional Infrastructure Asset Data",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2000,
+                    "height": 2000,
                     "loading": "lazy",
                     "description": "Municipal documentation records mapped cleanly on data layers."
                 },
                 {
-                    "file": "jobs/trva/1949-full-res.webp",
+                    "file": "gallery/TRWD-Gallery-2.webp",
                     "alt": "Montgomery Plaza regional engineering reference capture.",
                     "caption": "Civil Engineering Asset Reference Matrix",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 2000,
+                    "height": 1378,
                     "loading": "lazy",
                     "description": "Historical system asset mapping preserved across municipal files."
                 }
@@ -661,16 +691,16 @@
             ],
             "gallery": [
                 {
-                    "file": "fort-worth-seo-web-developer-texas-title-real-estate-desktop.webp",
+                    "file": "gallery/TexasTitle-Gallery-Desktop-1.webp",
                     "alt": "TexasTitle.com — full-stack real estate platform with custom AWS/Linux infrastructure and responsive frontend.",
                     "caption": "TexasTitle.com",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 1920,
+                    "height": 1080,
                     "loading": "eager",
                     "description": "TexasTitle.com responsive property with SEO-focused IA and lead capture tuned for title services."
                 },
                 {
-                    "file": "fort-worth-seo-web-developer-texas-title-real-estate-mobile.webp",
+                    "file": "thumbs/TexasTitle-Thumb-Mobile.webp",
                     "alt": "TexasTitle.com mobile — responsive real estate platform optimized for mobile users.",
                     "caption": "TexasTitle.com (Mobile)",
                     "width": 390,
@@ -679,16 +709,16 @@
                     "description": ""
                 },
                 {
-                    "file": "fort-worth-web-developer-maverick-national-smb-desktop.webp",
+                    "file": "gallery/Maverick-Gallery-Desktop-1.webp",
                     "alt": "MaverickNational.com — custom full-stack build with digital strategy and AWS infrastructure management.",
                     "caption": "MaverickNational.com",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 1920,
+                    "height": 1080,
                     "loading": "lazy",
                     "description": "MaverickNational.com SMB marketing site—conversion-oriented layouts and maintainable CMS workflows."
                 },
                 {
-                    "file": "fort-worth-web-developer-maverick-national-smb-mobile.webp",
+                    "file": "gallery/Maverick-Gallery-Mobile-1.webp",
                     "alt": "MaverickNational.com mobile — mobile-first responsive SMB platform.",
                     "caption": "MaverickNational.com (Mobile)",
                     "width": 390,
@@ -697,16 +727,16 @@
                     "description": ""
                 },
                 {
-                    "file": "fort-worth-web-developer-levarte-travel-booking-desktop.webp",
+                    "file": "gallery/Levarte-Gallery-Desktop-1.webp",
                     "alt": "Levarte Travel — full-stack travel booking platform with custom eCommerce and billing system architecture.",
                     "caption": "Levarte Travel",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 1920,
+                    "height": 1080,
                     "loading": "lazy",
                     "description": "Levarte travel booking UX with itinerary-forward layouts and mobile-responsive reservation flows."
                 },
                 {
-                    "file": "fort-worth-web-developer-levarte-travel-booking-mobile.webp",
+                    "file": "gallery/Levarte-Gallery-Mobile-1.webp",
                     "alt": "Levarte Travel mobile — responsive travel booking experience optimized for mobile conversion.",
                     "caption": "Levarte Travel (Mobile)",
                     "width": 390,
@@ -715,16 +745,16 @@
                     "description": ""
                 },
                 {
-                    "file": "fort-worth-web-developer-wheresgeorge-php-template-desktop.webp",
+                    "file": "gallery/WheresGeorge-Gallery-Desktop.webp",
                     "alt": "Where's George — freelance theme integration on a custom PHP template; responsive bill-tracking community site.",
                     "caption": "WheresGeorge.com",
-                    "width": 1440,
-                    "height": 900,
+                    "width": 1920,
+                    "height": 1080,
                     "loading": "lazy",
                     "description": "WheresGeorge.com template modernization—legacy PHP front-end patterns brought into responsive, accessible markup."
                 },
                 {
-                    "file": "fort-worth-web-developer-wheresgeorge-php-template-mobile.webp",
+                    "file": "gallery/WheresGeorge-Gallery-Mobile.webp",
                     "alt": "Where's George mobile — responsive layout after PHP template theme integration.",
                     "caption": "WheresGeorge.com (Mobile)",
                     "width": 390,
@@ -774,11 +804,11 @@
             "endDate": "2013-05",
             "gallery": [
                 {
-                    "file": "fort-worth-web-developer-client-logo-agency-portfolio.webp",
+                    "file": "brands/Adidas-Brand.webp",
                     "alt": "Fossil global multi-tenant brand toolbox context frame.",
                     "caption": "WPMU Corporate Framework Platform",
-                    "width": 1920,
-                    "height": 1080,
+                    "width": 180,
+                    "height": 120,
                     "loading": "eager",
                     "description": "Engineered corporate WordPress Multisite layouts deploying multi-tenant child setups for international visual management."
                 }
@@ -880,15 +910,15 @@
             ],
             "brandGrid": [
                 {
-                    "file": "brands/dfw-wordpress-developer-fossil-client-logo.webp",
+                    "file": "brands/Fossil-Brand.webp",
                     "caption": "Fossil Global Identity Mark"
                 },
                 {
-                    "file": "brands/fort-worth-wordpress-developer-armani-client-logo.webp",
+                    "file": "brands/Armani-Brand.webp",
                     "caption": "Armani Exchange Structural Engine"
                 },
                 {
-                    "file": "brands/fort-worth-wordpress-developer-adidas-client-logo.webp",
+                    "file": "brands/Adidas-Brand.webp",
                     "caption": "Adidas Originals Portal Core"
                 }
             ],
@@ -917,12 +947,12 @@
             "endDate": "2011-03",
             "brandGrid": [
                 {
-                    "file": "agencies/amplifi-commerce.webp",
+                    "file": "brands/Amplifi-Brand-1.webp",
                     "caption": "Amplifi Commerce Strategy Platform",
                     "alt": "Amplifi Commerce agency brand mark"
                 },
                 {
-                    "file": "brands/fort-worth-web-developer-nintendo-client-logo.webp",
+                    "file": "brands/Portfolio-Brand-4.webp",
                     "caption": "Nintendo 3DS Launch Core UI",
                     "alt": "Nintendo corporate mark"
                 }
@@ -957,7 +987,7 @@
             ],
             "gallery": [
                 {
-                    "file": "irving-asp-net-developer-locknlock-texas-homepage-desktop.webp",
+                    "file": "gallery/LocknLock-Gallery-Desktop.webp",
                     "alt": "Lock&Lock Texas — eCommerce platform with Magento Enterprise and ASP.NET integration.",
                     "caption": "Lock&Lock Texas",
                     "width": 1920,
@@ -966,7 +996,7 @@
                     "description": "Assisted in Magento Enterprise data migration and ASP.NET UI integration for Lock&Lock Texas's eCommerce platform."
                 },
                 {
-                    "file": "irving-asp-net-developer-locknlock-texas-homepage-mobile.webp",
+                    "file": "gallery/LocknLock-Gallery-Mobile.webp",
                     "alt": "Lock&Lock Texas mobile — responsive eCommerce experience.",
                     "caption": "Lock&Lock Texas (Mobile)",
                     "width": 390,
@@ -1012,7 +1042,7 @@
             ],
             "gallery": [
                 {
-                    "file": "washington-dc-wordpress-developer-pampillonia-jewelers-homepage-desktop.webp",
+                    "file": "gallery/Pampillonia-Gallery-Desktop.webp",
                     "alt": "Pampillonia Jewelers — luxury eCommerce homepage with collection-driven navigation.",
                     "caption": "Pampillonia Jewelers",
                     "width": 1920,
@@ -1021,7 +1051,7 @@
                     "description": "Luxury jewelry eCommerce presence for Pampillonia — custom WordPress theme with 800+ product database integration and collection-driven navigation."
                 },
                 {
-                    "file": "washington-dc-wordpress-developer-pampillonia-jewelers-homepage-mobile.webp",
+                    "file": "gallery/Pampillonia-Gallery-Mobile.webp",
                     "alt": "Pampillonia Jewelers mobile — responsive luxury eCommerce experience.",
                     "caption": "Pampillonia Jewelers (Mobile)",
                     "width": 390,
@@ -1065,7 +1095,7 @@
             ],
             "gallery": [
                 {
-                    "file": "carrollton-php-developer-quick-technologies-sage-homepage-desktop.webp",
+                    "file": "gallery/Sage-Gallery-Desktop.webp",
                     "alt": "Quick Technologies (SAGE) — enterprise web agency platform serving 8,000+ client CMS users.",
                     "caption": "Quick Technologies (SAGE)",
                     "width": 1920,
@@ -1074,7 +1104,7 @@
                     "description": "Designed and built a redesigned template structure for Quick Technologies' custom CMS, supporting over 8,000 users across hundreds of client sites."
                 },
                 {
-                    "file": "carrollton-php-developer-quick-technologies-sage-homepage-mobile.webp",
+                    "file": "gallery/Sage-Gallery-Mobile.webp",
                     "alt": "Quick Technologies (SAGE) mobile — responsive agency platform.",
                     "caption": "Quick Technologies (Mobile)",
                     "width": 390,
@@ -1116,6 +1146,91 @@
                 "Mastered fundamental Object-Oriented Programming principles",
                 "Consolidated diverse coursework across three campuses with a perfect GPA"
             ]
+        }
+    ],
+    "certifications": [
+        {
+            "title": "Facebook Advertising Fundamentals",
+            "issuer": "Lynda.com",
+            "date": "2017-02",
+            "credentialId": "733EAB27D47D419A96D9D255B3537F75"
+        },
+        {
+            "title": "User Experience Fundamentals for Web Design",
+            "issuer": "Lynda.com",
+            "date": "2016-12",
+            "credentialId": "0011AD",
+            "skills": ["Functionality", "Front-End Development"]
+        },
+        {
+            "title": "CSS: Flexbox First Look",
+            "issuer": "Lynda.com",
+            "date": "2016-11",
+            "credentialId": "084442",
+            "skills": ["Functionality"]
+        },
+        {
+            "title": "Up and Running with NPM, the Node Package Manager",
+            "issuer": "Lynda.com",
+            "date": "2016-04",
+            "credentialId": "56274E",
+            "skills": ["Functionality", "CMS"]
+        },
+        {
+            "title": "JavaScript and JSON",
+            "issuer": "Lynda.com",
+            "date": "2014-10",
+            "credentialId": "530FF4",
+            "skills": ["JavaScript", "Functionality"]
+        },
+        {
+            "title": "Validating and Processing Forms with JavaScript and PHP",
+            "issuer": "Lynda.com",
+            "date": "2014-10",
+            "credentialId": "8ACCCB",
+            "skills": ["Back-End Web Development", "JavaScript"]
+        },
+        {
+            "title": "Relational Database Fundamentals",
+            "issuer": "Lynda.com",
+            "date": "2014-06",
+            "credentialId": "8CCD43D5600749A08316E3ECA7F003C8",
+            "skills": ["Back-End Web Development", "Functionality"]
+        },
+        {
+            "title": "Responsive CSS with Sass and Compass",
+            "issuer": "Lynda.com",
+            "date": "2014-05",
+            "credentialId": "3674F0",
+            "skills": ["Functionality", "Front-End Development"]
+        },
+        {
+            "title": "Web Workflows with Grunt.js",
+            "issuer": "Lynda.com",
+            "date": "2014-03",
+            "credentialId": "8D0429",
+            "skills": ["JavaScript", "Functionality"]
+        },
+        {
+            "title": "Up and Running with Bootstrap 3",
+            "issuer": "Lynda.com",
+            "date": "2014-03",
+            "credentialId": "CD24B7",
+            "skills": ["Functionality", "Front-End Development"]
+        },
+        {
+            "title": "Responsive Design Fundamentals",
+            "issuer": "Lynda.com",
+            "date": "2014-02",
+            "credentialId": "C7414B",
+            "skills": ["Functionality", "Front-End Development"]
+        },
+        {
+            "title": "jQuery Data with AJAX",
+            "issuer": "Lynda.com",
+            "date": "2014-02",
+            "credentialId": "333A6F",
+            "skills": ["JavaScript", "Functionality"]
         }
     ],
     "recommendations": [
@@ -1271,14 +1386,14 @@
                     "format": "word",
                     "label": "Microsoft Word",
                     "file": "/assets/downloads/Royce-Redfearn-Resume.docx",
-                    "icon": "word-icon.webp",
+                    "icon": "icons/Word-Icon.webp",
                     "hint": ".docx"
                 },
                 {
                     "format": "pdf",
                     "label": "PDF",
                     "file": "/assets/downloads/Royce-Redfearn-Resume.pdf",
-                    "icon": "pdf-icon.webp",
+                    "icon": "icons/PDF-Icon.webp",
                     "hint": ".pdf"
                 }
             ]
@@ -1286,37 +1401,30 @@
         "agency": {
             "heading": "Agency Experience",
             "intro": "Many agencies focus purely on design without the bandwidth to ship production web builds. I partner with creative teams to take concepts and PSDs through to modern, maintainable sites.",
-            "grid": [
-                {
-                    "name": "Pampillonia Jewelers"
-                },
-                {
-                    "name": "Web Video 360"
-                }
-            ],
+            "grid": [],
             "partners": [
                 {
-                    "file": "agencies/runner-agency.webp",
+                    "file": "brands/Runner-Brand-1.webp",
                     "alt": "Runner"
                 },
                 {
-                    "file": "agencies/amplifi-commerce.webp",
+                    "file": "brands/Amplifi-Brand-1.webp",
                     "alt": "Amplifi Commerce"
                 },
                 {
-                    "file": "agencies/ascend-concepts.webp",
+                    "file": "brands/Ascend-Brand-1.webp",
                     "alt": "Ascend Concepts"
                 },
                 {
-                    "file": "agencies/Envision-Interactive.webp",
+                    "file": "brands/Envision-Brand.webp",
                     "alt": "Envision Interactive"
                 },
                 {
-                    "file": "agencies/agency-icon.webp",
+                    "file": "brands/AgencyCreative-Brand.webp",
                     "alt": "Agency Creative"
                 },
                 {
-                    "file": "jobs/advantis/logo.avif",
+                    "file": "brands/Advantis-Brand-2-2.avif",
                     "alt": "Advantis Medical Staffing"
                 }
             ]
@@ -1325,24 +1433,24 @@
             "heading": "Example Websites",
             "intro": "A sampling of freelance and contract builds from the agency era — brand marks and site captures from production deployments.",
             "gridOrder": [
-                "dallas-web-developer-agency-site-screenshot.webp",
-                "dallas-web-developer-custom-site-design.webp",
-                "dfw-full-stack-developer-freelance-web-project.webp",
-                "dfw-php-developer-client-website-portfolio.webp",
-                "dfw-web-designer-agency-website-project.webp",
-                "fort-worth-cms-developer-website-portfolio.webp",
-                "fort-worth-frontend-developer-portfolio-client-logo.webp",
-                "fort-worth-php-developer-agency-website-build.webp",
-                "fort-worth-ui-developer-responsive-design-sample.webp",
-                "fort-worth-web-developer-agency-project-site.webp",
-                "frisco-web-developer-responsive-design-portfolio.webp",
-                "north-texas-ui-developer-portfolio-project.webp",
-                "north-texas-web-developer-agency-client-brand.webp",
-                "north-texas-wordpress-developer-agency-site.webp",
-                "tarrant-county-web-developer-business-website.webp",
-                "texas-frontend-developer-agency-web-sample.webp",
-                "texas-wordpress-developer-custom-web-build.webp",
-                "texas-wordpress-developer-portfolio-site-sample.webp"
+                "thumbs/Portfolio-Thumb-2.webp",
+                "thumbs/Portfolio-Thumb-3.webp",
+                "thumbs/Portfolio-Thumb-4.webp",
+                "thumbs/PHP-Thumb-1.webp",
+                "thumbs/Portfolio-Thumb-5.webp",
+                "thumbs/Portfolio-Thumb-6.webp",
+                "brands/Portfolio-Brand-4.webp",
+                "thumbs/PHP-Thumb-2.webp",
+                "thumbs/Portfolio-Thumb-7.webp",
+                "thumbs/Portfolio-Thumb-8.webp",
+                "thumbs/Portfolio-Thumb-9.webp",
+                "thumbs/Portfolio-Thumb-10.webp",
+                "brands/Fossil-Brand.webp",
+                "thumbs/Portfolio-Thumb-12.webp",
+                "thumbs/Portfolio-Thumb-13.webp",
+                "thumbs/Portfolio-Thumb-14.webp",
+                "brands/FuturePayment-Brand.webp",
+                "thumbs/Portfolio-Thumb-16.webp"
             ]
         }
     },

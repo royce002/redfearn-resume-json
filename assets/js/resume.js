@@ -1071,6 +1071,26 @@ loadResumeData()
         </div>`;
     }
 
+    function websitesMarkup(websites, heading = "Websites Built") {
+      if (!Array.isArray(websites) || !websites.length) return "";
+      const items = websites
+        .map((site) => {
+          const url = (site?.url || "").trim();
+          if (!url) return "";
+          const label = (site?.label || "").trim() || contactLinkLabel(url);
+          return `<li><a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a></li>`;
+        })
+        .filter(Boolean)
+        .join("");
+      if (!items) return "";
+      const title = (heading || "Websites Built").trim() || "Websites Built";
+      return `
+        <div class="rc-job-websites">
+          <p class="rc-job-websites-title">${esc(title)}</p>
+          <ul class="rc-job-websites-list">${items}</ul>
+        </div>`;
+    }
+
     function renderExperience(persona) {
       destroyGalleryControllers();
 
@@ -1082,12 +1102,12 @@ loadResumeData()
         }))
         .filter((job) => job.accomplishments.length > 0)
         .sort((a, b) => {
-          const endA = resumeMonthKey(a.endDate, true);
-          const endB = resumeMonthKey(b.endDate, true);
-          if (endB !== endA) return endB - endA;
           const startA = resumeMonthKey(a.startDate, false);
           const startB = resumeMonthKey(b.startDate, false);
-          return startB - startA;
+          if (startB !== startA) return startB - startA;
+          const endA = resumeMonthKey(a.endDate, true);
+          const endB = resumeMonthKey(b.endDate, true);
+          return endB - endA;
         });
 
       if (!jobs.length) {
@@ -1114,6 +1134,7 @@ loadResumeData()
             </header>
             ${jobBrandGridsMarkup(job.agencyGrid, job.brandGrid, job.agencyGridLabel, job.brandGridLabel)}
             ${galleryMarkup(job.gallery, job.company)}
+            ${websitesMarkup(job.websites, job.websitesHeading)}
             <ul class="rc-accomplishments">
               ${job.accomplishments.map((a) => renderAccomplishmentItem(a, persona)).join("")}
             </ul>
@@ -1128,18 +1149,52 @@ loadResumeData()
       });
     }
 
+    function certificationsMarkup(certs) {
+      if (!Array.isArray(certs) || !certs.length) return "";
+      const byIssuer = new Map();
+      for (const cert of certs) {
+        const title = (cert?.title || "").trim();
+        if (!title) continue;
+        const issuer = (cert?.issuer || "").trim() || "Certifications";
+        if (!byIssuer.has(issuer)) byIssuer.set(issuer, []);
+        byIssuer.get(issuer).push(cert);
+      }
+      if (!byIssuer.size) return "";
+      return [...byIssuer.entries()]
+        .map(([issuer, items]) => {
+          const lis = items
+            .map((cert) => {
+              const title = esc(cert.title);
+              const date = (cert.date || "").trim();
+              const dateHtml = date
+                ? `<time class="rc-cert-date" datetime="${esc(date)}">${esc(fmtDate(date))}</time>`
+                : "";
+              return `<li class="rc-cert-item"><span class="rc-cert-title">${title}</span>${dateHtml}</li>`;
+            })
+            .join("");
+          return `
+          <div class="rc-cert-block">
+            <h3 class="rc-cert-issuer">${esc(issuer)}</h3>
+            <ul class="rc-cert-list">${lis}</ul>
+          </div>`;
+        })
+        .join("");
+    }
+
     function renderEducation() {
       const edu = RESUME.education || [];
+      const certs = RESUME.certifications || [];
       const section = document.getElementById("rc-section-education");
       const grid = document.getElementById("rc-education");
-      if (!edu.length) {
+      if (!edu.length && !certs.length) {
         section.hidden = true;
         grid.innerHTML = "";
         return;
       }
       section.hidden = false;
-      grid.innerHTML = edu
-        .map((e) => {
+      grid.innerHTML =
+        edu
+          .map((e) => {
           const program = e.area || e.degree || "";
           const focusLegacy = e.focus && !e.area ? e.focus : "";
           const studyLine = [e.studyType, e.startDate && e.endDate ? `${e.startDate} – ${e.endDate}` : ""]
@@ -1160,7 +1215,7 @@ loadResumeData()
             ${highlights}
           </div>`;
         })
-        .join("");
+        .join("") + certificationsMarkup(certs);
     }
 
     function renderRecommendations(_persona) {

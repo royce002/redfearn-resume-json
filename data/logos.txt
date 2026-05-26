@@ -1,22 +1,22 @@
 # Brand logos: NAME<TAB>value — local refs must be .webp or .svg only
 #
 # ── Fossil Inc. client brands (agencyGrid) ──
-A/X (Armani Exchange)	brands/fort-worth-wordpress-developer-armani-client-logo.webp
+A/X (Armani Exchange)	brands/Armani-Brand.webp
 AAVAN ALLIANCE LTD	text
-ADIDAS	brands/fort-worth-wordpress-developer-adidas-client-logo.webp
-ADIDAS ORIGINALS	brands/fort-worth-wordpress-developer-adidas-client-logo.webp
-ARMANI	brands/fort-worth-wordpress-developer-armani-client-logo.webp
+ADIDAS	brands/Adidas-Brand.webp
+ADIDAS ORIGINALS	brands/Adidas-Brand.webp
+ARMANI	brands/Armani-Brand.webp
 AVIA	https://upload.wikimedia.org/wikipedia/en/5/5a/Avia_Logo.svg
 BILLABONG	https://upload.wikimedia.org/wikipedia/en/7/72/Billabong_logo.svg
-BURBERRY	north-texas-web-developer-agency-client-brand.webp
+BURBERRY	brands/Fossil-Brand.webp
 CALLAWAY	https://upload.wikimedia.org/wikipedia/en/2/2c/Callaway_Golf_Company_logo.svg
 CHRIST	https://upload.wikimedia.org/wikipedia/commons/1/1a/Christ_Juweliere_und_Uhrmacher_Logo.svg
 COLE HAAN	https://upload.wikimedia.org/wikipedia/commons/3/3a/Cole_Haan_logo.svg
 COLUMBIA	https://upload.wikimedia.org/wikipedia/en/7/7c/Columbia_Sportswear_Co_logo.svg
-DIESEL	fort-worth-frontend-developer-portfolio-client-logo.webp
+DIESEL	brands/Portfolio-Brand-4.webp
 DKNY	https://upload.wikimedia.org/wikipedia/commons/4/4f/DKNY_logo.svg
-FOSSIL	brands/dfw-wordpress-developer-fossil-client-logo.webp
-FOSSIL.COM	dfw-wordpress-developer-brand-mark-client-logo.webp
+FOSSIL	brands/Fossil-Brand.webp
+FOSSIL.COM	brands/Armani-Brand.webp
 FRANCK GEHRY	https://upload.wikimedia.org/wikipedia/commons/8/87/Frank_Gehry_Signature.svg
 GEHRY	https://upload.wikimedia.org/wikipedia/commons/8/87/Frank_Gehry_Signature.svg
 KARL LAGERFELD	https://upload.wikimedia.org/wikipedia/commons/9/9e/Karl_Lagerfeld_logo.svg
@@ -38,30 +38,30 @@ SONY ERICSSON	https://upload.wikimedia.org/wikipedia/commons/1/14/Sony_Ericsson_
 #
 # ── KCM ministry brands (Kenneth Copeland Ministries — brandGrid) ──
 # Add .webp/.svg under assets/images/brands/, then replace "text" with brands/your-file.webp
-KENNETH COPELAND MINISTRIES	text
+KENNETH COPELAND MINISTRIES	brands/KCM-Brand.svg
 # brands/fort-worth-web-developer-kcm-ministries-client-logo.webp
-EMIC	text
-GOVICTORY	text
-SWBC	text
-SOUTHWEST BELIEVERS CONVENTION	text
-VICTORY NEWS TONIGHT	text
-AMERICA STANDS	text
+EMIC	brands/EMIC-Brand.webp
+GOVICTORY	brands/Victory-Brand-1.webp
+SWBC	brands/SWBC-Brand.webp
+SOUTHWEST BELIEVERS CONVENTION	brands/SWBC-Brand.webp
+VICTORY NEWS TONIGHT	brands/Victory-Brand-2.webp
+AMERICA STANDS	brands/AmericaStands-Brand.webp
 UNCLASSIFIED	text
 #
 # ── AGENCY BRANDS (career employers & clients) ──
-AMPLIFI COMMERCE	fort-worth-web-developer-amplifi-commerce-agency-logo.webp
-ADVANTIS MEDICAL STAFFING	jobs/advantis/logo.avif
+AMPLIFI COMMERCE	brands/Amplifi-Brand-1.webp
+ADVANTIS MEDICAL STAFFING	brands/Advantis-Brand-2-2.avif
 LOCK&LOCK	https://upload.wikimedia.org/wikipedia/commons/b/bb/LocknLock_logo.svg
 LOCK&LOCK TEXAS INC.	https://upload.wikimedia.org/wikipedia/commons/b/bb/LocknLock_logo.svg
-PAMPILLONIA JEWELERS	brands/pampillonia.svg
-QUICK TECHNOLOGIES (SAGE)	brands/sage-qti.svg
-QUICK TECHNOLOGIES INC	brands/sage-qti.svg
-TARRANT REGIONAL WATER DISTRICT	brands/trwd-logo.svg
-TRINITY RIVER VISION AUTHORITY	brands/trwd-logo.svg
-TRYRDESIGN	brands/tryrdesign.svg
-TRYRDESIGN | REDFEARN.CO	brands/tryrdesign.svg
-DEEP WELL CONSULTING	brands/deep-well.svg
-FOSSIL INC.	brands/dfw-wordpress-developer-fossil-client-logo.webp
-NINTENDO	brands/fort-worth-web-developer-nintendo-client-logo.webp
-NINTENDO 3DS	brands/fort-worth-web-developer-nintendo-client-logo.webp
-WEB VIDEO 360	fort-worth-web-developer-webvideo360-agency-logo.webp
+PAMPILLONIA JEWELERS	brands/Pampillonia-Brand.svg
+QUICK TECHNOLOGIES (SAGE)	brands/Sage-Brand.svg
+QUICK TECHNOLOGIES INC	brands/Sage-Brand.svg
+TARRANT REGIONAL WATER DISTRICT	brands/TRWD-Brand-1.svg
+TRINITY RIVER VISION AUTHORITY	brands/TRWD-Brand-1.svg
+TRYRDESIGN	brands/TRYRDesign-Brand.svg
+TRYRDESIGN | REDFEARN.CO	brands/TRYRDesign-Brand.svg
+DEEP WELL CONSULTING	brands/DeepWell-Brand.svg
+FOSSIL INC.	brands/Fossil-Brand.webp
+NINTENDO	brands/Portfolio-Brand-4.webp
+NINTENDO 3DS	brands/Portfolio-Brand-4.webp
+WEB VIDEO 360	brands/AgencyCreative-Brand.webp
