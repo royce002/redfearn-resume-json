@@ -587,15 +587,16 @@
             "brandGrid": [
                 {
                     "name": "Tarrant Regional Water District",
-                    "file": "brands/TRWD-Brand-1.svg"
+                    "file": "brands/TRWD-Brand.png"
                 },
                 {
                     "name": "Trinity River Vision Authority",
-                    "file": "brands/TRWD-Brand-1.svg",
+                    "file": "brands/TRVA-Brand.svg",
                     "alt": "Trinity River Vision Authority logo primitive asset."
                 },
                 {
-                    "name": "Panther Island"
+                    "name": "Panther Island",
+                    "file": "brands/PantherIsland-Brand.png"
                 }
             ],
             "gallery": [
@@ -982,7 +983,8 @@
             "endDate": "2011-10",
             "brandGrid": [
                 {
-                    "name": "Lock&Lock"
+                    "name": "Lock&Lock",
+                    "file": "brands/LockNlock.svg"
                 }
             ],
             "gallery": [
@@ -1014,7 +1016,14 @@
                     ]
                 },
                 {
-                    "text": "Designed UI prototypes in HTML5/CSS3 and integrated them into an ASP.NET platform using Visual Studio Code.",
+                    "text": "Designed and developed bespoke HTML5/CSS3 UI prototypes from the ground up to establish the visual and structural framework of the project.",
+                    "personas": [
+                        "frontend",
+                        "fullstack"
+                    ]
+                },
+                {
+                    "text": "Streamlined the backend development cycle by providing modular, integration-ready templates for the ASP.NET platform.",
                     "personas": [
                         "frontend",
                         "fullstack"

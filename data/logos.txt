@@ -51,13 +51,14 @@ UNCLASSIFIED	text
 # ── AGENCY BRANDS (career employers & clients) ──
 AMPLIFI COMMERCE	brands/Amplifi-Brand-1.webp
 ADVANTIS MEDICAL STAFFING	brands/Advantis-Brand-2-2.avif
-LOCK&LOCK	https://upload.wikimedia.org/wikipedia/commons/b/bb/LocknLock_logo.svg
-LOCK&LOCK TEXAS INC.	https://upload.wikimedia.org/wikipedia/commons/b/bb/LocknLock_logo.svg
+LOCK&LOCK	brands/LockNlock.svg
+LOCK&LOCK TEXAS INC.	brands/LockNlock.svg
 PAMPILLONIA JEWELERS	brands/Pampillonia-Brand.svg
 QUICK TECHNOLOGIES (SAGE)	brands/Sage-Brand.svg
 QUICK TECHNOLOGIES INC	brands/Sage-Brand.svg
-TARRANT REGIONAL WATER DISTRICT	brands/TRWD-Brand-1.svg
-TRINITY RIVER VISION AUTHORITY	brands/TRWD-Brand-1.svg
+TARRANT REGIONAL WATER DISTRICT	brands/TRVA-Brand.svg
+TRINITY RIVER VISION AUTHORITY	brands/TRVA-Brand.svg
+PANTHER ISLAND	brands/PantherIsland-Brand.png
 TRYRDESIGN	brands/TRYRDesign-Brand.svg
 TRYRDESIGN | REDFEARN.CO	brands/TRYRDesign-Brand.svg
 DEEP WELL CONSULTING	brands/DeepWell-Brand.svg

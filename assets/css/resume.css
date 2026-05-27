@@ -1623,6 +1623,40 @@ ul.rc-fifth-grid {
   filter: none;
 }
 
+#tarrant-regional-water-district .rc-fifth-grid {
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+#tarrant-regional-water-district .rc-job-brand-cell {
+  justify-content: center;
+  align-items: center;
+}
+
+#tarrant-regional-water-district .rc-job-brand-img {
+  width: 140px;
+  height: auto;
+  max-height: 60px;
+  object-fit: contain;
+}
+
+#tarrant-regional-water-district .rc-fifth-grid__cell:nth-child(1) .rc-job-brand-img {
+  width: 200px;
+  max-height: 80px;
+}
+
+#tarrant-regional-water-district .rc-fifth-grid__cell:nth-child(1) .rc-job-brand-img,
+#tarrant-regional-water-district .rc-fifth-grid__cell:nth-child(2) .rc-job-brand-img {
+  filter: invert(1);
+}
+
+.dark #tarrant-regional-water-district .rc-fifth-grid__cell:nth-child(1) .rc-job-brand-img,
+.dark #tarrant-regional-water-district .rc-fifth-grid__cell:nth-child(2) .rc-job-brand-img {
+  filter: none;
+}
+
 .rc-job-brand-text {
   display: flex;
   align-items: center;

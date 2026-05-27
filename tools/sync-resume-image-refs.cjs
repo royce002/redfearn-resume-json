@@ -184,8 +184,8 @@ const KCM_BRAND_PATHS = {
 const AGENCY_LOGO_OVERRIDES = {
   'AMPLIFI COMMERCE': 'brands/Amplifi-Brand-1.webp',
   'ADVANTIS MEDICAL STAFFING': 'brands/Advantis-Brand-2-2.avif',
-  'TARRANT REGIONAL WATER DISTRICT': 'brands/TRWD-Brand-1.svg',
-  'TRINITY RIVER VISION AUTHORITY': 'brands/TRWD-Brand-1.svg',
+  'TARRANT REGIONAL WATER DISTRICT': 'brands/TRVA-Brand.svg',
+  'TRINITY RIVER VISION AUTHORITY': 'brands/TRVA-Brand.svg',
   'QUICK TECHNOLOGIES (SAGE)': 'brands/Sage-Brand.svg',
   'QUICK TECHNOLOGIES INC': 'brands/Sage-Brand.svg',
   'FOSSIL INC.': 'brands/Fossil-Brand.webp',
